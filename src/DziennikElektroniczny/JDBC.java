@@ -22,7 +22,7 @@ public class JDBC {
         connectionProps.put("user", "user");
         connectionProps.put("password", "password");
         try {
-            conn = DriverManager.getConnection("address", connectionProps);
+            conn = DriverManager.getConnection("adress", connectionProps);
             System.out.println("Połączono z bazą danych");
             conn.close();
             System.out.println("Odłączono od bazy danych");
