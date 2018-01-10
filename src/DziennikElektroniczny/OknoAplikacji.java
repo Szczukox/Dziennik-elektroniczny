@@ -64,12 +64,19 @@ public class OknoAplikacji extends javax.swing.JFrame {
         trybRodzicaPanel = new javax.swing.JPanel();
         trybRodzicaLabel = new javax.swing.JLabel();
         wyjdzTrybRodzicaButton = new javax.swing.JButton();
+        trybRodzicaZobaczOcenyButton = new javax.swing.JButton();
+        trybRodzicaZobaczNieobecnosciButton = new javax.swing.JButton();
+        trybRodzicaZobaczPlanLekcjiButton = new javax.swing.JButton();
         trybNauczycielaPanel = new javax.swing.JPanel();
         wyjdzTrybNauczycielaButton = new javax.swing.JButton();
         trybNauczycielaLabel = new javax.swing.JLabel();
+        trybNauczycielaZobaczUczniowButton = new javax.swing.JButton();
+        trybNauczycielaZobaczPlanLekcjiButton = new javax.swing.JButton();
         trybDyrektoraPanel = new javax.swing.JPanel();
         wyjdzTrybDyrektoraButton = new javax.swing.JButton();
         trybDyrektoraLabel = new javax.swing.JLabel();
+        trybDyrektoraZobaczUczniowButton = new javax.swing.JButton();
+        trybDyrektoraZobaczNauczycieliButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dziennik Elektroniczny");
@@ -285,6 +292,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
             }
         });
 
+        trybUczniaZobaczOcenyButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         trybUczniaZobaczOcenyButton.setText("ZOBACZ SWOJE OCENY");
         trybUczniaZobaczOcenyButton.setFocusPainted(false);
         trybUczniaZobaczOcenyButton.setPreferredSize(new java.awt.Dimension(87, 30));
@@ -294,6 +302,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
             }
         });
 
+        trybUczniaZobaczNieobecnosciButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         trybUczniaZobaczNieobecnosciButton.setText("ZOBACZ SWOJE NIEOBECNOŚCI");
         trybUczniaZobaczNieobecnosciButton.setFocusPainted(false);
         trybUczniaZobaczNieobecnosciButton.addActionListener(new java.awt.event.ActionListener() {
@@ -302,6 +311,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
             }
         });
 
+        trybUczniaZobaczPlanLekcjiButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         trybUczniaZobaczPlanLekcjiButton.setText("ZOBACZ SWÓJ PLAN LEKCJI");
         trybUczniaZobaczPlanLekcjiButton.setFocusPainted(false);
         trybUczniaZobaczPlanLekcjiButton.addActionListener(new java.awt.event.ActionListener() {
@@ -362,6 +372,30 @@ public class OknoAplikacji extends javax.swing.JFrame {
             }
         });
 
+        trybRodzicaZobaczOcenyButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        trybRodzicaZobaczOcenyButton.setText("ZOBACZ OCENY SWOJEGO DZIECKA");
+        trybRodzicaZobaczOcenyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trybRodzicaZobaczOcenyButtonActionPerformed(evt);
+            }
+        });
+
+        trybRodzicaZobaczNieobecnosciButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        trybRodzicaZobaczNieobecnosciButton.setText("ZOBACZ NIEOBECNOŚCI SWOJEGO DZIECKA");
+        trybRodzicaZobaczNieobecnosciButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trybRodzicaZobaczNieobecnosciButtonActionPerformed(evt);
+            }
+        });
+
+        trybRodzicaZobaczPlanLekcjiButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        trybRodzicaZobaczPlanLekcjiButton.setText("ZOBACZ PLAN LEKCJI SWOJEGO DZIECKA");
+        trybRodzicaZobaczPlanLekcjiButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trybRodzicaZobaczPlanLekcjiButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout trybRodzicaPanelLayout = new javax.swing.GroupLayout(trybRodzicaPanel);
         trybRodzicaPanel.setLayout(trybRodzicaPanelLayout);
         trybRodzicaPanelLayout.setHorizontalGroup(
@@ -370,59 +404,90 @@ public class OknoAplikacji extends javax.swing.JFrame {
                 .addGroup(trybRodzicaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trybRodzicaPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(trybRodzicaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE))
+                        .addComponent(trybRodzicaLabel))
                     .addGroup(trybRodzicaPanelLayout.createSequentialGroup()
-                        .addGap(250, 250, 250)
-                        .addComponent(wyjdzTrybRodzicaButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(trybRodzicaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(trybRodzicaPanelLayout.createSequentialGroup()
+                                .addGap(250, 250, 250)
+                                .addComponent(wyjdzTrybRodzicaButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(trybRodzicaPanelLayout.createSequentialGroup()
+                                .addGap(100, 100, 100)
+                                .addGroup(trybRodzicaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(trybRodzicaZobaczOcenyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(trybRodzicaZobaczNieobecnosciButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(trybRodzicaZobaczPlanLekcjiButton, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 88, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         trybRodzicaPanelLayout.setVerticalGroup(
             trybRodzicaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(trybRodzicaPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(50, 50, 50)
                 .addComponent(trybRodzicaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 475, Short.MAX_VALUE)
+                .addGap(125, 125, 125)
+                .addComponent(trybRodzicaZobaczOcenyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(trybRodzicaZobaczNieobecnosciButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(trybRodzicaZobaczPlanLekcjiButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
                 .addComponent(wyjdzTrybRodzicaButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addGap(25, 25, 25))
         );
 
         trybNauczycielaPanel.setPreferredSize(new java.awt.Dimension(600, 600));
 
-        wyjdzTrybNauczycielaButton.setText("Wyjdź");
+        wyjdzTrybNauczycielaButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        wyjdzTrybNauczycielaButton.setText("Wyloguj");
         wyjdzTrybNauczycielaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 wyjdzTrybNauczycielaButtonActionPerformed(evt);
             }
         });
 
-        trybNauczycielaLabel.setText("Tryb Nauczyciela");
+        trybNauczycielaLabel.setFont(new java.awt.Font("Engravers MT", 0, 24)); // NOI18N
+        trybNauczycielaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        trybNauczycielaLabel.setText("<html><center>witaj w systemie<BR><center>dziennik elektroniczny");
+
+        trybNauczycielaZobaczUczniowButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        trybNauczycielaZobaczUczniowButton.setText("ZOBACZ LISTĘ UCZNIÓW");
+
+        trybNauczycielaZobaczPlanLekcjiButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        trybNauczycielaZobaczPlanLekcjiButton.setText("ZOBACZ PLAN LEKCJI");
 
         javax.swing.GroupLayout trybNauczycielaPanelLayout = new javax.swing.GroupLayout(trybNauczycielaPanel);
         trybNauczycielaPanel.setLayout(trybNauczycielaPanelLayout);
         trybNauczycielaPanelLayout.setHorizontalGroup(
             trybNauczycielaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(trybNauczycielaPanelLayout.createSequentialGroup()
-                .addGap(260, 260, 260)
-                .addComponent(wyjdzTrybNauczycielaButton)
-                .addContainerGap(273, Short.MAX_VALUE))
-            .addGroup(trybNauczycielaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(trybNauczycielaPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(trybNauczycielaLabel)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(trybNauczycielaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trybNauczycielaPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(trybNauczycielaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE))
+                    .addGroup(trybNauczycielaPanelLayout.createSequentialGroup()
+                        .addGap(250, 250, 250)
+                        .addComponent(wyjdzTrybNauczycielaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trybNauczycielaPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(trybNauczycielaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(trybNauczycielaZobaczPlanLekcjiButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(trybNauczycielaZobaczUczniowButton, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
+                .addGap(100, 100, 100))
         );
         trybNauczycielaPanelLayout.setVerticalGroup(
             trybNauczycielaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trybNauczycielaPanelLayout.createSequentialGroup()
-                .addContainerGap(545, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
+                .addComponent(trybNauczycielaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(150, 150, 150)
+                .addComponent(trybNauczycielaZobaczUczniowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(trybNauczycielaZobaczPlanLekcjiButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
                 .addComponent(wyjdzTrybNauczycielaButton)
-                .addGap(30, 30, 30))
-            .addGroup(trybNauczycielaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(trybNauczycielaPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(trybNauczycielaLabel)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(25, 25, 25))
         );
 
         wyjdzTrybDyrektoraButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -439,27 +504,41 @@ public class OknoAplikacji extends javax.swing.JFrame {
         trybDyrektoraLabel.setText("<html><center>witaj w systemie<BR><center>dziennik elektroniczny");
         trybDyrektoraLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        trybDyrektoraZobaczUczniowButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        trybDyrektoraZobaczUczniowButton.setText("ZOBACZ LISTĘ UCZNIÓW");
+
+        trybDyrektoraZobaczNauczycieliButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        trybDyrektoraZobaczNauczycieliButton.setText("ZOBACZ LISTĘ NAUCZYCIELI");
+
         javax.swing.GroupLayout trybDyrektoraPanelLayout = new javax.swing.GroupLayout(trybDyrektoraPanel);
         trybDyrektoraPanel.setLayout(trybDyrektoraPanelLayout);
         trybDyrektoraPanelLayout.setHorizontalGroup(
             trybDyrektoraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(trybDyrektoraPanelLayout.createSequentialGroup()
-                .addGroup(trybDyrektoraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trybDyrektoraPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(trybDyrektoraLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE))
-                    .addGroup(trybDyrektoraPanelLayout.createSequentialGroup()
-                        .addGap(250, 250, 250)
-                        .addComponent(wyjdzTrybDyrektoraButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(trybDyrektoraLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trybDyrektoraPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(trybDyrektoraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(trybDyrektoraZobaczUczniowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(trybDyrektoraZobaczNauczycieliButton, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
+                .addGap(100, 100, 100))
+            .addGroup(trybDyrektoraPanelLayout.createSequentialGroup()
+                .addGap(250, 250, 250)
+                .addComponent(wyjdzTrybDyrektoraButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         trybDyrektoraPanelLayout.setVerticalGroup(
             trybDyrektoraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trybDyrektoraPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(50, 50, 50)
                 .addComponent(trybDyrektoraLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 474, Short.MAX_VALUE)
+                .addGap(150, 150, 150)
+                .addComponent(trybDyrektoraZobaczUczniowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(trybDyrektoraZobaczNauczycieliButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
                 .addComponent(wyjdzTrybDyrektoraButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -632,6 +711,27 @@ public class OknoAplikacji extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_nazwaUzytkownikaLogowanieTextFieldKeyPressed
 
+    private void trybRodzicaZobaczOcenyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybRodzicaZobaczOcenyButtonActionPerformed
+           SwingUtilities.invokeLater(() -> {
+               OknoOcen oknoOcen = new OknoOcen(this);
+           });
+           setEnabled(false);
+    }//GEN-LAST:event_trybRodzicaZobaczOcenyButtonActionPerformed
+
+    private void trybRodzicaZobaczNieobecnosciButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybRodzicaZobaczNieobecnosciButtonActionPerformed
+           SwingUtilities.invokeLater(() -> {
+               OknoNieobecnosci oknoNieobecnosci = new OknoNieobecnosci(this);
+           });
+           setEnabled(false);
+    }//GEN-LAST:event_trybRodzicaZobaczNieobecnosciButtonActionPerformed
+
+    private void trybRodzicaZobaczPlanLekcjiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybRodzicaZobaczPlanLekcjiButtonActionPerformed
+           SwingUtilities.invokeLater(() -> {
+               OknoPlanuLekcji oknoPlanuLekcji = new OknoPlanuLekcji(this);
+           });
+           setEnabled(false);
+    }//GEN-LAST:event_trybRodzicaZobaczPlanLekcjiButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -682,10 +782,17 @@ public class OknoAplikacji extends javax.swing.JFrame {
     private javax.swing.JPanel startPanel;
     private javax.swing.JLabel trybDyrektoraLabel;
     private javax.swing.JPanel trybDyrektoraPanel;
+    private javax.swing.JButton trybDyrektoraZobaczNauczycieliButton;
+    private javax.swing.JButton trybDyrektoraZobaczUczniowButton;
     private javax.swing.JLabel trybNauczycielaLabel;
     private javax.swing.JPanel trybNauczycielaPanel;
+    private javax.swing.JButton trybNauczycielaZobaczPlanLekcjiButton;
+    private javax.swing.JButton trybNauczycielaZobaczUczniowButton;
     private javax.swing.JLabel trybRodzicaLabel;
     private javax.swing.JPanel trybRodzicaPanel;
+    private javax.swing.JButton trybRodzicaZobaczNieobecnosciButton;
+    private javax.swing.JButton trybRodzicaZobaczOcenyButton;
+    private javax.swing.JButton trybRodzicaZobaczPlanLekcjiButton;
     private javax.swing.JLabel trybUczniaLabel;
     private javax.swing.JPanel trybUczniaPanel;
     private javax.swing.JButton trybUczniaZobaczNieobecnosciButton;
