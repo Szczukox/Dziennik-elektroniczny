@@ -6,6 +6,7 @@
 package DziennikElektroniczny;
 
 import java.awt.Dialog;
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -55,11 +56,14 @@ public class OknoAplikacji extends javax.swing.JFrame {
         zalogujLogowanieButton = new javax.swing.JButton();
         wsteczLogowanieButton = new javax.swing.JButton();
         trybUczniaPanel = new javax.swing.JPanel();
-        wyjdzTrybUczniaButton = new javax.swing.JButton();
         trybUczniaLabel = new javax.swing.JLabel();
+        wyjdzTrybUczniaButton = new javax.swing.JButton();
+        trybUczniaZobaczOcenyButton = new javax.swing.JButton();
+        trybUczniaZobaczNieobecnosciButton = new javax.swing.JButton();
+        trybUczniaZobaczPlanLekcjiButton = new javax.swing.JButton();
         trybRodzicaPanel = new javax.swing.JPanel();
-        wyjdzTrybRodzicaButton = new javax.swing.JButton();
         trybRodzicaLabel = new javax.swing.JLabel();
+        wyjdzTrybRodzicaButton = new javax.swing.JButton();
         trybNauczycielaPanel = new javax.swing.JPanel();
         wyjdzTrybNauczycielaButton = new javax.swing.JButton();
         trybNauczycielaLabel = new javax.swing.JLabel();
@@ -75,6 +79,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
         setName("oknoLogowania"); // NOI18N
         setResizable(false);
 
+        uczenButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         uczenButton.setText("UCZEŃ");
         uczenButton.setFocusPainted(false);
         uczenButton.setName("uczenButton"); // NOI18N
@@ -84,6 +89,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
             }
         });
 
+        rodzicButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         rodzicButton.setText("RODZIC");
         rodzicButton.setFocusPainted(false);
         rodzicButton.setName("rodzicButton"); // NOI18N
@@ -93,6 +99,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
             }
         });
 
+        nauczycielButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         nauczycielButton.setText("NAUCZYCIEL");
         nauczycielButton.setFocusPainted(false);
         nauczycielButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -103,6 +110,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
             }
         });
 
+        dyrektorButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         dyrektorButton.setText("DYREKTOR");
         dyrektorButton.setFocusPainted(false);
         dyrektorButton.setName("dyrektorButton"); // NOI18N
@@ -112,16 +120,17 @@ public class OknoAplikacji extends javax.swing.JFrame {
             }
         });
 
+        zamknijOknoLogowaniaButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         zamknijOknoLogowaniaButton.setText("Zamknij");
         zamknijOknoLogowaniaButton.setFocusPainted(false);
-        zamknijOknoLogowaniaButton.setPreferredSize(new java.awt.Dimension(80, 25));
+        zamknijOknoLogowaniaButton.setPreferredSize(new java.awt.Dimension(100, 30));
         zamknijOknoLogowaniaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 zamknijOknoLogowaniaButtonActionPerformed(evt);
             }
         });
 
-        dziennikElektronicznyLabel.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
+        dziennikElektronicznyLabel.setFont(new java.awt.Font("Engravers MT", 1, 28)); // NOI18N
         dziennikElektronicznyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         dziennikElektronicznyLabel.setText("Dziennik Elektroniczny");
         dziennikElektronicznyLabel.setToolTipText("");
@@ -131,9 +140,9 @@ public class OknoAplikacji extends javax.swing.JFrame {
         startPanelLayout.setHorizontalGroup(
             startPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, startPanelLayout.createSequentialGroup()
-                .addGap(0, 65, Short.MAX_VALUE)
+                .addGap(0, 20, Short.MAX_VALUE)
                 .addComponent(dziennikElektronicznyLabel)
-                .addGap(65, 65, 65))
+                .addGap(20, 20, 20))
             .addGroup(startPanelLayout.createSequentialGroup()
                 .addGroup(startPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(startPanelLayout.createSequentialGroup()
@@ -144,7 +153,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
                             .addComponent(rodzicButton, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
                             .addComponent(uczenButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(startPanelLayout.createSequentialGroup()
-                        .addGap(260, 260, 260)
+                        .addGap(250, 250, 250)
                         .addComponent(zamknijOknoLogowaniaButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -161,7 +170,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
                 .addComponent(nauczycielButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(dyrektorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addComponent(zamknijOknoLogowaniaButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -169,7 +178,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
         logowaniePanel.setMaximumSize(new java.awt.Dimension(600, 600));
         logowaniePanel.setPreferredSize(new java.awt.Dimension(600, 600));
 
-        panelLogowanieLabel.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
+        panelLogowanieLabel.setFont(new java.awt.Font("Engravers MT", 1, 28)); // NOI18N
         panelLogowanieLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panelLogowanieLabel.setText("panel ucznia");
         panelLogowanieLabel.setMaximumSize(new java.awt.Dimension(250, 30));
@@ -180,11 +189,21 @@ public class OknoAplikacji extends javax.swing.JFrame {
         nazwaUzytkownikaLogowanieLabel.setText("Nazwa użytkownika:");
 
         nazwaUzytkownikaLogowanieTextField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        nazwaUzytkownikaLogowanieTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nazwaUzytkownikaLogowanieTextFieldKeyPressed(evt);
+            }
+        });
 
         hasloLogowanieLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         hasloLogowanieLabel.setText("Hasło:");
 
         hasloLogowaniePasswordField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        hasloLogowaniePasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                hasloLogowaniePasswordFieldKeyPressed(evt);
+            }
+        });
 
         zalogujLogowanieButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         zalogujLogowanieButton.setText("Zaloguj");
@@ -196,9 +215,10 @@ public class OknoAplikacji extends javax.swing.JFrame {
             }
         });
 
+        wsteczLogowanieButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         wsteczLogowanieButton.setText("Wstecz");
         wsteczLogowanieButton.setFocusPainted(false);
-        wsteczLogowanieButton.setPreferredSize(new java.awt.Dimension(80, 25));
+        wsteczLogowanieButton.setPreferredSize(new java.awt.Dimension(100, 30));
         wsteczLogowanieButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 wsteczLogowanieButtonActionPerformed(evt);
@@ -219,19 +239,16 @@ public class OknoAplikacji extends javax.swing.JFrame {
                     .addComponent(hasloLogowaniePasswordField)
                     .addComponent(nazwaUzytkownikaLogowanieTextField))
                 .addGap(80, 80, 80))
+            .addGroup(logowaniePanelLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(panelLogowanieLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logowaniePanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(zalogujLogowanieButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(250, 250, 250))
-            .addGroup(logowaniePanelLayout.createSequentialGroup()
                 .addGroup(logowaniePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(logowaniePanelLayout.createSequentialGroup()
-                        .addGap(260, 260, 260)
-                        .addComponent(wsteczLogowanieButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(logowaniePanelLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(panelLogowanieLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                    .addComponent(wsteczLogowanieButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(zalogujLogowanieButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(250, 250, 250))
         );
         logowaniePanelLayout.setVerticalGroup(
             logowaniePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,84 +265,126 @@ public class OknoAplikacji extends javax.swing.JFrame {
                     .addComponent(hasloLogowanieLabel))
                 .addGap(44, 44, 44)
                 .addComponent(zalogujLogowanieButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
                 .addComponent(wsteczLogowanieButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
 
-        wyjdzTrybUczniaButton.setText("Wyjdź");
-        wyjdzTrybUczniaButton.setPreferredSize(new java.awt.Dimension(80, 25));
+        trybUczniaLabel.setFont(new java.awt.Font("Engravers MT", 0, 24)); // NOI18N
+        trybUczniaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        trybUczniaLabel.setText("<html><center>witaj w systemie<BR><center>dziennik elektroniczny");
+        trybUczniaLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        wyjdzTrybUczniaButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        wyjdzTrybUczniaButton.setText("Wyloguj");
+        wyjdzTrybUczniaButton.setFocusPainted(false);
+        wyjdzTrybUczniaButton.setPreferredSize(new java.awt.Dimension(100, 30));
         wyjdzTrybUczniaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 wyjdzTrybUczniaButtonActionPerformed(evt);
             }
         });
 
-        trybUczniaLabel.setText("Tryb Ucznia");
+        trybUczniaZobaczOcenyButton.setText("ZOBACZ SWOJE OCENY");
+        trybUczniaZobaczOcenyButton.setFocusPainted(false);
+        trybUczniaZobaczOcenyButton.setPreferredSize(new java.awt.Dimension(87, 30));
+        trybUczniaZobaczOcenyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trybUczniaZobaczOcenyButtonActionPerformed(evt);
+            }
+        });
+
+        trybUczniaZobaczNieobecnosciButton.setText("ZOBACZ SWOJE NIEOBECNOŚCI");
+        trybUczniaZobaczNieobecnosciButton.setFocusPainted(false);
+        trybUczniaZobaczNieobecnosciButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trybUczniaZobaczNieobecnosciButtonActionPerformed(evt);
+            }
+        });
+
+        trybUczniaZobaczPlanLekcjiButton.setText("ZOBACZ SWÓJ PLAN LEKCJI");
+        trybUczniaZobaczPlanLekcjiButton.setFocusPainted(false);
+        trybUczniaZobaczPlanLekcjiButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trybUczniaZobaczPlanLekcjiButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout trybUczniaPanelLayout = new javax.swing.GroupLayout(trybUczniaPanel);
         trybUczniaPanel.setLayout(trybUczniaPanelLayout);
         trybUczniaPanelLayout.setHorizontalGroup(
             trybUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(trybUczniaPanelLayout.createSequentialGroup()
-                .addGap(260, 260, 260)
+                .addContainerGap()
+                .addComponent(trybUczniaLabel)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trybUczniaPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(wyjdzTrybUczniaButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(260, Short.MAX_VALUE))
-            .addGroup(trybUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(trybUczniaPanelLayout.createSequentialGroup()
-                    .addGap(266, 266, 266)
-                    .addComponent(trybUczniaLabel)
-                    .addContainerGap(267, Short.MAX_VALUE)))
+                .addGap(250, 250, 250))
+            .addGroup(trybUczniaPanelLayout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addGroup(trybUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(trybUczniaZobaczPlanLekcjiButton, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(trybUczniaZobaczNieobecnosciButton, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(trybUczniaZobaczOcenyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         trybUczniaPanelLayout.setVerticalGroup(
             trybUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(trybUczniaPanelLayout.createSequentialGroup()
-                .addContainerGap(562, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
+                .addComponent(trybUczniaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(125, 125, 125)
+                .addComponent(trybUczniaZobaczOcenyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(trybUczniaZobaczNieobecnosciButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(trybUczniaZobaczPlanLekcjiButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
                 .addComponent(wyjdzTrybUczniaButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(trybUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(trybUczniaPanelLayout.createSequentialGroup()
-                    .addGap(292, 292, 292)
-                    .addComponent(trybUczniaLabel)
-                    .addContainerGap(292, Short.MAX_VALUE)))
+                .addGap(25, 25, 25))
         );
 
         trybRodzicaPanel.setPreferredSize(new java.awt.Dimension(600, 600));
 
-        wyjdzTrybRodzicaButton.setText("Wyjdź");
+        trybRodzicaLabel.setFont(new java.awt.Font("Engravers MT", 0, 24)); // NOI18N
+        trybRodzicaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        trybRodzicaLabel.setText("<html><center>witaj w systemie<BR><center>dziennik elektroniczny");
+        trybRodzicaLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        wyjdzTrybRodzicaButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        wyjdzTrybRodzicaButton.setText("Wyloguj");
+        wyjdzTrybRodzicaButton.setPreferredSize(new java.awt.Dimension(100, 30));
         wyjdzTrybRodzicaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 wyjdzTrybRodzicaButtonActionPerformed(evt);
             }
         });
 
-        trybRodzicaLabel.setText("Tryb Rodzica");
-
         javax.swing.GroupLayout trybRodzicaPanelLayout = new javax.swing.GroupLayout(trybRodzicaPanel);
         trybRodzicaPanel.setLayout(trybRodzicaPanelLayout);
         trybRodzicaPanelLayout.setHorizontalGroup(
             trybRodzicaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(trybRodzicaPanelLayout.createSequentialGroup()
-                .addGap(268, 268, 268)
-                .addComponent(trybRodzicaLabel)
-                .addContainerGap(258, Short.MAX_VALUE))
-            .addGroup(trybRodzicaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(trybRodzicaPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(wyjdzTrybRodzicaButton)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(trybRodzicaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trybRodzicaPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(trybRodzicaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE))
+                    .addGroup(trybRodzicaPanelLayout.createSequentialGroup()
+                        .addGap(250, 250, 250)
+                        .addComponent(wyjdzTrybRodzicaButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         trybRodzicaPanelLayout.setVerticalGroup(
             trybRodzicaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(trybRodzicaPanelLayout.createSequentialGroup()
-                .addGap(137, 137, 137)
-                .addComponent(trybRodzicaLabel)
-                .addContainerGap(447, Short.MAX_VALUE))
-            .addGroup(trybRodzicaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(trybRodzicaPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(wyjdzTrybRodzicaButton)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(trybRodzicaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 475, Short.MAX_VALUE)
+                .addComponent(wyjdzTrybRodzicaButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
 
         trybNauczycielaPanel.setPreferredSize(new java.awt.Dimension(600, 600));
@@ -366,40 +425,43 @@ public class OknoAplikacji extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        wyjdzTrybDyrektoraButton.setText("Wyjdź");
+        wyjdzTrybDyrektoraButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        wyjdzTrybDyrektoraButton.setText("Wyloguj");
+        wyjdzTrybDyrektoraButton.setPreferredSize(new java.awt.Dimension(100, 30));
         wyjdzTrybDyrektoraButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 wyjdzTrybDyrektoraButtonActionPerformed(evt);
             }
         });
 
-        trybDyrektoraLabel.setText("Tryb Dyrektora");
+        trybDyrektoraLabel.setFont(new java.awt.Font("Engravers MT", 0, 24)); // NOI18N
+        trybDyrektoraLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        trybDyrektoraLabel.setText("<html><center>witaj w systemie<BR><center>dziennik elektroniczny");
+        trybDyrektoraLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout trybDyrektoraPanelLayout = new javax.swing.GroupLayout(trybDyrektoraPanel);
         trybDyrektoraPanel.setLayout(trybDyrektoraPanelLayout);
         trybDyrektoraPanelLayout.setHorizontalGroup(
             trybDyrektoraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(trybDyrektoraPanelLayout.createSequentialGroup()
-                .addGap(260, 260, 260)
-                .addComponent(wyjdzTrybDyrektoraButton)
-                .addContainerGap(273, Short.MAX_VALUE))
-            .addGroup(trybDyrektoraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(trybDyrektoraPanelLayout.createSequentialGroup()
-                    .addGap(0, 257, Short.MAX_VALUE)
-                    .addComponent(trybDyrektoraLabel)
-                    .addGap(0, 258, Short.MAX_VALUE)))
+                .addGroup(trybDyrektoraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trybDyrektoraPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(trybDyrektoraLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE))
+                    .addGroup(trybDyrektoraPanelLayout.createSequentialGroup()
+                        .addGap(250, 250, 250)
+                        .addComponent(wyjdzTrybDyrektoraButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         trybDyrektoraPanelLayout.setVerticalGroup(
             trybDyrektoraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trybDyrektoraPanelLayout.createSequentialGroup()
-                .addContainerGap(453, Short.MAX_VALUE)
-                .addComponent(wyjdzTrybDyrektoraButton)
-                .addGap(122, 122, 122))
-            .addGroup(trybDyrektoraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(trybDyrektoraPanelLayout.createSequentialGroup()
-                    .addGap(0, 292, Short.MAX_VALUE)
-                    .addComponent(trybDyrektoraLabel)
-                    .addGap(0, 292, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(trybDyrektoraLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 474, Short.MAX_VALUE)
+                .addComponent(wyjdzTrybDyrektoraButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -494,25 +556,10 @@ public class OknoAplikacji extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_zamknijOknoLogowaniaButtonActionPerformed
 
-    private void wyjdzTrybUczniaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wyjdzTrybUczniaButtonActionPerformed
-        trybUczniaPanel.setVisible(false);
-        startPanel.setVisible(true);
-    }//GEN-LAST:event_wyjdzTrybUczniaButtonActionPerformed
-
-    private void wyjdzTrybRodzicaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wyjdzTrybRodzicaButtonActionPerformed
-        trybRodzicaPanel.setVisible(false);
-        startPanel.setVisible(true);
-    }//GEN-LAST:event_wyjdzTrybRodzicaButtonActionPerformed
-
     private void wyjdzTrybNauczycielaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wyjdzTrybNauczycielaButtonActionPerformed
         trybNauczycielaPanel.setVisible(false);
         startPanel.setVisible(true);
     }//GEN-LAST:event_wyjdzTrybNauczycielaButtonActionPerformed
-
-    private void wyjdzTrybDyrektoraButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wyjdzTrybDyrektoraButtonActionPerformed
-        trybDyrektoraPanel.setVisible(false);
-        startPanel.setVisible(true);
-    }//GEN-LAST:event_wyjdzTrybDyrektoraButtonActionPerformed
 
     private void zalogujLogowanieButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zalogujLogowanieButtonActionPerformed
         if (panelLogowanieLabel.getText().equals("panel ucznia") && nazwaUzytkownikaLogowanieTextField.getText().equals("uczen") && hasloLogowaniePasswordField.getText().equals("uczen")) {
@@ -536,6 +583,54 @@ public class OknoAplikacji extends javax.swing.JFrame {
         logowaniePanel.setVisible(false);
         startPanel.setVisible(true);
     }//GEN-LAST:event_wsteczLogowanieButtonActionPerformed
+
+    private void hasloLogowaniePasswordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_hasloLogowaniePasswordFieldKeyPressed
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            zalogujLogowanieButtonActionPerformed(null);
+        }
+    }//GEN-LAST:event_hasloLogowaniePasswordFieldKeyPressed
+
+    private void wyjdzTrybUczniaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wyjdzTrybUczniaButtonActionPerformed
+        trybUczniaPanel.setVisible(false);
+        startPanel.setVisible(true);
+    }//GEN-LAST:event_wyjdzTrybUczniaButtonActionPerformed
+
+    private void wyjdzTrybDyrektoraButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wyjdzTrybDyrektoraButtonActionPerformed
+        trybDyrektoraPanel.setVisible(false);
+        startPanel.setVisible(true);
+    }//GEN-LAST:event_wyjdzTrybDyrektoraButtonActionPerformed
+
+    private void wyjdzTrybRodzicaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wyjdzTrybRodzicaButtonActionPerformed
+        trybRodzicaPanel.setVisible(false);
+        startPanel.setVisible(true);
+    }//GEN-LAST:event_wyjdzTrybRodzicaButtonActionPerformed
+
+    private void trybUczniaZobaczOcenyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybUczniaZobaczOcenyButtonActionPerformed
+           SwingUtilities.invokeLater(() -> {
+               OknoOcen oknoOcen = new OknoOcen(this);
+           });
+           setEnabled(false);
+    }//GEN-LAST:event_trybUczniaZobaczOcenyButtonActionPerformed
+
+    private void trybUczniaZobaczNieobecnosciButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybUczniaZobaczNieobecnosciButtonActionPerformed
+           SwingUtilities.invokeLater(() -> {
+               OknoNieobecnosci oknoNieobecnosci = new OknoNieobecnosci(this);
+           });
+           setEnabled(false);
+    }//GEN-LAST:event_trybUczniaZobaczNieobecnosciButtonActionPerformed
+
+    private void trybUczniaZobaczPlanLekcjiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybUczniaZobaczPlanLekcjiButtonActionPerformed
+           SwingUtilities.invokeLater(() -> {
+               OknoPlanuLekcji oknoPlanuLekcji = new OknoPlanuLekcji(this);
+           });
+           setEnabled(false);
+    }//GEN-LAST:event_trybUczniaZobaczPlanLekcjiButtonActionPerformed
+
+    private void nazwaUzytkownikaLogowanieTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nazwaUzytkownikaLogowanieTextFieldKeyPressed
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            zalogujLogowanieButtonActionPerformed(null);
+        }
+    }//GEN-LAST:event_nazwaUzytkownikaLogowanieTextFieldKeyPressed
 
     /**
      * @param args the command line arguments
@@ -593,6 +688,9 @@ public class OknoAplikacji extends javax.swing.JFrame {
     private javax.swing.JPanel trybRodzicaPanel;
     private javax.swing.JLabel trybUczniaLabel;
     private javax.swing.JPanel trybUczniaPanel;
+    private javax.swing.JButton trybUczniaZobaczNieobecnosciButton;
+    private javax.swing.JButton trybUczniaZobaczOcenyButton;
+    private javax.swing.JButton trybUczniaZobaczPlanLekcjiButton;
     private javax.swing.JButton uczenButton;
     private javax.swing.JButton wsteczLogowanieButton;
     private javax.swing.JButton wyjdzTrybDyrektoraButton;
