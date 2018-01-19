@@ -15,21 +15,22 @@ import java.util.logging.Logger;
  * @author Asus
  */
 public class JDBC {
+    
+    private Connection conn;
 
-    public JDBC() {
-        Connection conn = null;
-        Properties connectionProps = new Properties();
-        connectionProps.put("user", "user");
-        connectionProps.put("password", "password");
+    public JDBC() throws ClassNotFoundException {
         try {
-            conn = DriverManager.getConnection("adress", connectionProps);
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/dziennik_elektroniczny", "root", ""); 
             System.out.println("Połączono z bazą danych");
-            conn.close();
-            System.out.println("Odłączono od bazy danych");
         } catch (SQLException ex) {
             Logger.getLogger(JDBC.class.getName()).log(Level.SEVERE, "Nie udało się połączyć z bazą danych", ex);
             System.exit(-1);
         }
+    }
+    
+    public Connection getConn() {
+        return this.conn;
     }
 
 }

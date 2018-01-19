@@ -20,6 +20,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -703,6 +706,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="ZOBACZ LIST&#x118; UCZNI&#xd3;W"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trybNauczycielaZobaczUczniowButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="trybNauczycielaZobaczPlanLekcjiButton">
           <Properties>
@@ -711,6 +717,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="ZOBACZ PLAN LEKCJI"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trybNauczycielaZobaczPlanLekcjiButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -724,18 +733,19 @@
                   <Component id="trybDyrektoraLabel" pref="576" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="trybDyrektoraZobaczUczniowButton" max="32767" attributes="0"/>
-                      <Component id="trybDyrektoraZobaczNauczycieliButton" pref="400" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="250" max="-2" attributes="0"/>
                   <Component id="wyjdzTrybDyrektoraButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="trybDyrektoraZobaczKlasyButton" pref="400" max="32767" attributes="0"/>
+                      <Component id="trybDyrektoraZobaczUczniowButton" alignment="0" max="32767" attributes="0"/>
+                      <Component id="trybDyrektoraZobaczNauczycieliButton" alignment="0" pref="400" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -744,11 +754,13 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                   <Component id="trybDyrektoraLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
                   <Component id="trybDyrektoraZobaczUczniowButton" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="trybDyrektoraZobaczKlasyButton" min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="trybDyrektoraZobaczNauczycieliButton" min="-2" pref="60" max="-2" attributes="0"/>
-                  <EmptySpace pref="160" max="32767" attributes="0"/>
+                  <EmptySpace pref="118" max="32767" attributes="0"/>
                   <Component id="wyjdzTrybDyrektoraButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
@@ -787,6 +799,20 @@
             </Property>
             <Property name="text" type="java.lang.String" value="ZOBACZ LIST&#x118; UCZNI&#xd3;W"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trybDyrektoraZobaczUczniowButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="trybDyrektoraZobaczKlasyButton">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="ZOBACZ LIST&#x118; KLAS"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trybDyrektoraZobaczKlasyButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="trybDyrektoraZobaczNauczycieliButton">
           <Properties>
@@ -795,6 +821,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="ZOBACZ LIST&#x118; NAUCZYCIELI"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trybDyrektoraZobaczNauczycieliButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -7,6 +7,9 @@ package DziennikElektroniczny;
 
 import java.awt.Dialog;
 import java.awt.event.KeyEvent;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -21,7 +24,16 @@ public class OknoAplikacji extends javax.swing.JFrame {
     /**
      * Creates new form OknoLogowania
      */
+    private Connection conn;
+    
     public OknoAplikacji() {
+        JDBC jdbc = null;
+        try {
+            jdbc = new JDBC();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(OknoAplikacji.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conn = jdbc.getConn();
         initComponents();
         trybUczniaPanel.setVisible(false);
         trybRodzicaPanel.setVisible(false);
@@ -76,6 +88,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
         wyjdzTrybDyrektoraButton = new javax.swing.JButton();
         trybDyrektoraLabel = new javax.swing.JLabel();
         trybDyrektoraZobaczUczniowButton = new javax.swing.JButton();
+        trybDyrektoraZobaczKlasyButton = new javax.swing.JButton();
         trybDyrektoraZobaczNauczycieliButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -85,6 +98,11 @@ public class OknoAplikacji extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(500, 500));
         setName("oknoLogowania"); // NOI18N
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         uczenButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         uczenButton.setText("UCZEŃ");
@@ -451,9 +469,19 @@ public class OknoAplikacji extends javax.swing.JFrame {
 
         trybNauczycielaZobaczUczniowButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         trybNauczycielaZobaczUczniowButton.setText("ZOBACZ LISTĘ UCZNIÓW");
+        trybNauczycielaZobaczUczniowButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trybNauczycielaZobaczUczniowButtonActionPerformed(evt);
+            }
+        });
 
         trybNauczycielaZobaczPlanLekcjiButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         trybNauczycielaZobaczPlanLekcjiButton.setText("ZOBACZ PLAN LEKCJI");
+        trybNauczycielaZobaczPlanLekcjiButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trybNauczycielaZobaczPlanLekcjiButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout trybNauczycielaPanelLayout = new javax.swing.GroupLayout(trybNauczycielaPanel);
         trybNauczycielaPanel.setLayout(trybNauczycielaPanelLayout);
@@ -506,9 +534,27 @@ public class OknoAplikacji extends javax.swing.JFrame {
 
         trybDyrektoraZobaczUczniowButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         trybDyrektoraZobaczUczniowButton.setText("ZOBACZ LISTĘ UCZNIÓW");
+        trybDyrektoraZobaczUczniowButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trybDyrektoraZobaczUczniowButtonActionPerformed(evt);
+            }
+        });
+
+        trybDyrektoraZobaczKlasyButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        trybDyrektoraZobaczKlasyButton.setText("ZOBACZ LISTĘ KLAS");
+        trybDyrektoraZobaczKlasyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trybDyrektoraZobaczKlasyButtonActionPerformed(evt);
+            }
+        });
 
         trybDyrektoraZobaczNauczycieliButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         trybDyrektoraZobaczNauczycieliButton.setText("ZOBACZ LISTĘ NAUCZYCIELI");
+        trybDyrektoraZobaczNauczycieliButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trybDyrektoraZobaczNauczycieliButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout trybDyrektoraPanelLayout = new javax.swing.GroupLayout(trybDyrektoraPanel);
         trybDyrektoraPanel.setLayout(trybDyrektoraPanelLayout);
@@ -518,27 +564,30 @@ public class OknoAplikacji extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(trybDyrektoraLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trybDyrektoraPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(trybDyrektoraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(trybDyrektoraZobaczUczniowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(trybDyrektoraZobaczNauczycieliButton, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
-                .addGap(100, 100, 100))
             .addGroup(trybDyrektoraPanelLayout.createSequentialGroup()
                 .addGap(250, 250, 250)
                 .addComponent(wyjdzTrybDyrektoraButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trybDyrektoraPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(trybDyrektoraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(trybDyrektoraZobaczKlasyButton, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                    .addComponent(trybDyrektoraZobaczUczniowButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(trybDyrektoraZobaczNauczycieliButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
+                .addGap(100, 100, 100))
         );
         trybDyrektoraPanelLayout.setVerticalGroup(
             trybDyrektoraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trybDyrektoraPanelLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(trybDyrektoraLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(150, 150, 150)
+                .addGap(125, 125, 125)
                 .addComponent(trybDyrektoraZobaczUczniowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(trybDyrektoraZobaczKlasyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(trybDyrektoraZobaczNauczycieliButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
                 .addComponent(wyjdzTrybDyrektoraButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -632,6 +681,12 @@ public class OknoAplikacji extends javax.swing.JFrame {
     }//GEN-LAST:event_dyrektorButtonActionPerformed
 
     private void zamknijOknoLogowaniaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zamknijOknoLogowaniaButtonActionPerformed
+        try {
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(OknoAplikacji.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Odłączono od bazy danych");
         dispose();
     }//GEN-LAST:event_zamknijOknoLogowaniaButtonActionPerformed
 
@@ -732,6 +787,44 @@ public class OknoAplikacji extends javax.swing.JFrame {
            setEnabled(false);
     }//GEN-LAST:event_trybRodzicaZobaczPlanLekcjiButtonActionPerformed
 
+    private void trybNauczycielaZobaczUczniowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybNauczycielaZobaczUczniowButtonActionPerformed
+           SwingUtilities.invokeLater(() -> {
+               OknoListyKlas oknoList = new OknoListyKlas(this, conn);
+           });
+           setEnabled(false);
+    }//GEN-LAST:event_trybNauczycielaZobaczUczniowButtonActionPerformed
+
+    private void trybNauczycielaZobaczPlanLekcjiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybNauczycielaZobaczPlanLekcjiButtonActionPerformed
+           SwingUtilities.invokeLater(() -> {
+               OknoPlanuLekcji oknoPlanuLekcji = new OknoPlanuLekcji(this);
+           });
+           setEnabled(false);
+    }//GEN-LAST:event_trybNauczycielaZobaczPlanLekcjiButtonActionPerformed
+
+    private void trybDyrektoraZobaczUczniowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybDyrektoraZobaczUczniowButtonActionPerformed
+            
+    }//GEN-LAST:event_trybDyrektoraZobaczUczniowButtonActionPerformed
+
+    private void trybDyrektoraZobaczKlasyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybDyrektoraZobaczKlasyButtonActionPerformed
+           SwingUtilities.invokeLater(() -> {
+               OknoListyKlas oknoList = new OknoListyKlas(this, conn);
+           });
+           setEnabled(false);
+    }//GEN-LAST:event_trybDyrektoraZobaczKlasyButtonActionPerformed
+
+    private void trybDyrektoraZobaczNauczycieliButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybDyrektoraZobaczNauczycieliButtonActionPerformed
+            
+    }//GEN-LAST:event_trybDyrektoraZobaczNauczycieliButtonActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        try {
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(OknoAplikacji.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Odłączono od bazy danych");
+    }//GEN-LAST:event_formWindowClosing
+
     /**
      * @param args the command line arguments
      */
@@ -782,6 +875,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
     private javax.swing.JPanel startPanel;
     private javax.swing.JLabel trybDyrektoraLabel;
     private javax.swing.JPanel trybDyrektoraPanel;
+    private javax.swing.JButton trybDyrektoraZobaczKlasyButton;
     private javax.swing.JButton trybDyrektoraZobaczNauczycieliButton;
     private javax.swing.JButton trybDyrektoraZobaczUczniowButton;
     private javax.swing.JLabel trybNauczycielaLabel;
