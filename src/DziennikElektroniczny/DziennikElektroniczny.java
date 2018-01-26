@@ -5,6 +5,7 @@
  */
 package DziennikElektroniczny;
 
+import DziennikElektroniczny.okna.OknoAplikacji;
 import javax.swing.JFrame;
 
 /**

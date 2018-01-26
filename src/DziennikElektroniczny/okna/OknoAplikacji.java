@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DziennikElektroniczny;
+package DziennikElektroniczny.okna;
 
+import DziennikElektroniczny.JDBC;
 import java.awt.Dialog;
 import java.awt.event.KeyEvent;
 import java.sql.*;
@@ -25,7 +26,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
      * Creates new form OknoLogowania
      */
     private Connection conn;
-    
+
     public OknoAplikacji() {
         JDBC jdbc = null;
         try {
@@ -663,7 +664,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
         hasloLogowaniePasswordField.setText("");
         logowaniePanel.setVisible(true);
     }
-    
+
     private void uczenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uczenButtonActionPerformed
         zStartDoLogowanie("panel ucznia");
     }//GEN-LAST:event_uczenButtonActionPerformed
@@ -740,24 +741,24 @@ public class OknoAplikacji extends javax.swing.JFrame {
     }//GEN-LAST:event_wyjdzTrybRodzicaButtonActionPerformed
 
     private void trybUczniaZobaczOcenyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybUczniaZobaczOcenyButtonActionPerformed
-           SwingUtilities.invokeLater(() -> {
-               OknoOcen oknoOcen = new OknoOcen(this);
-           });
-           setEnabled(false);
+        SwingUtilities.invokeLater(() -> {
+            OknoOcen oknoOcen = new OknoOcen(this);
+        });
+        setEnabled(false);
     }//GEN-LAST:event_trybUczniaZobaczOcenyButtonActionPerformed
 
     private void trybUczniaZobaczNieobecnosciButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybUczniaZobaczNieobecnosciButtonActionPerformed
-           SwingUtilities.invokeLater(() -> {
-               OknoNieobecnosci oknoNieobecnosci = new OknoNieobecnosci(this);
-           });
-           setEnabled(false);
+        SwingUtilities.invokeLater(() -> {
+            OknoNieobecnosci oknoNieobecnosci = new OknoNieobecnosci(this);
+        });
+        setEnabled(false);
     }//GEN-LAST:event_trybUczniaZobaczNieobecnosciButtonActionPerformed
 
     private void trybUczniaZobaczPlanLekcjiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybUczniaZobaczPlanLekcjiButtonActionPerformed
-           SwingUtilities.invokeLater(() -> {
-               OknoPlanuLekcji oknoPlanuLekcji = new OknoPlanuLekcji(this);
-           });
-           setEnabled(false);
+        SwingUtilities.invokeLater(() -> {
+            OknoPlanuLekcji oknoPlanuLekcji = new OknoPlanuLekcji(this);
+        });
+        setEnabled(false);
     }//GEN-LAST:event_trybUczniaZobaczPlanLekcjiButtonActionPerformed
 
     private void nazwaUzytkownikaLogowanieTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nazwaUzytkownikaLogowanieTextFieldKeyPressed
@@ -767,59 +768,59 @@ public class OknoAplikacji extends javax.swing.JFrame {
     }//GEN-LAST:event_nazwaUzytkownikaLogowanieTextFieldKeyPressed
 
     private void trybRodzicaZobaczOcenyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybRodzicaZobaczOcenyButtonActionPerformed
-           SwingUtilities.invokeLater(() -> {
-               OknoOcen oknoOcen = new OknoOcen(this);
-           });
-           setEnabled(false);
+        SwingUtilities.invokeLater(() -> {
+            OknoOcen oknoOcen = new OknoOcen(this);
+        });
+        setEnabled(false);
     }//GEN-LAST:event_trybRodzicaZobaczOcenyButtonActionPerformed
 
     private void trybRodzicaZobaczNieobecnosciButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybRodzicaZobaczNieobecnosciButtonActionPerformed
-           SwingUtilities.invokeLater(() -> {
-               OknoNieobecnosci oknoNieobecnosci = new OknoNieobecnosci(this);
-           });
-           setEnabled(false);
+        SwingUtilities.invokeLater(() -> {
+            OknoNieobecnosci oknoNieobecnosci = new OknoNieobecnosci(this);
+        });
+        setEnabled(false);
     }//GEN-LAST:event_trybRodzicaZobaczNieobecnosciButtonActionPerformed
 
     private void trybRodzicaZobaczPlanLekcjiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybRodzicaZobaczPlanLekcjiButtonActionPerformed
-           SwingUtilities.invokeLater(() -> {
-               OknoPlanuLekcji oknoPlanuLekcji = new OknoPlanuLekcji(this);
-           });
-           setEnabled(false);
+        SwingUtilities.invokeLater(() -> {
+            OknoPlanuLekcji oknoPlanuLekcji = new OknoPlanuLekcji(this);
+        });
+        setEnabled(false);
     }//GEN-LAST:event_trybRodzicaZobaczPlanLekcjiButtonActionPerformed
 
     private void trybNauczycielaZobaczUczniowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybNauczycielaZobaczUczniowButtonActionPerformed
-           SwingUtilities.invokeLater(() -> {
-               OknoListyKlas oknoList = new OknoListyKlas(this, conn);
-           });
-           setEnabled(false);
+        SwingUtilities.invokeLater(() -> {
+            OknoListyKlas oknoList = new OknoListyKlas(this, conn);
+        });
+        setEnabled(false);
     }//GEN-LAST:event_trybNauczycielaZobaczUczniowButtonActionPerformed
 
     private void trybNauczycielaZobaczPlanLekcjiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybNauczycielaZobaczPlanLekcjiButtonActionPerformed
-           SwingUtilities.invokeLater(() -> {
-               OknoPlanuLekcji oknoPlanuLekcji = new OknoPlanuLekcji(this);
-           });
-           setEnabled(false);
+        SwingUtilities.invokeLater(() -> {
+            OknoPlanuLekcji oknoPlanuLekcji = new OknoPlanuLekcji(this);
+        });
+        setEnabled(false);
     }//GEN-LAST:event_trybNauczycielaZobaczPlanLekcjiButtonActionPerformed
 
     private void trybDyrektoraZobaczUczniowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybDyrektoraZobaczUczniowButtonActionPerformed
-            SwingUtilities.invokeLater(() -> {
-               OknoListyUczniow oknoListyUczniow = new OknoListyUczniow(this, conn);
-           });
-           setEnabled(false);
+        SwingUtilities.invokeLater(() -> {
+            OknoListyUczniow oknoListyUczniow = new OknoListyUczniow(this, conn);
+        });
+        setEnabled(false);
     }//GEN-LAST:event_trybDyrektoraZobaczUczniowButtonActionPerformed
 
     private void trybDyrektoraZobaczKlasyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybDyrektoraZobaczKlasyButtonActionPerformed
-           SwingUtilities.invokeLater(() -> {
-               OknoListyKlas oknoListyKlas = new OknoListyKlas(this, conn);
-           });
-           setEnabled(false);
+        SwingUtilities.invokeLater(() -> {
+            OknoListyKlas oknoListyKlas = new OknoListyKlas(this, conn);
+        });
+        setEnabled(false);
     }//GEN-LAST:event_trybDyrektoraZobaczKlasyButtonActionPerformed
 
     private void trybDyrektoraZobaczNauczycieliButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybDyrektoraZobaczNauczycieliButtonActionPerformed
-            SwingUtilities.invokeLater(() -> {
-               OknoListyNauczycieli oknoListyNauczycieli = new OknoListyNauczycieli(this, conn);
-           });
-           setEnabled(false);
+        SwingUtilities.invokeLater(() -> {
+            OknoListyNauczycieli oknoListyNauczycieli = new OknoListyNauczycieli(this, conn);
+        });
+        setEnabled(false);
     }//GEN-LAST:event_trybDyrektoraZobaczNauczycieliButtonActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
