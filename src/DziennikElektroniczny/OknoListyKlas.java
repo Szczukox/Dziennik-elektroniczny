@@ -6,6 +6,8 @@
 package DziennikElektroniczny;
 
 import java.sql.*;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -16,12 +18,10 @@ public class OknoListyKlas extends javax.swing.JFrame {
     /**
      * Creates new form OknoListyKlas
      */
-    
     private javax.swing.JFrame oknoAplikacji;
     private final Connection conn;
-    private final ListaKlasModel listaKlasModel;
-    
-    
+    private ListaKlasModel listaKlasModel;
+
     public OknoListyKlas(javax.swing.JFrame oknoAplikacji, Connection connection) {
         conn = connection;
         this.oknoAplikacji = oknoAplikacji;
@@ -51,9 +51,9 @@ public class OknoListyKlas extends javax.swing.JFrame {
         listyScrollPane = new javax.swing.JScrollPane();
         listyTable = new javax.swing.JTable();
         opcjePanel = new javax.swing.JPanel();
-        dodajButton = new javax.swing.JButton();
-        usunButton = new javax.swing.JButton();
-        edytujButton = new javax.swing.JButton();
+        dodajKlaseButton = new javax.swing.JButton();
+        usunKlaseButton = new javax.swing.JButton();
+        edytujKlaseButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lista Klas");
@@ -97,29 +97,40 @@ public class OknoListyKlas extends javax.swing.JFrame {
         ));
         listyScrollPane.setViewportView(listyTable);
 
-        dodajButton.setText("Dodaj");
+        dodajKlaseButton.setText("Dodaj");
+        dodajKlaseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dodajKlaseButtonActionPerformed(evt);
+            }
+        });
 
-        usunButton.setText("Usuń");
+        usunKlaseButton.setText("Usuń");
+        usunKlaseButton.setEnabled(false);
 
-        edytujButton.setText("Edytuj");
+        edytujKlaseButton.setText("Edytuj");
+        edytujKlaseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edytujKlaseButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout opcjePanelLayout = new javax.swing.GroupLayout(opcjePanel);
         opcjePanel.setLayout(opcjePanelLayout);
         opcjePanelLayout.setHorizontalGroup(
             opcjePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dodajButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(usunButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(edytujButton, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(dodajKlaseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(usunKlaseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(edytujKlaseButton, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
         opcjePanelLayout.setVerticalGroup(
             opcjePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(opcjePanelLayout.createSequentialGroup()
                 .addGap(102, 102, 102)
-                .addComponent(dodajButton)
+                .addComponent(dodajKlaseButton)
                 .addGap(18, 18, 18)
-                .addComponent(usunButton)
+                .addComponent(usunKlaseButton)
                 .addGap(18, 18, 18)
-                .addComponent(edytujButton)
+                .addComponent(edytujKlaseButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -180,6 +191,17 @@ public class OknoListyKlas extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_wyjdzOknoListButtonActionPerformed
 
+    private void dodajKlaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajKlaseButtonActionPerformed
+        SwingUtilities.invokeLater(() -> {
+            OknoKlasy oknoKlasy = new OknoKlasy(this, conn, listaKlasModel, listyTable);
+        });
+        setEnabled(false);
+    }//GEN-LAST:event_dodajKlaseButtonActionPerformed
+
+    private void edytujKlaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edytujKlaseButtonActionPerformed
+
+    }//GEN-LAST:event_edytujKlaseButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -217,14 +239,14 @@ public class OknoListyKlas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton dodajButton;
-    private javax.swing.JButton edytujButton;
+    private javax.swing.JButton dodajKlaseButton;
+    private javax.swing.JButton edytujKlaseButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane listyScrollPane;
     private javax.swing.JTable listyTable;
     private javax.swing.JPanel oknoListPanel;
     private javax.swing.JPanel opcjePanel;
-    private javax.swing.JButton usunButton;
+    private javax.swing.JButton usunKlaseButton;
     private javax.swing.JButton wyjdzOknoListButton;
     // End of variables declaration//GEN-END:variables
 }

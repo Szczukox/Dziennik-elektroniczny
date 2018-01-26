@@ -709,7 +709,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
             logowaniePanel.setVisible(false);
             trybDyrektoraPanel.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "ERROR", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Błędna nazwa użytkownika lub błędne hasło", "Błąd logowania", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_zalogujLogowanieButtonActionPerformed
 
@@ -802,18 +802,24 @@ public class OknoAplikacji extends javax.swing.JFrame {
     }//GEN-LAST:event_trybNauczycielaZobaczPlanLekcjiButtonActionPerformed
 
     private void trybDyrektoraZobaczUczniowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybDyrektoraZobaczUczniowButtonActionPerformed
-            
+            SwingUtilities.invokeLater(() -> {
+               OknoListyUczniow oknoListyUczniow = new OknoListyUczniow(this, conn);
+           });
+           setEnabled(false);
     }//GEN-LAST:event_trybDyrektoraZobaczUczniowButtonActionPerformed
 
     private void trybDyrektoraZobaczKlasyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybDyrektoraZobaczKlasyButtonActionPerformed
            SwingUtilities.invokeLater(() -> {
-               OknoListyKlas oknoList = new OknoListyKlas(this, conn);
+               OknoListyKlas oknoListyKlas = new OknoListyKlas(this, conn);
            });
            setEnabled(false);
     }//GEN-LAST:event_trybDyrektoraZobaczKlasyButtonActionPerformed
 
     private void trybDyrektoraZobaczNauczycieliButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybDyrektoraZobaczNauczycieliButtonActionPerformed
-            
+            SwingUtilities.invokeLater(() -> {
+               OknoListyNauczycieli oknoListyNauczycieli = new OknoListyNauczycieli(this, conn);
+           });
+           setEnabled(false);
     }//GEN-LAST:event_trybDyrektoraZobaczNauczycieliButtonActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing

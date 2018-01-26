@@ -149,40 +149,47 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="dodajButton" alignment="0" max="32767" attributes="0"/>
-                  <Component id="usunButton" alignment="1" max="32767" attributes="0"/>
-                  <Component id="edytujButton" alignment="0" pref="100" max="32767" attributes="0"/>
+                  <Component id="dodajKlaseButton" alignment="0" max="32767" attributes="0"/>
+                  <Component id="usunKlaseButton" alignment="1" max="32767" attributes="0"/>
+                  <Component id="edytujKlaseButton" alignment="0" pref="100" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
-                      <Component id="dodajButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="dodajKlaseButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="usunButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="usunKlaseButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="edytujButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="edytujKlaseButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="dodajButton">
+            <Component class="javax.swing.JButton" name="dodajKlaseButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Dodaj"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dodajKlaseButtonActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="usunButton">
+            <Component class="javax.swing.JButton" name="usunKlaseButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Usu&#x144;"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="edytujButton">
+            <Component class="javax.swing.JButton" name="edytujKlaseButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Edytuj"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edytujKlaseButtonActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
