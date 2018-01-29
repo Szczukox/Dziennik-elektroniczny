@@ -5,9 +5,10 @@
  */
 package DziennikElektroniczny.okna;
 
-import DziennikElektroniczny.modele.ListaKlasModel;
+import DziennikElektroniczny.modele.KlasyTableModel;
 import java.sql.*;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -21,15 +22,16 @@ public class OknoListyKlas extends javax.swing.JFrame {
      */
     private javax.swing.JFrame oknoAplikacji;
     private final Connection conn;
-    private ListaKlasModel listaKlasModel;
+    private KlasyTableModel listaKlasModel;
 
     public OknoListyKlas(javax.swing.JFrame oknoAplikacji, Connection connection) {
         conn = connection;
         this.oknoAplikacji = oknoAplikacji;
         initComponents();
-        listaKlasModel = new ListaKlasModel(conn);
+        listaKlasModel = new KlasyTableModel(conn);
         listaKlasModel.fireTableDataChanged();
         listaKlasTable.setModel(listaKlasModel);
+        listaKlasTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         setVisible(true);
     }
 

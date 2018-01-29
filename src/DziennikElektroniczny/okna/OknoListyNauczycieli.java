@@ -5,8 +5,9 @@
  */
 package DziennikElektroniczny.okna;
 
-import DziennikElektroniczny.modele.ListaNauczycieliModel;
+import DziennikElektroniczny.modele.NauczycieleTableModel;
 import java.sql.*;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -20,15 +21,16 @@ public class OknoListyNauczycieli extends javax.swing.JFrame {
      */
     private javax.swing.JFrame oknoAplikacji;
     private final Connection conn;
-    private ListaNauczycieliModel listaNauczycieliModel;
+    private NauczycieleTableModel listaNauczycieliModel;
 
     public OknoListyNauczycieli(javax.swing.JFrame oknoListyKlas, Connection connection) {
         conn = connection;
         this.oknoAplikacji = oknoListyKlas;
         initComponents();
-        listaNauczycieliModel = new ListaNauczycieliModel(conn);
+        listaNauczycieliModel = new NauczycieleTableModel(conn);
         listaNauczycieliModel.fireTableDataChanged();
         listaNauczycieliTable.setModel(listaNauczycieliModel);
+        listaNauczycieliTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         setVisible(true);
     }
 
@@ -183,7 +185,7 @@ public class OknoListyNauczycieli extends javax.swing.JFrame {
 
     private void dodajNauczycielaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajNauczycielaButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
-            OknoNauczyciela oknoNauczyciela = new OknoNauczyciela(this, conn);
+            OknoNauczyciela oknoNauczyciela = new OknoNauczyciela(this, conn, listaNauczycieliModel, listaNauczycieliTable);
         });
         setEnabled(false);
     }//GEN-LAST:event_dodajNauczycielaButtonActionPerformed

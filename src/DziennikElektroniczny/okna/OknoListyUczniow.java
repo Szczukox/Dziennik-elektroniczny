@@ -5,7 +5,8 @@
  */
 package DziennikElektroniczny.okna;
 
-import DziennikElektroniczny.modele.ListaNauczycieliModel;
+import DziennikElektroniczny.modele.KlasyComboBoxModel;
+import DziennikElektroniczny.modele.ListaKlasModel;
 import java.sql.Connection;
 import javax.swing.SwingUtilities;
 
@@ -20,11 +21,16 @@ public class OknoListyUczniow extends javax.swing.JFrame {
      */
     private javax.swing.JFrame oknoAplikacji;
     private final Connection conn;
+    private KlasyComboBoxModel klasyComboBoxModel;
 
     public OknoListyUczniow(javax.swing.JFrame oknoListyKlas, Connection connection) {
         conn = connection;
         this.oknoAplikacji = oknoListyKlas;
         initComponents();
+        ListaKlasModel listaKlasModel = new ListaKlasModel();
+        String[] listaKlas =  listaKlasModel.listaKlas(conn);
+        klasyComboBoxModel = new KlasyComboBoxModel(listaKlas);
+        klasyComboBox.setModel(klasyComboBoxModel);
         setVisible(true);
     }
 

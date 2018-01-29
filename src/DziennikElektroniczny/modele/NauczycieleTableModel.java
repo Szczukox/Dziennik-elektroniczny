@@ -13,7 +13,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author patry
  */
-public class ListaNauczycieliModel extends AbstractTableModel {
+public class NauczycieleTableModel extends AbstractTableModel {
 
     private final Connection conn;
     private ResultSet dane;
@@ -22,7 +22,7 @@ public class ListaNauczycieliModel extends AbstractTableModel {
     private int liczbaWierszy;
     private PreparedStatement zapytanie;
 
-    public ListaNauczycieliModel(Connection connection) {
+    public NauczycieleTableModel(Connection connection) {
         conn = connection;
         zapytanie = null;
         try {
@@ -55,7 +55,7 @@ public class ListaNauczycieliModel extends AbstractTableModel {
     public void insertRow(String imie, String nazwisko, String pesel) throws SQLException {
         try {
             dane.moveToInsertRow();
-            dane.updateString("IMIe", imie);
+            dane.updateString("IMIE", imie);
             dane.updateString("NAZWISKO", nazwisko);
             dane.updateString("PESEL", pesel);
             dane.insertRow();

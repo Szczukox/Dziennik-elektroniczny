@@ -39,7 +39,10 @@ public class OknoUcznia extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        oknoUczniaPanel = new javax.swing.JPanel();
+        dodajNowegoUczniaLabel = new javax.swing.JLabel();
+        dodajButton = new javax.swing.JButton();
+        anulujButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocation(new java.awt.Point(800, 350));
@@ -50,26 +53,54 @@ public class OknoUcznia extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        dodajNowegoUczniaLabel.setFont(new java.awt.Font("PT Serif", 1, 18)); // NOI18N
+        dodajNowegoUczniaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        dodajNowegoUczniaLabel.setText("DODAJ NOWEGO UCZNIA");
+
+        dodajButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        dodajButton.setText("DODAJ");
+        dodajButton.setPreferredSize(new java.awt.Dimension(100, 30));
+
+        anulujButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        anulujButton.setText("ANULUJ");
+        anulujButton.setPreferredSize(new java.awt.Dimension(100, 30));
+
+        javax.swing.GroupLayout oknoUczniaPanelLayout = new javax.swing.GroupLayout(oknoUczniaPanel);
+        oknoUczniaPanel.setLayout(oknoUczniaPanelLayout);
+        oknoUczniaPanelLayout.setHorizontalGroup(
+            oknoUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(dodajNowegoUczniaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
+                .addContainerGap(75, Short.MAX_VALUE)
+                .addComponent(dodajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(anulujButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        oknoUczniaPanelLayout.setVerticalGroup(
+            oknoUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(dodajNowegoUczniaLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
+                .addGroup(oknoUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dodajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(anulujButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(oknoUczniaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(oknoUczniaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -115,6 +146,9 @@ public class OknoUcznia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton anulujButton;
+    private javax.swing.JButton dodajButton;
+    private javax.swing.JLabel dodajNowegoUczniaLabel;
+    private javax.swing.JPanel oknoUczniaPanel;
     // End of variables declaration//GEN-END:variables
 }

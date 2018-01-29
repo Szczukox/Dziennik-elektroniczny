@@ -5,7 +5,7 @@
  */
 package DziennikElektroniczny.okna;
 
-import DziennikElektroniczny.modele.ListaKlasModel;
+import DziennikElektroniczny.modele.KlasyTableModel;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -23,13 +23,13 @@ public class OknoKlasy extends javax.swing.JFrame {
      */
     private javax.swing.JFrame oknoListyKlas;
     private final Connection conn;
-    private ListaKlasModel listaKlasModel;
+    private KlasyTableModel klasyTableModel;
     private javax.swing.JTable klasyTable;
 
-    public OknoKlasy(javax.swing.JFrame oknoListyKlas, Connection connection, ListaKlasModel listaKlasModel, javax.swing.JTable klasyTable) {
+    public OknoKlasy(javax.swing.JFrame oknoListyKlas, Connection connection, KlasyTableModel listaKlasModel, javax.swing.JTable klasyTable) {
         conn = connection;
         this.oknoListyKlas = oknoListyKlas;
-        this.listaKlasModel = listaKlasModel;
+        this.klasyTableModel = listaKlasModel;
         this.klasyTable = klasyTable;
         
         initComponents();
@@ -65,6 +65,7 @@ public class OknoKlasy extends javax.swing.JFrame {
         obowiazkoweProfilLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Dodaj nową klasę");
         setLocation(new java.awt.Point(800, 350));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -153,13 +154,10 @@ public class OknoKlasy extends javax.swing.JFrame {
                     .addComponent(nazwaOknoKlasyLabel)
                     .addComponent(obowiazkoweNazwaLabel))
                 .addGap(18, 18, 18)
-                .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(oknoKlasyPanelLayout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(rokPowstaniaOknoKlasyLabel))
-                    .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(rokPowstaniaOknoKlasyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(obowiazkoweRokPowstaniaLabel)))
+                .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rokPowstaniaOknoKlasyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(obowiazkoweRokPowstaniaLabel)
+                    .addComponent(rokPowstaniaOknoKlasyLabel))
                 .addGap(18, 18, 18)
                 .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(profilOknoKlasyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,7 +212,7 @@ public class OknoKlasy extends javax.swing.JFrame {
         }
         if (czyWypelniono) {
             try {
-                listaKlasModel.insertRow(
+                klasyTableModel.insertRow(
                         nazwaOknoKlasyTextField.getText(),
                         rokPowstaniaOknoKlasyTextField.getText(),
                         profilOknoKlasyTextField.getText(),
@@ -222,9 +220,9 @@ public class OknoKlasy extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(OknoKlasy.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
-                listaKlasModel = new ListaKlasModel(conn);
-                listaKlasModel.fireTableDataChanged();
-                klasyTable.setModel(listaKlasModel);
+                klasyTableModel = new KlasyTableModel(conn);
+                klasyTableModel.fireTableDataChanged();
+                klasyTable.setModel(klasyTableModel);
                 oknoListyKlas.setEnabled(true);
                 dispose();
             }

@@ -5,7 +5,12 @@
  */
 package DziennikElektroniczny.okna;
 
+import DziennikElektroniczny.modele.KlasyTableModel;
+import DziennikElektroniczny.modele.NauczycieleTableModel;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,12 +21,16 @@ public class OknoNauczyciela extends javax.swing.JFrame {
     /**
      * Creates new form OknoNauczyciela
      */
-    private javax.swing.JFrame oknoListyNauczyciela;
+    private javax.swing.JFrame oknoListyNauczycieli;
     private final Connection conn;
+    private NauczycieleTableModel nauczycieleTableModel;
+    private javax.swing.JTable nauczycieleTable;
 
-    public OknoNauczyciela(javax.swing.JFrame oknoListyNauczycieli, Connection connection) {
+    public OknoNauczyciela(javax.swing.JFrame oknoListyNauczycieli, Connection connection, NauczycieleTableModel nauczycieleTableModel, javax.swing.JTable nauczycieleTable) {
         conn = connection;
-        this.oknoListyNauczyciela = oknoListyNauczycieli;
+        this.oknoListyNauczycieli = oknoListyNauczycieli;
+        this.nauczycieleTableModel = nauczycieleTableModel;
+        this.nauczycieleTable = nauczycieleTable;
         initComponents();
         setVisible(true);
     }
@@ -39,9 +48,22 @@ public class OknoNauczyciela extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        oknoNauczycielaPanel = new javax.swing.JPanel();
+        dodajNowegoNauczycielaLabel = new javax.swing.JLabel();
+        dodajButton = new javax.swing.JButton();
+        anulujButton = new javax.swing.JButton();
+        imieOknoNauczycielaLabel = new javax.swing.JLabel();
+        nazwiskoOknoNauczycielaLabel = new javax.swing.JLabel();
+        peselOknoNauczycielaLabel = new javax.swing.JLabel();
+        imieOknoNauczycielaTextField = new javax.swing.JTextField();
+        nazwiskoOknoNauczycielaTextField = new javax.swing.JTextField();
+        peselOknoNauczycielaTextField = new javax.swing.JTextField();
+        obowiazkoweImieLabel = new javax.swing.JLabel();
+        obowiazkoweNazwiskoLabel = new javax.swing.JLabel();
+        obowiazkowePeselLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Dodaj nowego nauczyciela");
         setLocation(new java.awt.Point(800, 350));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -50,34 +72,175 @@ public class OknoNauczyciela extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        oknoNauczycielaPanel.setMinimumSize(new java.awt.Dimension(400, 300));
+
+        dodajNowegoNauczycielaLabel.setFont(new java.awt.Font("PT Serif", 1, 18)); // NOI18N
+        dodajNowegoNauczycielaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        dodajNowegoNauczycielaLabel.setText("DODAJ NOWEGO NAUCZYCIELA");
+        dodajNowegoNauczycielaLabel.setPreferredSize(new java.awt.Dimension(300, 25));
+
+        dodajButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        dodajButton.setText("DODAJ");
+        dodajButton.setPreferredSize(new java.awt.Dimension(100, 30));
+        dodajButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dodajButtonActionPerformed(evt);
+            }
+        });
+
+        anulujButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        anulujButton.setText("ANULUJ");
+        anulujButton.setPreferredSize(new java.awt.Dimension(100, 30));
+        anulujButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anulujButtonActionPerformed(evt);
+            }
+        });
+
+        imieOknoNauczycielaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        imieOknoNauczycielaLabel.setText("Imię:");
+
+        nazwiskoOknoNauczycielaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        nazwiskoOknoNauczycielaLabel.setText("Nazwisko:");
+
+        peselOknoNauczycielaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        peselOknoNauczycielaLabel.setText("PESEL:");
+
+        obowiazkoweImieLabel.setText("*");
+
+        obowiazkoweNazwiskoLabel.setText("*");
+
+        obowiazkowePeselLabel.setText("*");
+
+        javax.swing.GroupLayout oknoNauczycielaPanelLayout = new javax.swing.GroupLayout(oknoNauczycielaPanel);
+        oknoNauczycielaPanel.setLayout(oknoNauczycielaPanelLayout);
+        oknoNauczycielaPanelLayout.setHorizontalGroup(
+            oknoNauczycielaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(oknoNauczycielaPanelLayout.createSequentialGroup()
+                .addGroup(oknoNauczycielaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(oknoNauczycielaPanelLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(dodajNowegoNauczycielaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(oknoNauczycielaPanelLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(nazwiskoOknoNauczycielaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(nazwiskoOknoNauczycielaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(obowiazkoweNazwiskoLabel))
+                    .addGroup(oknoNauczycielaPanelLayout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(dodajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(anulujButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(oknoNauczycielaPanelLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(imieOknoNauczycielaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(imieOknoNauczycielaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(obowiazkoweImieLabel))
+                    .addGroup(oknoNauczycielaPanelLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(peselOknoNauczycielaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(peselOknoNauczycielaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(obowiazkowePeselLabel)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        oknoNauczycielaPanelLayout.setVerticalGroup(
+            oknoNauczycielaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(oknoNauczycielaPanelLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(dodajNowegoNauczycielaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(oknoNauczycielaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(oknoNauczycielaPanelLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(imieOknoNauczycielaLabel))
+                    .addGroup(oknoNauczycielaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(imieOknoNauczycielaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(obowiazkoweImieLabel)))
+                .addGap(18, 18, 18)
+                .addGroup(oknoNauczycielaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(oknoNauczycielaPanelLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(nazwiskoOknoNauczycielaLabel))
+                    .addGroup(oknoNauczycielaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(nazwiskoOknoNauczycielaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(obowiazkoweNazwiskoLabel)))
+                .addGap(18, 18, 18)
+                .addGroup(oknoNauczycielaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(oknoNauczycielaPanelLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(peselOknoNauczycielaLabel))
+                    .addGroup(oknoNauczycielaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(peselOknoNauczycielaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(obowiazkowePeselLabel)))
+                .addGap(63, 63, 63)
+                .addGroup(oknoNauczycielaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dodajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(anulujButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(oknoNauczycielaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(oknoNauczycielaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        oknoListyNauczyciela.setEnabled(true);
+        oknoListyNauczycieli.setEnabled(true);
     }//GEN-LAST:event_formWindowClosing
+
+    private void anulujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anulujButtonActionPerformed
+        oknoListyNauczycieli.setEnabled(true);
+        dispose();
+    }//GEN-LAST:event_anulujButtonActionPerformed
+
+    private void dodajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajButtonActionPerformed
+        boolean czyWypelniono = true;
+        String czegoBrakuje = "Nie wypełniono następujących obowiązkowych pól:\n";
+        if (imieOknoNauczycielaTextField.getText().isEmpty()) {
+            czyWypelniono = false;
+            czegoBrakuje += "Imię\n";
+        }
+        if (nazwiskoOknoNauczycielaTextField.getText().isEmpty()) {
+            czyWypelniono = false;
+            czegoBrakuje += "Nazwisko\n";
+        }
+        if (peselOknoNauczycielaTextField.getText().isEmpty()) {
+            czyWypelniono = false;
+            czegoBrakuje += "PESEL\n";
+        }
+        if (czyWypelniono) {
+            try {
+                nauczycieleTableModel.insertRow(
+                        imieOknoNauczycielaTextField.getText(),
+                        nazwiskoOknoNauczycielaTextField.getText(),
+                        peselOknoNauczycielaTextField.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(OknoKlasy.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                nauczycieleTableModel = new NauczycieleTableModel(conn);
+                nauczycieleTableModel.fireTableDataChanged();
+                nauczycieleTable.setModel(nauczycieleTableModel);
+                oknoListyNauczycieli.setEnabled(true);
+                dispose();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, czegoBrakuje + "Proszę je uzupełnić", "Nie wypełniono obowiązkowych pól", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_dodajButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -115,6 +278,18 @@ public class OknoNauczyciela extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton anulujButton;
+    private javax.swing.JButton dodajButton;
+    private javax.swing.JLabel dodajNowegoNauczycielaLabel;
+    private javax.swing.JLabel imieOknoNauczycielaLabel;
+    private javax.swing.JTextField imieOknoNauczycielaTextField;
+    private javax.swing.JLabel nazwiskoOknoNauczycielaLabel;
+    private javax.swing.JTextField nazwiskoOknoNauczycielaTextField;
+    private javax.swing.JLabel obowiazkoweImieLabel;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel;
+    private javax.swing.JLabel obowiazkowePeselLabel;
+    private javax.swing.JPanel oknoNauczycielaPanel;
+    private javax.swing.JLabel peselOknoNauczycielaLabel;
+    private javax.swing.JTextField peselOknoNauczycielaTextField;
     // End of variables declaration//GEN-END:variables
 }
