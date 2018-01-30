@@ -25,16 +25,30 @@ public class OknoKlasy extends javax.swing.JFrame {
     private final Connection conn;
     private KlasyTableModel klasyTableModel;
     private javax.swing.JTable klasyTable;
+    private javax.swing.JButton edytujButton;
+    private javax.swing.JButton usunButton;
+    private String tytul;
 
-    public OknoKlasy(javax.swing.JFrame oknoListyKlas, Connection connection, KlasyTableModel listaKlasModel, javax.swing.JTable klasyTable) {
+    public OknoKlasy(javax.swing.JFrame oknoListyKlas, Connection connection, KlasyTableModel listaKlasModel, javax.swing.JTable klasyTable, javax.swing.JButton edytujButton, javax.swing.JButton usunButton, String tytul) {
         conn = connection;
         this.oknoListyKlas = oknoListyKlas;
         this.klasyTableModel = listaKlasModel;
         this.klasyTable = klasyTable;
-        
+        this.edytujButton = edytujButton;
+        this.usunButton = usunButton;
+        this.tytul = tytul;
+
         initComponents();
-        setTitle("Dodaj nową klasę");
+        setTitle(tytul);
+        tytulLabel.setText(tytul.toUpperCase());
         setVisible(true);
+
+        if (tytul == "Edytuj wybraną klasę") {
+            nazwaOknoKlasyTextField.setText((String) this.klasyTable.getValueAt(this.klasyTable.getSelectedRow(), 0));
+            rokPowstaniaOknoKlasyTextField.setText((String) this.klasyTable.getValueAt(this.klasyTable.getSelectedRow(), 1));
+            profilOknoKlasyTextField.setText((String) this.klasyTable.getValueAt(this.klasyTable.getSelectedRow(), 2));
+            dodajOknoKlasyButton.setText("ZMIEŃ");
+        }
     }
 
     private OknoKlasy() {
@@ -51,7 +65,7 @@ public class OknoKlasy extends javax.swing.JFrame {
     private void initComponents() {
 
         oknoKlasyPanel = new javax.swing.JPanel();
-        dodajNowaKlaseLabel = new javax.swing.JLabel();
+        tytulLabel = new javax.swing.JLabel();
         anulujOknoKlasyButton = new javax.swing.JButton();
         dodajOknoKlasyButton = new javax.swing.JButton();
         nazwaOknoKlasyLabel = new javax.swing.JLabel();
@@ -74,9 +88,9 @@ public class OknoKlasy extends javax.swing.JFrame {
             }
         });
 
-        dodajNowaKlaseLabel.setFont(new java.awt.Font("PT Serif", 1, 18)); // NOI18N
-        dodajNowaKlaseLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        dodajNowaKlaseLabel.setText("DODAJ NOWĄ KLASĘ");
+        tytulLabel.setFont(new java.awt.Font("PT Serif", 1, 18)); // NOI18N
+        tytulLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tytulLabel.setText("DODAJ NOWĄ KLASĘ");
 
         anulujOknoKlasyButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         anulujOknoKlasyButton.setText("ANULUJ");
@@ -119,7 +133,7 @@ public class OknoKlasy extends javax.swing.JFrame {
                 .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(oknoKlasyPanelLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
-                        .addComponent(dodajNowaKlaseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tytulLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(oknoKlasyPanelLayout.createSequentialGroup()
                         .addGap(75, 75, 75)
                         .addComponent(dodajOknoKlasyButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -147,7 +161,7 @@ public class OknoKlasy extends javax.swing.JFrame {
             oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(oknoKlasyPanelLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(dodajNowaKlaseLabel)
+                .addComponent(tytulLabel)
                 .addGap(30, 30, 30)
                 .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nazwaOknoKlasyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,11 +226,20 @@ public class OknoKlasy extends javax.swing.JFrame {
         }
         if (czyWypelniono) {
             try {
-                klasyTableModel.insertRow(
-                        nazwaOknoKlasyTextField.getText(),
-                        rokPowstaniaOknoKlasyTextField.getText(),
-                        profilOknoKlasyTextField.getText(),
-                        0);
+                if (tytul == "Dodaj nową klasę") {
+                    klasyTableModel.insertRow(
+                            nazwaOknoKlasyTextField.getText(),
+                            rokPowstaniaOknoKlasyTextField.getText(),
+                            profilOknoKlasyTextField.getText(),
+                            0);
+                } else if (tytul == "Edytuj wybraną klasę") {
+                    klasyTableModel.editRow(
+                            nazwaOknoKlasyTextField.getText(),
+                            rokPowstaniaOknoKlasyTextField.getText(),
+                            profilOknoKlasyTextField.getText(),
+                            0,
+                            klasyTable.getSelectedRow());
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(OknoKlasy.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -224,6 +247,8 @@ public class OknoKlasy extends javax.swing.JFrame {
                 klasyTableModel.fireTableDataChanged();
                 klasyTable.setModel(klasyTableModel);
                 oknoListyKlas.setEnabled(true);
+                edytujButton.setEnabled(false);
+                usunButton.setEnabled(false);
                 dispose();
             }
         } else {
@@ -268,7 +293,6 @@ public class OknoKlasy extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anulujOknoKlasyButton;
-    private javax.swing.JLabel dodajNowaKlaseLabel;
     private javax.swing.JButton dodajOknoKlasyButton;
     private javax.swing.JLabel nazwaOknoKlasyLabel;
     private javax.swing.JTextField nazwaOknoKlasyTextField;
@@ -280,5 +304,6 @@ public class OknoKlasy extends javax.swing.JFrame {
     private javax.swing.JTextField profilOknoKlasyTextField;
     private javax.swing.JLabel rokPowstaniaOknoKlasyLabel;
     private javax.swing.JTextField rokPowstaniaOknoKlasyTextField;
+    private javax.swing.JLabel tytulLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,6 +6,8 @@
 package DziennikElektroniczny.modele;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
@@ -13,7 +15,8 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author patry
  */
-public class KlasyTableModel extends AbstractTableModel{
+public class KlasyTableModel extends AbstractTableModel {
+
     private final Connection conn;
     private ResultSet dane;
     private ResultSetMetaData metadane;
@@ -46,11 +49,11 @@ public class KlasyTableModel extends AbstractTableModel{
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }
     }
-    
+
     public ResultSet getRowSet() {
         return dane;
     }
-    
+
     public void insertRow(String nazwa, String rok_powstania, String profil, int liczba_uczniow) throws SQLException {
         try {
             dane.moveToInsertRow();
@@ -61,10 +64,40 @@ public class KlasyTableModel extends AbstractTableModel{
             dane.insertRow();
             dane.moveToCurrentRow();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, new String[] {"Wystąpił błąd: " + e.getMessage()});
+            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }
     }
-    
+
+    public void editRow(String nazwa, String rok_powstania, String profil, int liczba_uczniow, int row) {
+        try {
+            dane.beforeFirst();
+            for (int i = -1; i < row; i++) {
+                dane.next();
+            }
+            dane.updateString("NAZWA", nazwa);
+            dane.updateString("ROK POWSTANIA", rok_powstania);
+            dane.updateString("PROFIL", profil);
+            dane.updateInt("LICZBA UCZNIÓW", liczba_uczniow);
+            dane.updateRow();
+            dane.moveToCurrentRow();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
+        }
+    }
+
+    public void deleteRow(int row) {
+        try {
+            dane.beforeFirst();
+            for (int i = -1; i < row; i++) {
+                dane.next();
+            }
+            dane.deleteRow();
+            dane.moveToCurrentRow();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
+        }
+    }
+
     @Override
     public int getRowCount() {
         return liczbaWierszy;
@@ -74,23 +107,23 @@ public class KlasyTableModel extends AbstractTableModel{
     public int getColumnCount() {
         return liczbaKolumn;
     }
-    
+
     @Override
     public String getColumnName(int kolumna) {
         try {
             return this.metadane.getColumnName(kolumna + 1);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, new String[] {"Wystąpił błąd: " + e.getMessage()});
+            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
             return e.toString();
         }
     }
-    
+
     @Override
     public Class getColumnClass(int kolumna) {
         try {
             return Class.forName(metadane.getColumnClassName(kolumna + 1));
         } catch (SQLException | ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, new String[] {"Wystąpił błąd: " + e.getMessage()});
+            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
             return String.class;
         }
     }
@@ -106,11 +139,11 @@ public class KlasyTableModel extends AbstractTableModel{
                 return o;
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, new String[] {"Wystąpił błąd: " + e.getMessage()});
+            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
             return e.toString();
         }
     }
-    
+
     public void close() {
         try {
             if (dane != null) {
@@ -120,15 +153,16 @@ public class KlasyTableModel extends AbstractTableModel{
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, new String[] {"Wystąpił błąd: " + e.getMessage()});
+            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }
     }
-    
+
     @Override
     public boolean isCellEditable(int wiersz, int kolumna) {
         return false;
     }
-    
+
     @Override
-    public void setValueAt(Object value, int wiersz, int kolumna) { }
+    public void setValueAt(Object value, int wiersz, int kolumna) {
+    }
 }

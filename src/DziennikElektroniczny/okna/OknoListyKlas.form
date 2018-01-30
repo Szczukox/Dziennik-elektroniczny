@@ -138,6 +138,9 @@
                   </Table>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="listaKlasTableMousePressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -179,6 +182,9 @@
                 <Property name="text" type="java.lang.String" value="Usu&#x144;"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usunKlaseButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="edytujKlaseButton">
               <Properties>

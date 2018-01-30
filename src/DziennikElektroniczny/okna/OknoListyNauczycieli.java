@@ -6,6 +6,7 @@
 package DziennikElektroniczny.okna;
 
 import DziennikElektroniczny.modele.NauczycieleTableModel;
+import java.awt.event.MouseEvent;
 import java.sql.*;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
@@ -92,6 +93,11 @@ public class OknoListyNauczycieli extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        listaNauczycieliTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                listaNauczycieliTableMousePressed(evt);
+            }
+        });
         listaNauczycieliScrollPane.setViewportView(listaNauczycieliTable);
 
         dodajNauczycielaButton.setText("Dodaj");
@@ -106,6 +112,11 @@ public class OknoListyNauczycieli extends javax.swing.JFrame {
 
         edytujNauczycielaButton.setText("Edytuj");
         edytujNauczycielaButton.setEnabled(false);
+        edytujNauczycielaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edytujNauczycielaButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout opcjePanelLayout = new javax.swing.GroupLayout(opcjePanel);
         opcjePanel.setLayout(opcjePanelLayout);
@@ -185,10 +196,24 @@ public class OknoListyNauczycieli extends javax.swing.JFrame {
 
     private void dodajNauczycielaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajNauczycielaButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
-            OknoNauczyciela oknoNauczyciela = new OknoNauczyciela(this, conn, listaNauczycieliModel, listaNauczycieliTable);
+            OknoNauczyciela oknoNauczyciela = new OknoNauczyciela(this, conn, listaNauczycieliModel, listaNauczycieliTable, edytujNauczycielaButton, usunNauczycielaButton, "Dodaj nowego nauczyciela");
         });
         setEnabled(false);
     }//GEN-LAST:event_dodajNauczycielaButtonActionPerformed
+
+    private void listaNauczycieliTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaNauczycieliTableMousePressed
+        if (evt.getButton() == MouseEvent.BUTTON1) {
+            edytujNauczycielaButton.setEnabled(true);
+            usunNauczycielaButton.setEnabled(true);
+        }
+    }//GEN-LAST:event_listaNauczycieliTableMousePressed
+
+    private void edytujNauczycielaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edytujNauczycielaButtonActionPerformed
+        SwingUtilities.invokeLater(() -> {
+            OknoNauczyciela oknoNauczyciela = new OknoNauczyciela(this, conn, listaNauczycieliModel, listaNauczycieliTable, edytujNauczycielaButton, usunNauczycielaButton, "Edytuj wybranego nauczyciela");
+        });
+        setEnabled(false);
+    }//GEN-LAST:event_edytujNauczycielaButtonActionPerformed
 
     /**
      * @param args the command line arguments

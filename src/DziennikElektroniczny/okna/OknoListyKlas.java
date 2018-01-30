@@ -6,7 +6,11 @@
 package DziennikElektroniczny.okna;
 
 import DziennikElektroniczny.modele.KlasyTableModel;
+import java.awt.event.MouseEvent;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
@@ -97,6 +101,11 @@ public class OknoListyKlas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        listaKlasTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                listaKlasTableMousePressed(evt);
+            }
+        });
         listaKlasScrollPane.setViewportView(listaKlasTable);
 
         dodajKlaseButton.setText("Dodaj");
@@ -108,6 +117,11 @@ public class OknoListyKlas extends javax.swing.JFrame {
 
         usunKlaseButton.setText("Usuń");
         usunKlaseButton.setEnabled(false);
+        usunKlaseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usunKlaseButtonActionPerformed(evt);
+            }
+        });
 
         edytujKlaseButton.setText("Edytuj");
         edytujKlaseButton.setEnabled(false);
@@ -196,18 +210,37 @@ public class OknoListyKlas extends javax.swing.JFrame {
 
     private void dodajKlaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajKlaseButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
-            OknoKlasy oknoKlasy = new OknoKlasy(this, conn, listaKlasModel, listaKlasTable);
+            OknoKlasy oknoKlasy = new OknoKlasy(this, conn, listaKlasModel, listaKlasTable, edytujKlaseButton, usunKlaseButton, "Dodaj nową klasę");
         });
         setEnabled(false);
     }//GEN-LAST:event_dodajKlaseButtonActionPerformed
 
     private void edytujKlaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edytujKlaseButtonActionPerformed
-
+        SwingUtilities.invokeLater(() -> {
+            OknoKlasy oknoKlasy = new OknoKlasy(this, conn, listaKlasModel, listaKlasTable, edytujKlaseButton, usunKlaseButton, "Edytuj wybraną klasę");
+        });
+        setEnabled(false);
     }//GEN-LAST:event_edytujKlaseButtonActionPerformed
 
+    private void listaKlasTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaKlasTableMousePressed
+        if (evt.getButton() == MouseEvent.BUTTON1) {
+            edytujKlaseButton.setEnabled(true);
+            usunKlaseButton.setEnabled(true);
+        }
+    }//GEN-LAST:event_listaKlasTableMousePressed
+
+    private void usunKlaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usunKlaseButtonActionPerformed
+        listaKlasModel.deleteRow(listaKlasTable.getSelectedRow());
+        listaKlasModel = new KlasyTableModel(conn);
+        listaKlasModel.fireTableDataChanged();
+        listaKlasTable.setModel(listaKlasModel);
+        edytujKlaseButton.setEnabled(false);
+        usunKlaseButton.setEnabled(false);
+    }//GEN-LAST:event_usunKlaseButtonActionPerformed
+
     /**
-     * @param args the command line arguments
-     */
+         * @param args the command line arguments
+         */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
