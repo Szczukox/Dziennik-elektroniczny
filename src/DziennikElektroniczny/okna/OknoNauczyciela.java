@@ -27,16 +27,27 @@ public class OknoNauczyciela extends javax.swing.JFrame {
     private javax.swing.JTable nauczycieleTable;
     private javax.swing.JButton edytujButton;
     private javax.swing.JButton usunButton;
+    private String tytul;
 
     public OknoNauczyciela(javax.swing.JFrame oknoListyNauczycieli, Connection connection, NauczycieleTableModel nauczycieleTableModel, javax.swing.JTable nauczycieleTable, javax.swing.JButton edytujButton, javax.swing.JButton usunButton, String tytul) {
         conn = connection;
         this.oknoListyNauczycieli = oknoListyNauczycieli;
         this.nauczycieleTableModel = nauczycieleTableModel;
         this.nauczycieleTable = nauczycieleTable;
+        this.edytujButton = edytujButton;
+        this.usunButton = usunButton;
+        this.tytul = tytul;
         initComponents();
         setTitle(tytul);
         tytulLabel.setText(tytul.toUpperCase());
         setVisible(true);
+
+        if (tytul == "Edytuj wybranego nauczyciela") {
+            imieOknoNauczycielaTextField.setText((String) this.nauczycieleTable.getValueAt(this.nauczycieleTable.getSelectedRow(), 0));
+            nazwiskoOknoNauczycielaTextField.setText((String) this.nauczycieleTable.getValueAt(this.nauczycieleTable.getSelectedRow(), 1));
+            peselOknoNauczycielaTextField.setText((String) this.nauczycieleTable.getValueAt(this.nauczycieleTable.getSelectedRow(), 2));
+            dodajButton.setText("ZMIEŃ");
+        }
     }
 
     private OknoNauczyciela() {
@@ -229,10 +240,18 @@ public class OknoNauczyciela extends javax.swing.JFrame {
         }
         if (czyWypelniono) {
             try {
-                nauczycieleTableModel.insertRow(
-                        imieOknoNauczycielaTextField.getText(),
-                        nazwiskoOknoNauczycielaTextField.getText(),
-                        peselOknoNauczycielaTextField.getText());
+                if (tytul == "Dodaj nowego nauczyciela") {
+                    nauczycieleTableModel.insertRow(
+                            imieOknoNauczycielaTextField.getText(),
+                            nazwiskoOknoNauczycielaTextField.getText(),
+                            peselOknoNauczycielaTextField.getText());
+                } else if (tytul == "Edytuj wybranego nauczyciela") {
+                    nauczycieleTableModel.editRow(
+                            imieOknoNauczycielaTextField.getText(),
+                            nazwiskoOknoNauczycielaTextField.getText(),
+                            peselOknoNauczycielaTextField.getText(),
+                            nauczycieleTable.getSelectedRow());
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(OknoKlasy.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -240,6 +259,8 @@ public class OknoNauczyciela extends javax.swing.JFrame {
                 nauczycieleTableModel.fireTableDataChanged();
                 nauczycieleTable.setModel(nauczycieleTableModel);
                 oknoListyNauczycieli.setEnabled(true);
+                edytujButton.setEnabled(false);
+                usunButton.setEnabled(false);
                 dispose();
             }
         } else {

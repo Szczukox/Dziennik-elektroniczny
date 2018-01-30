@@ -5,9 +5,12 @@
  */
 package DziennikElektroniczny.okna;
 
+import DziennikElektroniczny.modele.KlasyTableModel;
 import DziennikElektroniczny.modele.NauczycieleTableModel;
 import java.awt.event.MouseEvent;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 
@@ -109,6 +112,11 @@ public class OknoListyNauczycieli extends javax.swing.JFrame {
 
         usunNauczycielaButton.setText("Usuń");
         usunNauczycielaButton.setEnabled(false);
+        usunNauczycielaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usunNauczycielaButtonActionPerformed(evt);
+            }
+        });
 
         edytujNauczycielaButton.setText("Edytuj");
         edytujNauczycielaButton.setEnabled(false);
@@ -212,8 +220,20 @@ public class OknoListyNauczycieli extends javax.swing.JFrame {
         SwingUtilities.invokeLater(() -> {
             OknoNauczyciela oknoNauczyciela = new OknoNauczyciela(this, conn, listaNauczycieliModel, listaNauczycieliTable, edytujNauczycielaButton, usunNauczycielaButton, "Edytuj wybranego nauczyciela");
         });
+        //listaNauczycieliModel = new NauczycieleTableModel(conn);
+        //listaNauczycieliModel.fireTableDataChanged();
+        //listaNauczycieliTable.setModel(listaNauczycieliModel);
         setEnabled(false);
     }//GEN-LAST:event_edytujNauczycielaButtonActionPerformed
+
+    private void usunNauczycielaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usunNauczycielaButtonActionPerformed
+        listaNauczycieliModel.deleteRow(listaNauczycieliTable.getSelectedRow());
+        listaNauczycieliModel = new NauczycieleTableModel(conn);
+        listaNauczycieliModel.fireTableDataChanged();
+        listaNauczycieliTable.setModel(listaNauczycieliModel);
+        edytujNauczycielaButton.setEnabled(false);
+        usunNauczycielaButton.setEnabled(false);
+    }//GEN-LAST:event_usunNauczycielaButtonActionPerformed
 
     /**
      * @param args the command line arguments

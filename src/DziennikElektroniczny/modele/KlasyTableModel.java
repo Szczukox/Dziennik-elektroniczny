@@ -63,6 +63,7 @@ public class KlasyTableModel extends AbstractTableModel {
             dane.updateInt("LICZBA UCZNIÓW", liczba_uczniow);
             dane.insertRow();
             dane.moveToCurrentRow();
+            dane = zapytanie.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }

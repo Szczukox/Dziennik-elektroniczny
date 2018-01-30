@@ -60,6 +60,36 @@ public class NauczycieleTableModel extends AbstractTableModel {
             dane.updateString("PESEL", pesel);
             dane.insertRow();
             dane.moveToCurrentRow();
+            dane = zapytanie.executeQuery();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
+        }
+    }
+
+    public void editRow(String imie, String nazwisko, String pesel, int row) {
+        try {
+            dane.beforeFirst();
+            for (int i = -1; i < row; i++) {
+                dane.next();
+            }
+            dane.updateString("IMIE", imie);
+            dane.updateString("NAZWISKO", nazwisko);
+            dane.updateString("PESEL", pesel);
+            dane.updateRow();
+            dane.moveToCurrentRow();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
+        }
+    }
+
+    public void deleteRow(int row) {
+        try {
+            dane.beforeFirst();
+            for (int i = -1; i < row; i++) {
+                dane.next();
+            }
+            dane.deleteRow();
+            dane.moveToCurrentRow();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }
