@@ -5,7 +5,10 @@
  */
 package DziennikElektroniczny.okna;
 
+import DziennikElektroniczny.modele.KlasyComboBoxModel;
 import DziennikElektroniczny.modele.KlasyTableModel;
+import DziennikElektroniczny.modele.ListaNauczycieliModel;
+import DziennikElektroniczny.modele.NauczycieleComboBoxModel;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -27,6 +30,7 @@ public class OknoKlasy extends javax.swing.JFrame {
     private javax.swing.JTable klasyTable;
     private javax.swing.JButton edytujButton;
     private javax.swing.JButton usunButton;
+    private javax.swing.ComboBoxModel nauczycieleComboBoxModel;
     private String tytul;
 
     public OknoKlasy(javax.swing.JFrame oknoListyKlas, Connection connection, KlasyTableModel listaKlasModel, javax.swing.JTable klasyTable, javax.swing.JButton edytujButton, javax.swing.JButton usunButton, String tytul) {
@@ -39,14 +43,19 @@ public class OknoKlasy extends javax.swing.JFrame {
         this.tytul = tytul;
 
         initComponents();
+        ListaNauczycieliModel listaNauczycieliModel = new ListaNauczycieliModel();
+        String[] listaNauczycieli = listaNauczycieliModel.listaNauczycieli(conn);
+        nauczycieleComboBoxModel = new NauczycieleComboBoxModel(listaNauczycieli);
+        nauczycieleComboBox.setModel(nauczycieleComboBoxModel);
         setTitle(tytul);
         tytulLabel.setText(tytul.toUpperCase());
         setVisible(true);
 
         if (tytul == "Edytuj wybraną klasę") {
-            nazwaOknoKlasyTextField.setText((String) this.klasyTable.getValueAt(this.klasyTable.getSelectedRow(), 0));
-            rokPowstaniaOknoKlasyTextField.setText((String) this.klasyTable.getValueAt(this.klasyTable.getSelectedRow(), 1));
-            profilOknoKlasyTextField.setText((String) this.klasyTable.getValueAt(this.klasyTable.getSelectedRow(), 2));
+            nazwaOknoKlasyTextField.setText((String) this.klasyTable.getValueAt(this.klasyTable.getSelectedRow(), 1));
+            rokPowstaniaOknoKlasyTextField.setText((String) this.klasyTable.getValueAt(this.klasyTable.getSelectedRow(), 2));
+            profilOknoKlasyTextField.setText((String) this.klasyTable.getValueAt(this.klasyTable.getSelectedRow(), 3));
+            nauczycieleComboBox.setSelectedItem(String.valueOf(this.klasyTable.getValueAt(this.klasyTable.getSelectedRow(), 4)));
             dodajOknoKlasyButton.setText("ZMIEŃ");
         }
     }
@@ -77,6 +86,8 @@ public class OknoKlasy extends javax.swing.JFrame {
         obowiazkoweNazwaLabel = new javax.swing.JLabel();
         obowiazkoweRokPowstaniaLabel = new javax.swing.JLabel();
         obowiazkoweProfilLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        nauczycieleComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dodaj nową klasę");
@@ -125,6 +136,11 @@ public class OknoKlasy extends javax.swing.JFrame {
 
         obowiazkoweProfilLabel.setText("*");
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("Wychowawca:");
+
+        nauczycieleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout oknoKlasyPanelLayout = new javax.swing.GroupLayout(oknoKlasyPanel);
         oknoKlasyPanel.setLayout(oknoKlasyPanelLayout);
         oknoKlasyPanelLayout.setHorizontalGroup(
@@ -144,12 +160,14 @@ public class OknoKlasy extends javax.swing.JFrame {
                         .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(nazwaOknoKlasyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(profilOknoKlasyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rokPowstaniaOknoKlasyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                            .addComponent(rokPowstaniaOknoKlasyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(50, 50, 50)
-                        .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rokPowstaniaOknoKlasyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(profilOknoKlasyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nazwaOknoKlasyTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(rokPowstaniaOknoKlasyTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(profilOknoKlasyTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(nazwaOknoKlasyTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(nauczycieleComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(obowiazkoweNazwaLabel)
@@ -177,7 +195,11 @@ public class OknoKlasy extends javax.swing.JFrame {
                     .addComponent(profilOknoKlasyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(profilOknoKlasyLabel)
                     .addComponent(obowiazkoweProfilLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(nauczycieleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
                 .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dodajOknoKlasyButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(anulujOknoKlasyButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -224,6 +246,10 @@ public class OknoKlasy extends javax.swing.JFrame {
             czyWypelniono = false;
             czegoBrakuje += "Profil\n";
         }
+        if (nauczycieleComboBox.getSelectedItem().toString().equals("---WYBIERZ---")) {
+            czyWypelniono = false;
+            czegoBrakuje += "Wychowawca\n";
+        }
         if (czyWypelniono) {
             try {
                 if (tytul == "Dodaj nową klasę") {
@@ -231,13 +257,15 @@ public class OknoKlasy extends javax.swing.JFrame {
                             nazwaOknoKlasyTextField.getText(),
                             rokPowstaniaOknoKlasyTextField.getText(),
                             profilOknoKlasyTextField.getText(),
-                            0);
+                            nauczycieleComboBox.getSelectedItem().toString(),
+                            "0");
                 } else if (tytul == "Edytuj wybraną klasę") {
                     klasyTableModel.editRow(
                             nazwaOknoKlasyTextField.getText(),
                             rokPowstaniaOknoKlasyTextField.getText(),
                             profilOknoKlasyTextField.getText(),
-                            0,
+                            nauczycieleComboBox.getSelectedItem().toString(),
+                            "0",
                             klasyTable.getSelectedRow());
                 }
             } catch (SQLException ex) {
@@ -294,6 +322,8 @@ public class OknoKlasy extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anulujOknoKlasyButton;
     private javax.swing.JButton dodajOknoKlasyButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox<String> nauczycieleComboBox;
     private javax.swing.JLabel nazwaOknoKlasyLabel;
     private javax.swing.JTextField nazwaOknoKlasyTextField;
     private javax.swing.JLabel obowiazkoweNazwaLabel;

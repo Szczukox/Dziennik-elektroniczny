@@ -43,9 +43,9 @@ public class OknoNauczyciela extends javax.swing.JFrame {
         setVisible(true);
 
         if (tytul == "Edytuj wybranego nauczyciela") {
-            imieOknoNauczycielaTextField.setText((String) this.nauczycieleTable.getValueAt(this.nauczycieleTable.getSelectedRow(), 0));
-            nazwiskoOknoNauczycielaTextField.setText((String) this.nauczycieleTable.getValueAt(this.nauczycieleTable.getSelectedRow(), 1));
-            peselOknoNauczycielaTextField.setText((String) this.nauczycieleTable.getValueAt(this.nauczycieleTable.getSelectedRow(), 2));
+            imieOknoNauczycielaTextField.setText((String) this.nauczycieleTable.getValueAt(this.nauczycieleTable.getSelectedRow(), 1));
+            nazwiskoOknoNauczycielaTextField.setText((String) this.nauczycieleTable.getValueAt(this.nauczycieleTable.getSelectedRow(), 2));
+            peselOknoNauczycielaTextField.setText((String) this.nauczycieleTable.getValueAt(this.nauczycieleTable.getSelectedRow(), 3));
             dodajButton.setText("ZMIEŃ");
         }
     }

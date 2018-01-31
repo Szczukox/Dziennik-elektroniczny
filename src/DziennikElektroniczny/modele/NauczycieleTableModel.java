@@ -32,7 +32,7 @@ public class NauczycieleTableModel extends AbstractTableModel {
                     zapytanie.close();
                 }
             }
-            String sql = "SELECT IMIE, NAZWISKO, PESEL FROM NAUCZYCIELE ORDER BY NAZWISKO";
+            String sql = "SELECT ID, IMIE, NAZWISKO, PESEL FROM NAUCZYCIELE ORDER BY NAZWISKO";
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();
             metadane = dane.getMetaData();

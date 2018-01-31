@@ -34,7 +34,7 @@ public class KlasyTableModel extends AbstractTableModel {
                     zapytanie.close();
                 }
             }
-            String sql = "SELECT NAZWA, ROK_POWSTANIA AS 'ROK POWSTANIA', PROFIL, LICZBA_UCZNIOW AS 'LICZBA UCZNIÓW' FROM KLASY";
+            String sql = "SELECT ID, NAZWA, ROK_POWSTANIA AS 'ROK POWSTANIA', PROFIL, ID_WYCHOWAWCY AS 'WYCHOWAWCA', LICZBA_UCZNIOW AS 'LICZBA UCZNIÓW' FROM KLASY ORDER BY NAZWA";
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();
             metadane = dane.getMetaData();
@@ -54,13 +54,14 @@ public class KlasyTableModel extends AbstractTableModel {
         return dane;
     }
 
-    public void insertRow(String nazwa, String rok_powstania, String profil, int liczba_uczniow) throws SQLException {
+    public void insertRow(String nazwa, String rok_powstania, String profil, String wychowawca, String liczba_uczniow) throws SQLException {
         try {
             dane.moveToInsertRow();
             dane.updateString("NAZWA", nazwa);
             dane.updateString("ROK POWSTANIA", rok_powstania);
             dane.updateString("PROFIL", profil);
-            dane.updateInt("LICZBA UCZNIÓW", liczba_uczniow);
+            dane.updateInt("WYCHOWAWCA", Integer.parseInt(wychowawca));
+            dane.updateInt("LICZBA UCZNIÓW", Integer.parseInt(liczba_uczniow));
             dane.insertRow();
             dane.moveToCurrentRow();
             dane = zapytanie.executeQuery();
@@ -69,7 +70,7 @@ public class KlasyTableModel extends AbstractTableModel {
         }
     }
 
-    public void editRow(String nazwa, String rok_powstania, String profil, int liczba_uczniow, int row) {
+    public void editRow(String nazwa, String rok_powstania, String profil, String wychowawca, String liczba_uczniow, int row) {
         try {
             dane.beforeFirst();
             for (int i = -1; i < row; i++) {
@@ -78,7 +79,8 @@ public class KlasyTableModel extends AbstractTableModel {
             dane.updateString("NAZWA", nazwa);
             dane.updateString("ROK POWSTANIA", rok_powstania);
             dane.updateString("PROFIL", profil);
-            dane.updateInt("LICZBA UCZNIÓW", liczba_uczniow);
+            dane.updateInt("WYCHOWAWCA", Integer.parseInt(wychowawca));
+            dane.updateInt("LICZBA UCZNIÓW", Integer.parseInt(liczba_uczniow));
             dane.updateRow();
             dane.moveToCurrentRow();
         } catch (SQLException e) {
@@ -121,12 +123,8 @@ public class KlasyTableModel extends AbstractTableModel {
 
     @Override
     public Class getColumnClass(int kolumna) {
-        try {
-            return Class.forName(metadane.getColumnClassName(kolumna + 1));
-        } catch (SQLException | ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
-            return String.class;
-        }
+        //return Class.forName(metadane.getColumnClassName(kolumna + 1));
+        return String.class;
     }
 
     @Override
