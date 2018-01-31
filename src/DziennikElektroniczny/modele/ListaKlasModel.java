@@ -23,7 +23,7 @@ public class ListaKlasModel {
             ResultSet rsKlasy = klasySt.executeQuery("SELECT COUNT(*) FROM KLASY");
             rsKlasy.next();
             klasy = new String[rsKlasy.getInt(1) + 1];
-            rsKlasy = klasySt.executeQuery("SELECT NAZWA FROM KLASY");
+            rsKlasy = klasySt.executeQuery("SELECT ID FROM KLASY");
             klasy[0] = "---WYBIERZ---";
             int i = 1;
             while (rsKlasy.next()) {

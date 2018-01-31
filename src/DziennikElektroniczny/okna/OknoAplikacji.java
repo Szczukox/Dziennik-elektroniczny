@@ -569,6 +569,11 @@ public class OknoAplikacji extends javax.swing.JFrame {
 
         trybDyrektoraPrzydzielPrzedmiotINauczycielaButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         trybDyrektoraPrzydzielPrzedmiotINauczycielaButton.setText("PRZYDZIEL PRZEDMIOT I NAUCZYCIELA");
+        trybDyrektoraPrzydzielPrzedmiotINauczycielaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trybDyrektoraPrzydzielPrzedmiotINauczycielaButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout trybDyrektoraPanelLayout = new javax.swing.GroupLayout(trybDyrektoraPanel);
         trybDyrektoraPanel.setLayout(trybDyrektoraPanelLayout);
@@ -586,11 +591,10 @@ public class OknoAplikacji extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(trybDyrektoraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(trybDyrektoraPrzydzielPrzedmiotINauczycielaButton, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                    .addGroup(trybDyrektoraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(trybDyrektoraZobaczListePrzedmiotowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(trybDyrektoraZobaczKlasyButton, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                        .addComponent(trybDyrektoraZobaczNauczycieliButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                        .addComponent(trybDyrektoraZobaczUczniowButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(trybDyrektoraZobaczListePrzedmiotowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(trybDyrektoraZobaczKlasyButton, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                    .addComponent(trybDyrektoraZobaczNauczycieliButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                    .addComponent(trybDyrektoraZobaczUczniowButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(100, 100, 100))
         );
         trybDyrektoraPanelLayout.setVerticalGroup(
@@ -858,6 +862,13 @@ public class OknoAplikacji extends javax.swing.JFrame {
         });
         setEnabled(false);
     }//GEN-LAST:event_trybDyrektoraZobaczListePrzedmiotowButtonActionPerformed
+
+    private void trybDyrektoraPrzydzielPrzedmiotINauczycielaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybDyrektoraPrzydzielPrzedmiotINauczycielaButtonActionPerformed
+        SwingUtilities.invokeLater(() -> {
+            OknoListyPrzydzialow oknoListyPrzydzialow = new OknoListyPrzydzialow(this, conn);
+        });
+        setEnabled(false);
+    }//GEN-LAST:event_trybDyrektoraPrzydzielPrzedmiotINauczycielaButtonActionPerformed
 
     /**
      * @param args the command line arguments
