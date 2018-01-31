@@ -27,9 +27,9 @@ public class OknoListyNauczycieli extends javax.swing.JFrame {
     private final Connection conn;
     private NauczycieleTableModel listaNauczycieliModel;
 
-    public OknoListyNauczycieli(javax.swing.JFrame oknoListyKlas, Connection connection) {
+    public OknoListyNauczycieli(javax.swing.JFrame oknoAplikacji, Connection connection) {
         conn = connection;
-        this.oknoAplikacji = oknoListyKlas;
+        this.oknoAplikacji = oknoAplikacji;
         initComponents();
         listaNauczycieliModel = new NauczycieleTableModel(conn);
         listaNauczycieliModel.fireTableDataChanged();

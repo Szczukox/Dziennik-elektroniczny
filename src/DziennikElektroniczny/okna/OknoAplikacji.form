@@ -741,9 +741,13 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="trybDyrektoraZobaczKlasyButton" pref="400" max="32767" attributes="0"/>
-                      <Component id="trybDyrektoraZobaczUczniowButton" alignment="0" max="32767" attributes="0"/>
-                      <Component id="trybDyrektoraZobaczNauczycieliButton" alignment="0" pref="400" max="32767" attributes="0"/>
+                      <Component id="trybDyrektoraPrzydzielPrzedmiotINauczycielaButton" pref="400" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="trybDyrektoraZobaczListePrzedmiotowButton" max="32767" attributes="0"/>
+                          <Component id="trybDyrektoraZobaczKlasyButton" pref="400" max="32767" attributes="0"/>
+                          <Component id="trybDyrektoraZobaczNauczycieliButton" alignment="0" pref="400" max="32767" attributes="0"/>
+                          <Component id="trybDyrektoraZobaczUczniowButton" alignment="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
               </Group>
@@ -754,13 +758,17 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                   <Component id="trybDyrektoraLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                   <Component id="trybDyrektoraZobaczUczniowButton" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="trybDyrektoraZobaczKlasyButton" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="trybDyrektoraZobaczNauczycieliButton" min="-2" pref="60" max="-2" attributes="0"/>
-                  <EmptySpace pref="118" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="trybDyrektoraZobaczListePrzedmiotowButton" min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="trybDyrektoraPrzydzielPrzedmiotINauczycielaButton" min="-2" pref="59" max="-2" attributes="0"/>
+                  <EmptySpace pref="45" max="32767" attributes="0"/>
                   <Component id="wyjdzTrybDyrektoraButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
@@ -824,6 +832,25 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trybDyrektoraZobaczNauczycieliButtonActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="trybDyrektoraZobaczListePrzedmiotowButton">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="ZOBACZ LIST&#x118; PRZEDMIOT&#xd3;W"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trybDyrektoraZobaczListePrzedmiotowButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="trybDyrektoraPrzydzielPrzedmiotINauczycielaButton">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="PRZYDZIEL PRZEDMIOT I NAUCZYCIELA"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

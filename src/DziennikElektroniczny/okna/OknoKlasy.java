@@ -86,8 +86,9 @@ public class OknoKlasy extends javax.swing.JFrame {
         obowiazkoweNazwaLabel = new javax.swing.JLabel();
         obowiazkoweRokPowstaniaLabel = new javax.swing.JLabel();
         obowiazkoweProfilLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        wychowawcaLabel = new javax.swing.JLabel();
         nauczycieleComboBox = new javax.swing.JComboBox<>();
+        obowiazkoweWychowawcaLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dodaj nową klasę");
@@ -136,10 +137,12 @@ public class OknoKlasy extends javax.swing.JFrame {
 
         obowiazkoweProfilLabel.setText("*");
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Wychowawca:");
+        wychowawcaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        wychowawcaLabel.setText("Wychowawca:");
 
         nauczycieleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        obowiazkoweWychowawcaLabel.setText("*");
 
         javax.swing.GroupLayout oknoKlasyPanelLayout = new javax.swing.GroupLayout(oknoKlasyPanel);
         oknoKlasyPanel.setLayout(oknoKlasyPanelLayout);
@@ -161,7 +164,7 @@ public class OknoKlasy extends javax.swing.JFrame {
                             .addComponent(nazwaOknoKlasyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(profilOknoKlasyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(rokPowstaniaOknoKlasyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(wychowawcaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(50, 50, 50)
                         .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(rokPowstaniaOknoKlasyTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
@@ -172,7 +175,8 @@ public class OknoKlasy extends javax.swing.JFrame {
                         .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(obowiazkoweNazwaLabel)
                             .addComponent(obowiazkoweRokPowstaniaLabel)
-                            .addComponent(obowiazkoweProfilLabel))))
+                            .addComponent(obowiazkoweProfilLabel)
+                            .addComponent(obowiazkoweWychowawcaLabel))))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         oknoKlasyPanelLayout.setVerticalGroup(
@@ -197,9 +201,10 @@ public class OknoKlasy extends javax.swing.JFrame {
                     .addComponent(obowiazkoweProfilLabel))
                 .addGap(18, 18, 18)
                 .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(nauczycieleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                    .addComponent(wychowawcaLabel)
+                    .addComponent(nauczycieleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(obowiazkoweWychowawcaLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dodajOknoKlasyButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(anulujOknoKlasyButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -322,18 +327,19 @@ public class OknoKlasy extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anulujOknoKlasyButton;
     private javax.swing.JButton dodajOknoKlasyButton;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JComboBox<String> nauczycieleComboBox;
     private javax.swing.JLabel nazwaOknoKlasyLabel;
     private javax.swing.JTextField nazwaOknoKlasyTextField;
     private javax.swing.JLabel obowiazkoweNazwaLabel;
     private javax.swing.JLabel obowiazkoweProfilLabel;
     private javax.swing.JLabel obowiazkoweRokPowstaniaLabel;
+    private javax.swing.JLabel obowiazkoweWychowawcaLabel;
     private javax.swing.JPanel oknoKlasyPanel;
     private javax.swing.JLabel profilOknoKlasyLabel;
     private javax.swing.JTextField profilOknoKlasyTextField;
     private javax.swing.JLabel rokPowstaniaOknoKlasyLabel;
     private javax.swing.JTextField rokPowstaniaOknoKlasyTextField;
     private javax.swing.JLabel tytulLabel;
+    private javax.swing.JLabel wychowawcaLabel;
     // End of variables declaration//GEN-END:variables
 }
