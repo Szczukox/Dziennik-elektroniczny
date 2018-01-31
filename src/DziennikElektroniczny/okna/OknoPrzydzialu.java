@@ -38,15 +38,23 @@ public class OknoPrzydzialu extends javax.swing.JFrame {
     private javax.swing.ComboBoxModel klasyComboBoxModel;
     private javax.swing.ComboBoxModel przedmiotyComboBoxModel;
     private javax.swing.ComboBoxModel nauczycieleComboBoxModel;
+    private String klasa;
+    private String przedmiot;
+    private String nauczyciel;
     private String tytul;
 
-    public OknoPrzydzialu(javax.swing.JFrame oknoListyKlas, Connection connection, PrzydzialyTableModel listaPrzydzialowModel, javax.swing.JTable przydzialyTable, javax.swing.JButton edytujButton, javax.swing.JButton usunButton, String tytul) {
+    public OknoPrzydzialu(javax.swing.JFrame oknoListyKlas, Connection connection, PrzydzialyTableModel listaPrzydzialowModel,
+            javax.swing.JTable przydzialyTable, javax.swing.JButton edytujButton, javax.swing.JButton usunButton, String tytul,
+            String klasa, String przedmiot, String nauczyciel) {
         conn = connection;
         this.oknoListyKlas = oknoListyKlas;
         this.przydzialyTableModel = listaPrzydzialowModel;
         this.przydzialyTable = przydzialyTable;
         this.edytujButton = edytujButton;
         this.usunButton = usunButton;
+        this.klasa = klasa;
+        this.przedmiot = przedmiot;
+        this.nauczyciel = nauczyciel;
         this.tytul = tytul;
 
         initComponents();
@@ -272,7 +280,7 @@ public class OknoPrzydzialu extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(OknoKlasy.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
-                przydzialyTableModel = new PrzydzialyTableModel(conn);
+                przydzialyTableModel = new PrzydzialyTableModel(conn, klasa, przedmiot, nauczyciel);
                 przydzialyTableModel.fireTableDataChanged();
                 przydzialyTable.setModel(przydzialyTableModel);
                 oknoListyKlas.setEnabled(true);

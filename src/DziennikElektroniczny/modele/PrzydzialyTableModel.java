@@ -22,7 +22,7 @@ public class PrzydzialyTableModel extends AbstractTableModel {
     private int liczbaWierszy;
     private PreparedStatement zapytanie;
 
-    public PrzydzialyTableModel(Connection connection) {
+    public PrzydzialyTableModel(Connection connection, String klasa, String przedmiot, String nauczyciel) {
         conn = connection;
         zapytanie = null;
         try {
@@ -32,7 +32,24 @@ public class PrzydzialyTableModel extends AbstractTableModel {
                     zapytanie.close();
                 }
             }
-            String sql = "SELECT ID, KLASA, PRZEDMIOT, NAUCZYCIEL FROM PRZYDZIALY ORDER BY KLASA";
+            String sql = null;
+            if (klasa.equals("---WYBIERZ---") && przedmiot.equals("---WYBIERZ---") && nauczyciel.equals("---WYBIERZ---")) {
+                sql = "SELECT ID, KLASA, PRZEDMIOT, NAUCZYCIEL FROM PRZYDZIALY ORDER BY KLASA";
+            } else if (klasa != "---WYBIERZ---" && przedmiot.equals("---WYBIERZ---") && nauczyciel.equals("---WYBIERZ---")) {
+                sql = "SELECT ID, KLASA, PRZEDMIOT, NAUCZYCIEL FROM PRZYDZIALY WHERE KLASA = " + klasa + " ORDER BY KLASA";
+            } else if (klasa.equals("---WYBIERZ---") && przedmiot != "---WYBIERZ---" && nauczyciel.equals("---WYBIERZ---")) {
+                sql = "SELECT ID, KLASA, PRZEDMIOT, NAUCZYCIEL FROM PRZYDZIALY WHERE PRZEDMIOT = '" + przedmiot + "' ORDER BY KLASA";
+            } else if (klasa.equals("---WYBIERZ---") && przedmiot.equals("---WYBIERZ---") && nauczyciel != "---WYBIERZ---") {
+                sql = "SELECT ID, KLASA, PRZEDMIOT, NAUCZYCIEL FROM PRZYDZIALY WHERE NAUCZYCIEL = " + nauczyciel + " ORDER BY KLASA";
+            } else if (klasa != "---WYBIERZ---" && przedmiot != "---WYBIERZ---" && nauczyciel.equals("---WYBIERZ---")) {
+                sql = "SELECT ID, KLASA, PRZEDMIOT, NAUCZYCIEL FROM PRZYDZIALY WHERE (KLASA = " + klasa + ") AND (PRZEDMIOT = '" + przedmiot + "') ORDER BY KLASA";
+            } else if (klasa != "---WYBIERZ---" && przedmiot.equals("---WYBIERZ---") && nauczyciel != "---WYBIERZ---") {
+                sql = "SELECT ID, KLASA, PRZEDMIOT, NAUCZYCIEL FROM PRZYDZIALY WHERE (KLASA = " + klasa + ") AND (NAUCZYCIEL = " + nauczyciel + ") ORDER BY KLASA";
+            } else if (klasa.equals("---WYBIERZ---") && przedmiot != "---WYBIERZ---" && nauczyciel != "---WYBIERZ---") {
+                sql = "SELECT ID, KLASA, PRZEDMIOT, NAUCZYCIEL FROM PRZYDZIALY WHERE (PRZEDMIOT = '" + przedmiot + "') AND (NAUCZYCIEL = " + nauczyciel + ") ORDER BY KLASA";;
+            } else if (klasa != "---WYBIERZ---" && przedmiot != "---WYBIERZ---" && nauczyciel != "---WYBIERZ---") {
+                sql = "SELECT ID, KLASA, PRZEDMIOT, NAUCZYCIEL FROM PRZYDZIALY WHERE (KLASA = " + klasa + ") AND (PRZEDMIOT = '" + przedmiot + "') AND (NAUCZYCIEL = " + nauczyciel + ") ORDER BY KLASA";;
+            }
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();
             metadane = dane.getMetaData();

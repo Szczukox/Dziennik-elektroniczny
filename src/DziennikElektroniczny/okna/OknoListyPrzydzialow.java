@@ -5,6 +5,12 @@
  */
 package DziennikElektroniczny.okna;
 
+import DziennikElektroniczny.modele.KlasyComboBoxModel;
+import DziennikElektroniczny.modele.ListaKlasModel;
+import DziennikElektroniczny.modele.ListaNauczycieliModel;
+import DziennikElektroniczny.modele.ListaPrzedmiotowModel;
+import DziennikElektroniczny.modele.NauczycieleComboBoxModel;
+import DziennikElektroniczny.modele.PrzedmiotyComboBoxModel;
 import DziennikElektroniczny.modele.PrzydzialyTableModel;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
@@ -23,16 +29,38 @@ public class OknoListyPrzydzialow extends javax.swing.JFrame {
     private javax.swing.JFrame oknoAplikacji;
     private final Connection conn;
     private PrzydzialyTableModel listaPrzydzialowModel;
+    private javax.swing.ComboBoxModel klasyComboBoxModel;
+    private javax.swing.ComboBoxModel przedmiotyComboBoxModel;
+    private javax.swing.ComboBoxModel nauczycieleComboBoxModel;
 
     public OknoListyPrzydzialow(javax.swing.JFrame oknoAplikacji, Connection connection) {
         conn = connection;
         this.oknoAplikacji = oknoAplikacji;
         initComponents();
-        listaPrzydzialowModel = new PrzydzialyTableModel(conn);
+        setVisible(true);
+
+        ListaKlasModel listaKlasModel = new ListaKlasModel();
+        String[] listaKlas = listaKlasModel.listaKlas(conn);
+        klasyComboBoxModel = new KlasyComboBoxModel(listaKlas);
+        klasyComboBox.setModel(klasyComboBoxModel);
+
+        ListaPrzedmiotowModel listaPrzedmiotowModel = new ListaPrzedmiotowModel();
+        String[] listaPrzedmiotow = listaPrzedmiotowModel.listaPrzedmiotow(conn);
+        przedmiotyComboBoxModel = new PrzedmiotyComboBoxModel(listaPrzedmiotow);
+        przedmiotyComboBox.setModel(przedmiotyComboBoxModel);
+
+        ListaNauczycieliModel listaNauczycieliModel = new ListaNauczycieliModel();
+        String[] listaNauczycieli = listaNauczycieliModel.listaNauczycieli(conn);
+        nauczycieleComboBoxModel = new NauczycieleComboBoxModel(listaNauczycieli);
+        nauczycieleComboBox.setModel(nauczycieleComboBoxModel);
+
+        listaPrzydzialowModel = new PrzydzialyTableModel(conn,
+                klasyComboBox.getSelectedItem().toString(),
+                przedmiotyComboBox.getSelectedItem().toString(),
+                nauczycieleComboBox.getSelectedItem().toString());
         listaPrzydzialowModel.fireTableDataChanged();
         listaPrzydzialowTable.setModel(listaPrzydzialowModel);
         listaPrzydzialowTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        setVisible(true);
     }
 
     private OknoListyPrzydzialow() {
@@ -57,6 +85,12 @@ public class OknoListyPrzydzialow extends javax.swing.JFrame {
         usunButton = new javax.swing.JButton();
         edytujButton = new javax.swing.JButton();
         wyjdzOknoListyPrzydzialowButton = new javax.swing.JButton();
+        klasaLabel = new javax.swing.JLabel();
+        klasyComboBox = new javax.swing.JComboBox<>();
+        przedmiotLabel = new javax.swing.JLabel();
+        przedmiotyComboBox = new javax.swing.JComboBox<>();
+        nauczycielLabel = new javax.swing.JLabel();
+        nauczycieleComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Przydział przedmiotów i nauczycieli");
@@ -99,6 +133,7 @@ public class OknoListyPrzydzialow extends javax.swing.JFrame {
         });
 
         usunButton.setText("USUŃ");
+        usunButton.setEnabled(false);
         usunButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usunButtonActionPerformed(evt);
@@ -106,6 +141,7 @@ public class OknoListyPrzydzialow extends javax.swing.JFrame {
         });
 
         edytujButton.setText("EDYTUJ");
+        edytujButton.setEnabled(false);
         edytujButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 edytujButtonActionPerformed(evt);
@@ -129,7 +165,7 @@ public class OknoListyPrzydzialow extends javax.swing.JFrame {
                 .addComponent(usunButton)
                 .addGap(26, 26, 26)
                 .addComponent(edytujButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         wyjdzOknoListyPrzydzialowButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -141,16 +177,37 @@ public class OknoListyPrzydzialow extends javax.swing.JFrame {
             }
         });
 
+        klasaLabel.setText("Klasa:");
+
+        klasyComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        klasyComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                klasyComboBoxActionPerformed(evt);
+            }
+        });
+
+        przedmiotLabel.setText("Przedmiot:");
+
+        przedmiotyComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        przedmiotyComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                przedmiotyComboBoxActionPerformed(evt);
+            }
+        });
+
+        nauczycielLabel.setText("Nauczyciel:");
+
+        nauczycieleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        nauczycieleComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nauczycieleComboBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout oknoListyPrzydzialowPanelLayout = new javax.swing.GroupLayout(oknoListyPrzydzialowPanel);
         oknoListyPrzydzialowPanel.setLayout(oknoListyPrzydzialowPanelLayout);
         oknoListyPrzydzialowPanelLayout.setHorizontalGroup(
             oknoListyPrzydzialowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(oknoListyPrzydzialowPanelLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(listaPrzydzialowScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(opcjePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
             .addGroup(oknoListyPrzydzialowPanelLayout.createSequentialGroup()
                 .addGroup(oknoListyPrzydzialowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(oknoListyPrzydzialowPanelLayout.createSequentialGroup()
@@ -160,17 +217,47 @@ public class OknoListyPrzydzialow extends javax.swing.JFrame {
                         .addGap(400, 400, 400)
                         .addComponent(wyjdzOknoListyPrzydzialowButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(oknoListyPrzydzialowPanelLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addGroup(oknoListyPrzydzialowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(oknoListyPrzydzialowPanelLayout.createSequentialGroup()
+                        .addComponent(listaPrzydzialowScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addComponent(opcjePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(oknoListyPrzydzialowPanelLayout.createSequentialGroup()
+                        .addGroup(oknoListyPrzydzialowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(klasaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(przedmiotLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nauczycielLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(oknoListyPrzydzialowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(nauczycieleComboBox, 0, 150, Short.MAX_VALUE)
+                            .addComponent(klasyComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(przedmiotyComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(30, 30, 30))
         );
         oknoListyPrzydzialowPanelLayout.setVerticalGroup(
             oknoListyPrzydzialowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(oknoListyPrzydzialowPanelLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(listaPrzydzialowLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGroup(oknoListyPrzydzialowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(klasyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(klasaLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(oknoListyPrzydzialowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(przedmiotyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(przedmiotLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(oknoListyPrzydzialowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nauczycielLabel)
+                    .addComponent(nauczycieleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
                 .addGroup(oknoListyPrzydzialowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(opcjePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(listaPrzydzialowScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                    .addComponent(listaPrzydzialowScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(wyjdzOknoListyPrzydzialowButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -200,7 +287,8 @@ public class OknoListyPrzydzialow extends javax.swing.JFrame {
 
     private void dodajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
-            OknoPrzydzialu oknoPrzydzialu = new OknoPrzydzialu(this, conn, listaPrzydzialowModel, listaPrzydzialowTable, edytujButton, usunButton, "Dodaj nowy przydział");
+            OknoPrzydzialu oknoPrzydzialu = new OknoPrzydzialu(this, conn, listaPrzydzialowModel, listaPrzydzialowTable, edytujButton, usunButton, "Dodaj nowy przydział",
+                    klasyComboBox.getSelectedItem().toString(), przedmiotyComboBox.getSelectedItem().toString(), nauczycieleComboBox.getSelectedItem().toString());
         });
         setEnabled(false);
     }//GEN-LAST:event_dodajButtonActionPerformed
@@ -214,19 +302,44 @@ public class OknoListyPrzydzialow extends javax.swing.JFrame {
 
     private void edytujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edytujButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
-            OknoPrzydzialu oknoPrzydzialu = new OknoPrzydzialu(this, conn, listaPrzydzialowModel, listaPrzydzialowTable, edytujButton, usunButton, "Edytuj wybrany przydział");
+            OknoPrzydzialu oknoPrzydzialu = new OknoPrzydzialu(this, conn, listaPrzydzialowModel, listaPrzydzialowTable, edytujButton, usunButton, "Edytuj wybrany przydział",
+                    klasyComboBox.getSelectedItem().toString(), przedmiotyComboBox.getSelectedItem().toString(), nauczycieleComboBox.getSelectedItem().toString());
         });
         setEnabled(false);
     }//GEN-LAST:event_edytujButtonActionPerformed
 
     private void usunButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usunButtonActionPerformed
         listaPrzydzialowModel.deleteRow(listaPrzydzialowTable.getSelectedRow());
-        listaPrzydzialowModel = new PrzydzialyTableModel(conn);
+        listaPrzydzialowModel = new PrzydzialyTableModel(conn, klasyComboBox.getSelectedItem().toString(), przedmiotyComboBox.getSelectedItem().toString(), nauczycieleComboBox.getSelectedItem().toString());
         listaPrzydzialowModel.fireTableDataChanged();
         listaPrzydzialowTable.setModel(listaPrzydzialowModel);
         edytujButton.setEnabled(false);
         usunButton.setEnabled(false);
     }//GEN-LAST:event_usunButtonActionPerformed
+
+    private void klasyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_klasyComboBoxActionPerformed
+        listaPrzydzialowModel = new PrzydzialyTableModel(conn, klasyComboBox.getSelectedItem().toString(), przedmiotyComboBox.getSelectedItem().toString(), nauczycieleComboBox.getSelectedItem().toString());
+        listaPrzydzialowModel.fireTableDataChanged();
+        listaPrzydzialowTable.setModel(listaPrzydzialowModel);
+        edytujButton.setEnabled(false);
+        usunButton.setEnabled(false);
+    }//GEN-LAST:event_klasyComboBoxActionPerformed
+
+    private void przedmiotyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_przedmiotyComboBoxActionPerformed
+        listaPrzydzialowModel = new PrzydzialyTableModel(conn, klasyComboBox.getSelectedItem().toString(), przedmiotyComboBox.getSelectedItem().toString(), nauczycieleComboBox.getSelectedItem().toString());
+        listaPrzydzialowModel.fireTableDataChanged();
+        listaPrzydzialowTable.setModel(listaPrzydzialowModel);
+        edytujButton.setEnabled(false);
+        usunButton.setEnabled(false);
+    }//GEN-LAST:event_przedmiotyComboBoxActionPerformed
+
+    private void nauczycieleComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nauczycieleComboBoxActionPerformed
+        listaPrzydzialowModel = new PrzydzialyTableModel(conn, klasyComboBox.getSelectedItem().toString(), przedmiotyComboBox.getSelectedItem().toString(), nauczycieleComboBox.getSelectedItem().toString());
+        listaPrzydzialowModel.fireTableDataChanged();
+        listaPrzydzialowTable.setModel(listaPrzydzialowModel);
+        edytujButton.setEnabled(false);
+        usunButton.setEnabled(false);
+    }//GEN-LAST:event_nauczycieleComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -267,11 +380,17 @@ public class OknoListyPrzydzialow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton dodajButton;
     private javax.swing.JButton edytujButton;
+    private javax.swing.JLabel klasaLabel;
+    private javax.swing.JComboBox<String> klasyComboBox;
     private javax.swing.JLabel listaPrzydzialowLabel;
     private javax.swing.JScrollPane listaPrzydzialowScrollPane;
     private javax.swing.JTable listaPrzydzialowTable;
+    private javax.swing.JLabel nauczycielLabel;
+    private javax.swing.JComboBox<String> nauczycieleComboBox;
     private javax.swing.JPanel oknoListyPrzydzialowPanel;
     private javax.swing.JPanel opcjePanel;
+    private javax.swing.JLabel przedmiotLabel;
+    private javax.swing.JComboBox<String> przedmiotyComboBox;
     private javax.swing.JButton usunButton;
     private javax.swing.JButton wyjdzOknoListyPrzydzialowButton;
     // End of variables declaration//GEN-END:variables
