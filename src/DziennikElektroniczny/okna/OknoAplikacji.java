@@ -6,14 +6,14 @@
 package DziennikElektroniczny.okna;
 
 import DziennikElektroniczny.JDBC;
-import java.awt.Dialog;
+import DziennikElektroniczny.logowanie.LogowanieNauczyciel;
+import DziennikElektroniczny.logowanie.LogowanieRodzic;
+import DziennikElektroniczny.logowanie.LogowanieUczen;
 import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -25,7 +25,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
     /**
      * Creates new form OknoLogowania
      */
-    private Connection conn;
+    private final Connection conn;
 
     public OknoAplikacji() {
         JDBC jdbc = null;
@@ -721,15 +721,30 @@ public class OknoAplikacji extends javax.swing.JFrame {
     }//GEN-LAST:event_wyjdzTrybNauczycielaButtonActionPerformed
 
     private void zalogujLogowanieButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zalogujLogowanieButtonActionPerformed
-        if (panelLogowanieLabel.getText().equals("panel ucznia") && nazwaUzytkownikaLogowanieTextField.getText().equals("uczen") && hasloLogowaniePasswordField.getText().equals("uczen")) {
-            logowaniePanel.setVisible(false);
-            trybUczniaPanel.setVisible(true);
-        } else if ((panelLogowanieLabel.getText().equals("panel rodzica") && nazwaUzytkownikaLogowanieTextField.getText().equals("rodzic") && hasloLogowaniePasswordField.getText().equals("rodzic"))) {
-            logowaniePanel.setVisible(false);
-            trybRodzicaPanel.setVisible(true);
-        } else if ((panelLogowanieLabel.getText().equals("panel nauczyciela") && nazwaUzytkownikaLogowanieTextField.getText().equals("nauczyciel") && hasloLogowaniePasswordField.getText().equals("nauczyciel"))) {
-            logowaniePanel.setVisible(false);
-            trybNauczycielaPanel.setVisible(true);
+        if (panelLogowanieLabel.getText().equals("panel ucznia")) {
+            LogowanieUczen logowanieUczen = new LogowanieUczen(conn, nazwaUzytkownikaLogowanieTextField.getText(), hasloLogowaniePasswordField.getText());
+            if (logowanieUczen.zaloguj()) {
+                logowaniePanel.setVisible(false);
+                trybUczniaPanel.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Błędna nazwa użytkownika lub błędne hasło", "Błąd logowania", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if ((panelLogowanieLabel.getText().equals("panel rodzica"))) {
+            LogowanieRodzic logowanieRodzic = new LogowanieRodzic(conn, nazwaUzytkownikaLogowanieTextField.getText(), hasloLogowaniePasswordField.getText());
+            if (logowanieRodzic.zaloguj()) {
+                logowaniePanel.setVisible(false);
+                trybRodzicaPanel.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Błędna nazwa użytkownika lub błędne hasło", "Błąd logowania", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if ((panelLogowanieLabel.getText().equals("panel nauczyciela"))) {
+            LogowanieNauczyciel logowanieNauczyciel = new LogowanieNauczyciel(conn, nazwaUzytkownikaLogowanieTextField.getText(), hasloLogowaniePasswordField.getText());
+            if (logowanieNauczyciel.zaloguj()) {
+                logowaniePanel.setVisible(false);
+                trybNauczycielaPanel.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Błędna nazwa użytkownika lub błędne hasło", "Błąd logowania", JOptionPane.ERROR_MESSAGE);
+            }
         } else if ((panelLogowanieLabel.getText().equals("panel dyrektora") && nazwaUzytkownikaLogowanieTextField.getText().equals("dyrektor") && hasloLogowaniePasswordField.getText().equals("dyrektor"))) {
             logowaniePanel.setVisible(false);
             trybDyrektoraPanel.setVisible(true);
