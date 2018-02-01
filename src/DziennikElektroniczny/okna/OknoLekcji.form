@@ -49,18 +49,13 @@
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="opcjePanel" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="przedmiotLabel" alignment="0" pref="100" max="32767" attributes="0"/>
-                                  <Component id="klasaLabel" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="klasyComboBox" pref="150" max="32767" attributes="0"/>
-                                  <Component id="przedmiotyComboBox" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                      <Component id="klasaIPrzedmiotLabel" min="-2" pref="150" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="klasyIPrzedmiotyComboBox" min="-2" pref="150" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="30" max="32767" attributes="0"/>
@@ -72,20 +67,15 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
               <Component id="listaTwoichUczniowLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="klasaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="klasyComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="przedmiotLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="przedmiotyComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="opcjePanel" max="32767" attributes="0"/>
-                  <Component id="listaUczniowScrollPane" pref="323" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="klasyIPrzedmiotyComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="klasaIPrzedmiotLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="opcjePanel" min="-2" max="-2" attributes="0"/>
+                  <Component id="listaUczniowScrollPane" min="-2" pref="350" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="wyjdzButton" min="-2" max="-2" attributes="0"/>
@@ -122,6 +112,9 @@
               </Table>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="listaUczniowTableMousePressed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -138,7 +131,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="261" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -165,12 +158,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="wyjdzButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="klasaLabel">
+    <Component class="javax.swing.JLabel" name="klasaIPrzedmiotLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Klasa:"/>
+        <Property name="text" type="java.lang.String" value="Klasa | Przedmiot:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="klasyComboBox">
+    <Component class="javax.swing.JComboBox" name="klasyIPrzedmiotyComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
@@ -181,26 +174,9 @@
           </StringArray>
         </Property>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JLabel" name="przedmiotLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Przedmiot:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="przedmiotyComboBox">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
-        </Property>
-      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="klasyIPrzedmiotyComboBoxActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>

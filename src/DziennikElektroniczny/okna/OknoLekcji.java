@@ -5,11 +5,12 @@
  */
 package DziennikElektroniczny.okna;
 
-import DziennikElektroniczny.modele.ListaKlasDlaNauczycieliModel;
-import DziennikElektroniczny.modele.KlasyComboBoxModel;
-import DziennikElektroniczny.modele.ListaPrzedmiotowDlaNauczycieliModel;
+import DziennikElektroniczny.modele.ListaPrzydzialowDlaNauczycieliModel;
 import DziennikElektroniczny.modele.PrzedmiotyComboBoxModel;
+import DziennikElektroniczny.modele.UczniowieDlaNauczycieliTableModel;
+import java.awt.event.MouseEvent;
 import java.sql.*;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -23,8 +24,8 @@ public class OknoLekcji extends javax.swing.JFrame {
     private javax.swing.JFrame oknoAplikacji;
     private Connection conn;
     private String nauczyciel;
-    private javax.swing.ComboBoxModel klasyComboBoxModel;
-    private javax.swing.ComboBoxModel przedmiotyComboBoxModel;
+    private PrzedmiotyComboBoxModel przedmiotyComboBoxModel;
+    private UczniowieDlaNauczycieliTableModel listaUczniowDlaNauczycieliModel;
 
     public OknoLekcji(javax.swing.JFrame oknoAplikacji, Connection conn, String nauczyciel) {
         this.oknoAplikacji = oknoAplikacji;
@@ -33,15 +34,15 @@ public class OknoLekcji extends javax.swing.JFrame {
         initComponents();
         setVisible(true);
 
-        ListaKlasDlaNauczycieliModel listaKlasDlaNauczycieliModel = new ListaKlasDlaNauczycieliModel();
-        String[] listaKlas = listaKlasDlaNauczycieliModel.listaKlas(conn, nauczyciel);
-        klasyComboBoxModel = new KlasyComboBoxModel(listaKlas);
-        klasyComboBox.setModel(klasyComboBoxModel);
-
-        ListaPrzedmiotowDlaNauczycieliModel listaPrzedmiotowDlaNauczycieliModel = new ListaPrzedmiotowDlaNauczycieliModel();
-        String[] listaPrzedmiotow = listaPrzedmiotowDlaNauczycieliModel.listaPrzedmiotow(conn, nauczyciel);
+        ListaPrzydzialowDlaNauczycieliModel listaPrzydzialowDlaNauczycieliModel = new ListaPrzydzialowDlaNauczycieliModel();
+        String[] listaPrzedmiotow = listaPrzydzialowDlaNauczycieliModel.listaPrzydzialow(conn, nauczyciel);
         przedmiotyComboBoxModel = new PrzedmiotyComboBoxModel(listaPrzedmiotow);
-        przedmiotyComboBox.setModel(przedmiotyComboBoxModel);
+        klasyIPrzedmiotyComboBox.setModel(przedmiotyComboBoxModel);
+
+        listaUczniowDlaNauczycieliModel = new UczniowieDlaNauczycieliTableModel(conn, klasyIPrzedmiotyComboBox.getSelectedItem().toString());
+        listaUczniowDlaNauczycieliModel.fireTableDataChanged();
+        listaUczniowTable.setModel(listaUczniowDlaNauczycieliModel);
+        listaUczniowTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     private OknoLekcji() {
@@ -63,10 +64,8 @@ public class OknoLekcji extends javax.swing.JFrame {
         opcjePanel = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         wyjdzButton = new javax.swing.JButton();
-        klasaLabel = new javax.swing.JLabel();
-        klasyComboBox = new javax.swing.JComboBox<>();
-        przedmiotLabel = new javax.swing.JLabel();
-        przedmiotyComboBox = new javax.swing.JComboBox<>();
+        klasaIPrzedmiotLabel = new javax.swing.JLabel();
+        klasyIPrzedmiotyComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lista uczniów");
@@ -94,6 +93,11 @@ public class OknoLekcji extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        listaUczniowTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                listaUczniowTableMousePressed(evt);
+            }
+        });
         listaUczniowScrollPane.setViewportView(listaUczniowTable);
 
         jButton2.setText("jButton2");
@@ -109,7 +113,7 @@ public class OknoLekcji extends javax.swing.JFrame {
             .addGroup(opcjePanelLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(261, Short.MAX_VALUE))
         );
 
         wyjdzButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -121,13 +125,14 @@ public class OknoLekcji extends javax.swing.JFrame {
             }
         });
 
-        klasaLabel.setText("Klasa:");
+        klasaIPrzedmiotLabel.setText("Klasa | Przedmiot:");
 
-        klasyComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        przedmiotLabel.setText("Przedmiot:");
-
-        przedmiotyComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        klasyIPrzedmiotyComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        klasyIPrzedmiotyComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                klasyIPrzedmiotyComboBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -147,15 +152,12 @@ public class OknoLekcji extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(listaUczniowScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
-                                .addComponent(opcjePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(przedmiotLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                    .addComponent(klasaLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(klasyComboBox, 0, 150, Short.MAX_VALUE)
-                                    .addComponent(przedmiotyComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addComponent(opcjePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(klasaIPrzedmiotLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(klasyIPrzedmiotyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -163,18 +165,14 @@ public class OknoLekcji extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(listaTwoichUczniowLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(klasaLabel)
-                    .addComponent(klasyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(przedmiotLabel)
-                    .addComponent(przedmiotyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(opcjePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(listaUczniowScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(klasyIPrzedmiotyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(klasaIPrzedmiotLabel))
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(opcjePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(listaUczniowScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(wyjdzButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -191,6 +189,17 @@ public class OknoLekcji extends javax.swing.JFrame {
         oknoAplikacji.setEnabled(true);
         dispose();
     }//GEN-LAST:event_wyjdzButtonActionPerformed
+
+    private void listaUczniowTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaUczniowTableMousePressed
+        if (evt.getButton() == MouseEvent.BUTTON1) {
+        }
+    }//GEN-LAST:event_listaUczniowTableMousePressed
+
+    private void klasyIPrzedmiotyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_klasyIPrzedmiotyComboBoxActionPerformed
+        listaUczniowDlaNauczycieliModel = new UczniowieDlaNauczycieliTableModel(conn, klasyIPrzedmiotyComboBox.getSelectedItem().toString());
+        listaUczniowDlaNauczycieliModel.fireTableDataChanged();
+        listaUczniowTable.setModel(listaUczniowDlaNauczycieliModel);
+    }//GEN-LAST:event_klasyIPrzedmiotyComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,14 +238,12 @@ public class OknoLekcji extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel klasaLabel;
-    private javax.swing.JComboBox<String> klasyComboBox;
+    private javax.swing.JLabel klasaIPrzedmiotLabel;
+    private javax.swing.JComboBox<String> klasyIPrzedmiotyComboBox;
     private javax.swing.JLabel listaTwoichUczniowLabel;
     private javax.swing.JScrollPane listaUczniowScrollPane;
     private javax.swing.JTable listaUczniowTable;
     private javax.swing.JPanel opcjePanel;
-    private javax.swing.JLabel przedmiotLabel;
-    private javax.swing.JComboBox<String> przedmiotyComboBox;
     private javax.swing.JButton wyjdzButton;
     // End of variables declaration//GEN-END:variables
 }
