@@ -829,7 +829,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
 
     private void trybNauczycielaZobaczUczniowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybNauczycielaZobaczUczniowButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
-            OknoListyKlas oknoList = new OknoListyKlas(this, conn);
+            OknoLekcji oknoLekcji = new OknoLekcji(this, conn, nazwaUzytkownikaLogowanieTextField.getText());
         });
         setEnabled(false);
     }//GEN-LAST:event_trybNauczycielaZobaczUczniowButtonActionPerformed

@@ -165,7 +165,7 @@ public class OknoListyPrzydzialow extends javax.swing.JFrame {
                 .addComponent(usunButton)
                 .addGap(26, 26, 26)
                 .addComponent(edytujButton)
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         wyjdzOknoListyPrzydzialowButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -257,7 +257,7 @@ public class OknoListyPrzydzialow extends javax.swing.JFrame {
                 .addGroup(oknoListyPrzydzialowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(opcjePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(listaPrzydzialowScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(wyjdzOknoListyPrzydzialowButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );

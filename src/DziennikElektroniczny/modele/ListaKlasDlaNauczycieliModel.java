@@ -6,25 +6,23 @@
 package DziennikElektroniczny.modele;
 
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author patry
  */
-public class ListaKlasModel {
+public class ListaKlasDlaNauczycieliModel {
 
-    public String[] listaKlas(Connection conn) {
+    public String[] listaKlas(Connection conn, String nauczyciel) {
         String[] klasy;
 
         try {
             Statement klasySt = conn.createStatement();
-            ResultSet rsKlasy = klasySt.executeQuery("SELECT COUNT(*) FROM KLASY");
+            ResultSet rsKlasy = klasySt.executeQuery("SELECT COUNT(*) FROM KLASY WHERE ID IN (SELECT DISTINCT KLASA FROM PRZYDZIALY WHERE NAUCZYCIEL = " + nauczyciel + ")");
             rsKlasy.next();
             klasy = new String[rsKlasy.getInt(1) + 1];
-            rsKlasy = klasySt.executeQuery("SELECT ID FROM KLASY");
+            rsKlasy = klasySt.executeQuery("SELECT ID FROM KLASY WHERE ID IN (SELECT DISTINCT KLASA FROM PRZYDZIALY WHERE NAUCZYCIEL = " + nauczyciel + ")");
             klasy[0] = "---WYBIERZ---";
             int i = 1;
             while (rsKlasy.next()) {
