@@ -26,7 +26,7 @@ public class UczniowieTableModel extends AbstractTableModel {
     private int liczbaWierszy;
     private PreparedStatement zapytanie;
 
-    public UczniowieTableModel(Connection connection) {
+    public UczniowieTableModel(Connection connection, String klasa) {
         conn = connection;
         zapytanie = null;
         try {
@@ -36,7 +36,12 @@ public class UczniowieTableModel extends AbstractTableModel {
                     zapytanie.close();
                 }
             }
-            String sql = "SELECT ID, IMIE, NAZWISKO, PESEL, KLASA FROM UCZNIOWIE ORDER BY NAZWISKO";
+            String sql = null;
+            if (klasa.equals("---WYBIERZ---")) {
+                sql = "SELECT ID, IMIE, NAZWISKO, PESEL, KLASA FROM UCZNIOWIE ORDER BY NAZWISKO";
+            } else if (klasa != "---WYBIERZ---") {
+                sql = "SELECT ID, IMIE, NAZWISKO, PESEL, KLASA FROM UCZNIOWIE WHERE KLASA = " + klasa + " ORDER BY NAZWISKO";
+            }
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();
             metadane = dane.getMetaData();

@@ -37,7 +37,7 @@ public class OknoListyUczniow extends javax.swing.JFrame {
         klasyComboBoxModel = new KlasyComboBoxModel(listaKlas);
         klasyComboBox.setModel(klasyComboBoxModel);
 
-        listaUczniowModel = new UczniowieTableModel(conn);
+        listaUczniowModel = new UczniowieTableModel(conn, klasyComboBox.getSelectedItem().toString());
         listaUczniowModel.fireTableDataChanged();
         listaUczniowTable.setModel(listaUczniowModel);
         listaUczniowTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -157,6 +157,11 @@ public class OknoListyUczniow extends javax.swing.JFrame {
         klasaLabel.setText("Klasa:");
 
         klasyComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        klasyComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                klasyComboBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout oknoListyUczniowPanelLayout = new javax.swing.GroupLayout(oknoListyUczniowPanel);
         oknoListyUczniowPanel.setLayout(oknoListyUczniowPanelLayout);
@@ -175,9 +180,9 @@ public class OknoListyUczniow extends javax.swing.JFrame {
                 .addGap(60, 60, 60)
                 .addGroup(oknoListyUczniowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(oknoListyUczniowPanelLayout.createSequentialGroup()
-                        .addComponent(klasaLabel)
-                        .addGap(27, 27, 27)
-                        .addComponent(klasyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(klasaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(klasyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(oknoListyUczniowPanelLayout.createSequentialGroup()
                         .addComponent(listaUczniowScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,7 +233,7 @@ public class OknoListyUczniow extends javax.swing.JFrame {
 
     private void dodajUczniaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajUczniaButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
-            OknoUcznia oknoUcznia = new OknoUcznia(this, conn, listaUczniowModel, listaUczniowTable, edytujUczniaButton, usunUczniaButton, "Dodaj nowego ucznia");
+            OknoUcznia oknoUcznia = new OknoUcznia(this, conn, listaUczniowModel, listaUczniowTable, edytujUczniaButton, usunUczniaButton, "Dodaj nowego ucznia", klasyComboBox.getSelectedItem().toString());
         });
         setEnabled(false);
     }//GEN-LAST:event_dodajUczniaButtonActionPerformed
@@ -242,19 +247,27 @@ public class OknoListyUczniow extends javax.swing.JFrame {
 
     private void edytujUczniaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edytujUczniaButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
-            OknoUcznia oknoUcznia = new OknoUcznia(this, conn, listaUczniowModel, listaUczniowTable, edytujUczniaButton, usunUczniaButton, "Edytuj wybranego ucznia");
+            OknoUcznia oknoUcznia = new OknoUcznia(this, conn, listaUczniowModel, listaUczniowTable, edytujUczniaButton, usunUczniaButton, "Edytuj wybranego ucznia", klasyComboBox.getSelectedItem().toString());
         });
         setEnabled(false);
     }//GEN-LAST:event_edytujUczniaButtonActionPerformed
 
     private void usunUczniaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usunUczniaButtonActionPerformed
         listaUczniowModel.deleteRow(listaUczniowTable.getSelectedRow());
-        listaUczniowModel = new UczniowieTableModel(conn);
+        listaUczniowModel = new UczniowieTableModel(conn, klasyComboBox.getSelectedItem().toString());
         listaUczniowModel.fireTableDataChanged();
         listaUczniowTable.setModel(listaUczniowModel);
         edytujUczniaButton.setEnabled(false);
         usunUczniaButton.setEnabled(false);
     }//GEN-LAST:event_usunUczniaButtonActionPerformed
+
+    private void klasyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_klasyComboBoxActionPerformed
+        listaUczniowModel = new UczniowieTableModel(conn, klasyComboBox.getSelectedItem().toString());
+        listaUczniowModel.fireTableDataChanged();
+        listaUczniowTable.setModel(listaUczniowModel);
+        edytujUczniaButton.setEnabled(false);
+        usunUczniaButton.setEnabled(false);
+    }//GEN-LAST:event_klasyComboBoxActionPerformed
 
     /**
      * @param args the command line arguments

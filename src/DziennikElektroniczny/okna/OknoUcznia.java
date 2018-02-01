@@ -30,8 +30,10 @@ public class OknoUcznia extends javax.swing.JFrame {
     private javax.swing.JButton usunButton;
     private javax.swing.ComboBoxModel klasyComboBoxModel;
     private String tytul;
+    private String klasa;
 
-    public OknoUcznia(javax.swing.JFrame oknoListyUczniow, Connection connection, UczniowieTableModel listaUczniowModel, javax.swing.JTable uczniowieTable, javax.swing.JButton edytujButton, javax.swing.JButton usunButton, String tytul) {
+    public OknoUcznia(javax.swing.JFrame oknoListyUczniow, Connection connection, UczniowieTableModel listaUczniowModel, javax.swing.JTable uczniowieTable,
+            javax.swing.JButton edytujButton, javax.swing.JButton usunButton, String tytul, String klasa) {
         conn = connection;
         this.oknoListyUczniow = oknoListyUczniow;
         this.uczniowieTableModel = listaUczniowModel;
@@ -39,6 +41,7 @@ public class OknoUcznia extends javax.swing.JFrame {
         this.edytujButton = edytujButton;
         this.usunButton = usunButton;
         this.tytul = tytul;
+        this.klasa = klasa;
         initComponents();
 
         ListaKlasModel listaKlasModel = new ListaKlasModel();
@@ -293,7 +296,7 @@ public class OknoUcznia extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(OknoKlasy.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
-                uczniowieTableModel = new UczniowieTableModel(conn);
+                uczniowieTableModel = new UczniowieTableModel(conn, klasa);
                 uczniowieTableModel.fireTableDataChanged();
                 uczniowieTable.setModel(uczniowieTableModel);
                 oknoListyUczniow.setEnabled(true);
