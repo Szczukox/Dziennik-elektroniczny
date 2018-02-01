@@ -5,7 +5,13 @@
  */
 package DziennikElektroniczny.okna;
 
+import DziennikElektroniczny.modele.KlasyComboBoxModel;
+import DziennikElektroniczny.modele.ListaKlasModel;
+import DziennikElektroniczny.modele.UczniowieTableModel;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,12 +24,39 @@ public class OknoUcznia extends javax.swing.JFrame {
      */
     private javax.swing.JFrame oknoListyUczniow;
     private final Connection conn;
+    private UczniowieTableModel uczniowieTableModel;
+    private javax.swing.JTable uczniowieTable;
+    private javax.swing.JButton edytujButton;
+    private javax.swing.JButton usunButton;
+    private javax.swing.ComboBoxModel klasyComboBoxModel;
+    private String tytul;
 
-    public OknoUcznia(javax.swing.JFrame oknoListyUczniow, Connection connection) {
+    public OknoUcznia(javax.swing.JFrame oknoListyUczniow, Connection connection, UczniowieTableModel listaUczniowModel, javax.swing.JTable uczniowieTable, javax.swing.JButton edytujButton, javax.swing.JButton usunButton, String tytul) {
         conn = connection;
         this.oknoListyUczniow = oknoListyUczniow;
+        this.uczniowieTableModel = listaUczniowModel;
+        this.uczniowieTable = uczniowieTable;
+        this.edytujButton = edytujButton;
+        this.usunButton = usunButton;
+        this.tytul = tytul;
         initComponents();
+
+        ListaKlasModel listaKlasModel = new ListaKlasModel();
+        String[] listaKlas = listaKlasModel.listaKlas(conn);
+        klasyComboBoxModel = new KlasyComboBoxModel(listaKlas);
+        klasyComboBox.setModel(klasyComboBoxModel);
+
+        setTitle(tytul);
+        tytulLabel.setText(tytul.toUpperCase());
         setVisible(true);
+
+        if (tytul == "Edytuj wybranego ucznia") {
+            imieTextField.setText((String) this.uczniowieTable.getValueAt(this.uczniowieTable.getSelectedRow(), 1));
+            nazwiskoTextField.setText((String) this.uczniowieTable.getValueAt(this.uczniowieTable.getSelectedRow(), 2));
+            peselTextField.setText((String) this.uczniowieTable.getValueAt(this.uczniowieTable.getSelectedRow(), 3));
+            klasyComboBox.setSelectedItem(String.valueOf(this.uczniowieTable.getValueAt(this.uczniowieTable.getSelectedRow(), 4)));
+            dodajButton.setText("ZMIEŃ");
+        }
     }
 
     private OknoUcznia() {
@@ -40,12 +73,27 @@ public class OknoUcznia extends javax.swing.JFrame {
     private void initComponents() {
 
         oknoUczniaPanel = new javax.swing.JPanel();
-        dodajNowegoUczniaLabel = new javax.swing.JLabel();
+        tytulLabel = new javax.swing.JLabel();
         dodajButton = new javax.swing.JButton();
         anulujButton = new javax.swing.JButton();
+        imieLabel = new javax.swing.JLabel();
+        imieTextField = new javax.swing.JTextField();
+        nazwiskoTextField = new javax.swing.JTextField();
+        peselTextField = new javax.swing.JTextField();
+        klasyComboBox = new javax.swing.JComboBox<>();
+        nazwiskoLabel = new javax.swing.JLabel();
+        peselLabel = new javax.swing.JLabel();
+        klasyLabel = new javax.swing.JLabel();
+        obowiazkoweImieLabel = new javax.swing.JLabel();
+        obowiazkoweNazwiskoLabel = new javax.swing.JLabel();
+        obowiazkowePeselLabel = new javax.swing.JLabel();
+        obowiazkoweKlasaLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Dodaj nowego ucznia");
         setLocation(new java.awt.Point(800, 350));
+        setMaximumSize(new java.awt.Dimension(400, 300));
+        setMinimumSize(new java.awt.Dimension(400, 300));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -53,43 +101,135 @@ public class OknoUcznia extends javax.swing.JFrame {
             }
         });
 
-        dodajNowegoUczniaLabel.setFont(new java.awt.Font("PT Serif", 1, 18)); // NOI18N
-        dodajNowegoUczniaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        dodajNowegoUczniaLabel.setText("DODAJ NOWEGO UCZNIA");
+        tytulLabel.setFont(new java.awt.Font("PT Serif", 1, 18)); // NOI18N
+        tytulLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tytulLabel.setText("DODAJ NOWEGO UCZNIA");
 
         dodajButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         dodajButton.setText("DODAJ");
         dodajButton.setPreferredSize(new java.awt.Dimension(100, 30));
+        dodajButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dodajButtonActionPerformed(evt);
+            }
+        });
 
         anulujButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         anulujButton.setText("ANULUJ");
         anulujButton.setPreferredSize(new java.awt.Dimension(100, 30));
+        anulujButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anulujButtonActionPerformed(evt);
+            }
+        });
+
+        imieLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        imieLabel.setText("Imię:");
+
+        klasyComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        nazwiskoLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        nazwiskoLabel.setText("Nazwisko:");
+
+        peselLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        peselLabel.setText("PESEL:");
+
+        klasyLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        klasyLabel.setText("Klasa:");
+
+        obowiazkoweImieLabel.setText("*");
+
+        obowiazkoweNazwiskoLabel.setText("*");
+
+        obowiazkowePeselLabel.setText("*");
+
+        obowiazkoweKlasaLabel.setText("*");
 
         javax.swing.GroupLayout oknoUczniaPanelLayout = new javax.swing.GroupLayout(oknoUczniaPanel);
         oknoUczniaPanel.setLayout(oknoUczniaPanelLayout);
         oknoUczniaPanelLayout.setHorizontalGroup(
             oknoUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(dodajNowegoUczniaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
-                .addComponent(dodajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addComponent(anulujButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75))
+                .addGroup(oknoUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(tytulLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(imieLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(imieTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(obowiazkoweImieLabel))
+                    .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(nazwiskoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(nazwiskoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(obowiazkoweNazwiskoLabel))
+                    .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(peselLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(peselTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(obowiazkowePeselLabel))
+                    .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(klasyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(klasyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(obowiazkoweKlasaLabel))
+                    .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(dodajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(anulujButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         oknoUczniaPanelLayout.setVerticalGroup(
             oknoUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(dodajNowegoUczniaLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
-                .addGroup(oknoUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(tytulLabel)
+                .addGap(30, 30, 30)
+                .addGroup(oknoUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(imieLabel))
+                    .addComponent(imieTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(obowiazkoweImieLabel))
+                .addGap(18, 18, 18)
+                .addGroup(oknoUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nazwiskoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(oknoUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nazwiskoLabel)
+                            .addComponent(obowiazkoweNazwiskoLabel))))
+                .addGap(18, 18, 18)
+                .addGroup(oknoUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(peselTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(oknoUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(peselLabel)
+                            .addComponent(obowiazkowePeselLabel))))
+                .addGap(18, 18, 18)
+                .addGroup(oknoUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(klasyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(oknoUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(klasyLabel)
+                            .addComponent(obowiazkoweKlasaLabel))))
+                .addGap(23, 23, 23)
+                .addGroup(oknoUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dodajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(anulujButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -100,7 +240,7 @@ public class OknoUcznia extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(oknoUczniaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(oknoUczniaPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -109,6 +249,62 @@ public class OknoUcznia extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         oknoListyUczniow.setEnabled(true);
     }//GEN-LAST:event_formWindowClosing
+
+    private void anulujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anulujButtonActionPerformed
+        oknoListyUczniow.setEnabled(true);
+        dispose();
+    }//GEN-LAST:event_anulujButtonActionPerformed
+
+    private void dodajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajButtonActionPerformed
+        boolean czyWypelniono = true;
+        String czegoBrakuje = "Nie wypełniono następujących obowiązkowych pól:\n";
+        if (imieTextField.getText().isEmpty()) {
+            czyWypelniono = false;
+            czegoBrakuje += "Imię\n";
+        }
+        if (nazwiskoTextField.getText().isEmpty()) {
+            czyWypelniono = false;
+            czegoBrakuje += "Nazwisko\n";
+        }
+        if (peselTextField.getText().isEmpty()) {
+            czyWypelniono = false;
+            czegoBrakuje += "PESEL\n";
+        }
+        if (klasyComboBox.getSelectedItem().toString().equals("---WYBIERZ---")) {
+            czyWypelniono = false;
+            czegoBrakuje += "Klasa\n";
+        }
+        if (czyWypelniono) {
+            try {
+                if (tytul == "Dodaj nowego ucznia") {
+                    uczniowieTableModel.insertRow(
+                            imieTextField.getText(),
+                            nazwiskoTextField.getText(),
+                            peselTextField.getText(),
+                            klasyComboBox.getSelectedItem().toString());
+                } else if (tytul == "Edytuj wybranego ucznia") {
+                    uczniowieTableModel.editRow(
+                            imieTextField.getText(),
+                            nazwiskoTextField.getText(),
+                            peselTextField.getText(),
+                            klasyComboBox.getSelectedItem().toString(),
+                            uczniowieTable.getSelectedRow());
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(OknoKlasy.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                uczniowieTableModel = new UczniowieTableModel(conn);
+                uczniowieTableModel.fireTableDataChanged();
+                uczniowieTable.setModel(uczniowieTableModel);
+                oknoListyUczniow.setEnabled(true);
+                edytujButton.setEnabled(false);
+                usunButton.setEnabled(false);
+                dispose();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, czegoBrakuje + "Proszę je uzupełnić", "Nie wypełniono obowiązkowych pól", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_dodajButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -147,8 +343,420 @@ public class OknoUcznia extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anulujButton;
+    private javax.swing.JButton anulujButton1;
+    private javax.swing.JButton anulujButton10;
+    private javax.swing.JButton anulujButton11;
+    private javax.swing.JButton anulujButton12;
+    private javax.swing.JButton anulujButton13;
+    private javax.swing.JButton anulujButton14;
+    private javax.swing.JButton anulujButton15;
+    private javax.swing.JButton anulujButton16;
+    private javax.swing.JButton anulujButton17;
+    private javax.swing.JButton anulujButton18;
+    private javax.swing.JButton anulujButton19;
+    private javax.swing.JButton anulujButton2;
+    private javax.swing.JButton anulujButton20;
+    private javax.swing.JButton anulujButton21;
+    private javax.swing.JButton anulujButton22;
+    private javax.swing.JButton anulujButton23;
+    private javax.swing.JButton anulujButton24;
+    private javax.swing.JButton anulujButton25;
+    private javax.swing.JButton anulujButton3;
+    private javax.swing.JButton anulujButton4;
+    private javax.swing.JButton anulujButton5;
+    private javax.swing.JButton anulujButton6;
+    private javax.swing.JButton anulujButton7;
+    private javax.swing.JButton anulujButton8;
+    private javax.swing.JButton anulujButton9;
     private javax.swing.JButton dodajButton;
-    private javax.swing.JLabel dodajNowegoUczniaLabel;
+    private javax.swing.JButton dodajButton1;
+    private javax.swing.JButton dodajButton10;
+    private javax.swing.JButton dodajButton11;
+    private javax.swing.JButton dodajButton12;
+    private javax.swing.JButton dodajButton13;
+    private javax.swing.JButton dodajButton14;
+    private javax.swing.JButton dodajButton15;
+    private javax.swing.JButton dodajButton16;
+    private javax.swing.JButton dodajButton17;
+    private javax.swing.JButton dodajButton18;
+    private javax.swing.JButton dodajButton19;
+    private javax.swing.JButton dodajButton2;
+    private javax.swing.JButton dodajButton20;
+    private javax.swing.JButton dodajButton21;
+    private javax.swing.JButton dodajButton22;
+    private javax.swing.JButton dodajButton23;
+    private javax.swing.JButton dodajButton24;
+    private javax.swing.JButton dodajButton25;
+    private javax.swing.JButton dodajButton3;
+    private javax.swing.JButton dodajButton4;
+    private javax.swing.JButton dodajButton5;
+    private javax.swing.JButton dodajButton6;
+    private javax.swing.JButton dodajButton7;
+    private javax.swing.JButton dodajButton8;
+    private javax.swing.JButton dodajButton9;
+    private javax.swing.JLabel imieLabel;
+    private javax.swing.JLabel imieLabel1;
+    private javax.swing.JLabel imieLabel10;
+    private javax.swing.JLabel imieLabel11;
+    private javax.swing.JLabel imieLabel12;
+    private javax.swing.JLabel imieLabel13;
+    private javax.swing.JLabel imieLabel14;
+    private javax.swing.JLabel imieLabel15;
+    private javax.swing.JLabel imieLabel16;
+    private javax.swing.JLabel imieLabel17;
+    private javax.swing.JLabel imieLabel18;
+    private javax.swing.JLabel imieLabel19;
+    private javax.swing.JLabel imieLabel2;
+    private javax.swing.JLabel imieLabel20;
+    private javax.swing.JLabel imieLabel21;
+    private javax.swing.JLabel imieLabel22;
+    private javax.swing.JLabel imieLabel23;
+    private javax.swing.JLabel imieLabel24;
+    private javax.swing.JLabel imieLabel25;
+    private javax.swing.JLabel imieLabel3;
+    private javax.swing.JLabel imieLabel4;
+    private javax.swing.JLabel imieLabel5;
+    private javax.swing.JLabel imieLabel6;
+    private javax.swing.JLabel imieLabel7;
+    private javax.swing.JLabel imieLabel8;
+    private javax.swing.JLabel imieLabel9;
+    private javax.swing.JTextField imieTextField;
+    private javax.swing.JTextField imieTextField1;
+    private javax.swing.JTextField imieTextField10;
+    private javax.swing.JTextField imieTextField11;
+    private javax.swing.JTextField imieTextField12;
+    private javax.swing.JTextField imieTextField13;
+    private javax.swing.JTextField imieTextField14;
+    private javax.swing.JTextField imieTextField15;
+    private javax.swing.JTextField imieTextField16;
+    private javax.swing.JTextField imieTextField17;
+    private javax.swing.JTextField imieTextField18;
+    private javax.swing.JTextField imieTextField19;
+    private javax.swing.JTextField imieTextField2;
+    private javax.swing.JTextField imieTextField20;
+    private javax.swing.JTextField imieTextField21;
+    private javax.swing.JTextField imieTextField22;
+    private javax.swing.JTextField imieTextField23;
+    private javax.swing.JTextField imieTextField24;
+    private javax.swing.JTextField imieTextField25;
+    private javax.swing.JTextField imieTextField3;
+    private javax.swing.JTextField imieTextField4;
+    private javax.swing.JTextField imieTextField5;
+    private javax.swing.JTextField imieTextField6;
+    private javax.swing.JTextField imieTextField7;
+    private javax.swing.JTextField imieTextField8;
+    private javax.swing.JTextField imieTextField9;
+    private javax.swing.JComboBox<String> klasyComboBox;
+    private javax.swing.JComboBox<String> klasyComboBox1;
+    private javax.swing.JComboBox<String> klasyComboBox10;
+    private javax.swing.JComboBox<String> klasyComboBox11;
+    private javax.swing.JComboBox<String> klasyComboBox12;
+    private javax.swing.JComboBox<String> klasyComboBox13;
+    private javax.swing.JComboBox<String> klasyComboBox14;
+    private javax.swing.JComboBox<String> klasyComboBox15;
+    private javax.swing.JComboBox<String> klasyComboBox16;
+    private javax.swing.JComboBox<String> klasyComboBox17;
+    private javax.swing.JComboBox<String> klasyComboBox18;
+    private javax.swing.JComboBox<String> klasyComboBox19;
+    private javax.swing.JComboBox<String> klasyComboBox2;
+    private javax.swing.JComboBox<String> klasyComboBox20;
+    private javax.swing.JComboBox<String> klasyComboBox21;
+    private javax.swing.JComboBox<String> klasyComboBox22;
+    private javax.swing.JComboBox<String> klasyComboBox23;
+    private javax.swing.JComboBox<String> klasyComboBox24;
+    private javax.swing.JComboBox<String> klasyComboBox25;
+    private javax.swing.JComboBox<String> klasyComboBox3;
+    private javax.swing.JComboBox<String> klasyComboBox4;
+    private javax.swing.JComboBox<String> klasyComboBox5;
+    private javax.swing.JComboBox<String> klasyComboBox6;
+    private javax.swing.JComboBox<String> klasyComboBox7;
+    private javax.swing.JComboBox<String> klasyComboBox8;
+    private javax.swing.JComboBox<String> klasyComboBox9;
+    private javax.swing.JLabel klasyLabel;
+    private javax.swing.JLabel klasyLabel1;
+    private javax.swing.JLabel klasyLabel10;
+    private javax.swing.JLabel klasyLabel11;
+    private javax.swing.JLabel klasyLabel12;
+    private javax.swing.JLabel klasyLabel13;
+    private javax.swing.JLabel klasyLabel14;
+    private javax.swing.JLabel klasyLabel15;
+    private javax.swing.JLabel klasyLabel16;
+    private javax.swing.JLabel klasyLabel17;
+    private javax.swing.JLabel klasyLabel18;
+    private javax.swing.JLabel klasyLabel19;
+    private javax.swing.JLabel klasyLabel2;
+    private javax.swing.JLabel klasyLabel20;
+    private javax.swing.JLabel klasyLabel21;
+    private javax.swing.JLabel klasyLabel22;
+    private javax.swing.JLabel klasyLabel23;
+    private javax.swing.JLabel klasyLabel24;
+    private javax.swing.JLabel klasyLabel25;
+    private javax.swing.JLabel klasyLabel3;
+    private javax.swing.JLabel klasyLabel4;
+    private javax.swing.JLabel klasyLabel5;
+    private javax.swing.JLabel klasyLabel6;
+    private javax.swing.JLabel klasyLabel7;
+    private javax.swing.JLabel klasyLabel8;
+    private javax.swing.JLabel klasyLabel9;
+    private javax.swing.JLabel nazwiskoLabel;
+    private javax.swing.JLabel nazwiskoLabel1;
+    private javax.swing.JLabel nazwiskoLabel10;
+    private javax.swing.JLabel nazwiskoLabel11;
+    private javax.swing.JLabel nazwiskoLabel12;
+    private javax.swing.JLabel nazwiskoLabel13;
+    private javax.swing.JLabel nazwiskoLabel14;
+    private javax.swing.JLabel nazwiskoLabel15;
+    private javax.swing.JLabel nazwiskoLabel16;
+    private javax.swing.JLabel nazwiskoLabel17;
+    private javax.swing.JLabel nazwiskoLabel18;
+    private javax.swing.JLabel nazwiskoLabel19;
+    private javax.swing.JLabel nazwiskoLabel2;
+    private javax.swing.JLabel nazwiskoLabel20;
+    private javax.swing.JLabel nazwiskoLabel21;
+    private javax.swing.JLabel nazwiskoLabel22;
+    private javax.swing.JLabel nazwiskoLabel23;
+    private javax.swing.JLabel nazwiskoLabel24;
+    private javax.swing.JLabel nazwiskoLabel25;
+    private javax.swing.JLabel nazwiskoLabel3;
+    private javax.swing.JLabel nazwiskoLabel4;
+    private javax.swing.JLabel nazwiskoLabel5;
+    private javax.swing.JLabel nazwiskoLabel6;
+    private javax.swing.JLabel nazwiskoLabel7;
+    private javax.swing.JLabel nazwiskoLabel8;
+    private javax.swing.JLabel nazwiskoLabel9;
+    private javax.swing.JTextField nazwiskoTextField;
+    private javax.swing.JTextField nazwiskoTextField1;
+    private javax.swing.JTextField nazwiskoTextField10;
+    private javax.swing.JTextField nazwiskoTextField11;
+    private javax.swing.JTextField nazwiskoTextField12;
+    private javax.swing.JTextField nazwiskoTextField13;
+    private javax.swing.JTextField nazwiskoTextField14;
+    private javax.swing.JTextField nazwiskoTextField15;
+    private javax.swing.JTextField nazwiskoTextField16;
+    private javax.swing.JTextField nazwiskoTextField17;
+    private javax.swing.JTextField nazwiskoTextField18;
+    private javax.swing.JTextField nazwiskoTextField19;
+    private javax.swing.JTextField nazwiskoTextField2;
+    private javax.swing.JTextField nazwiskoTextField20;
+    private javax.swing.JTextField nazwiskoTextField21;
+    private javax.swing.JTextField nazwiskoTextField22;
+    private javax.swing.JTextField nazwiskoTextField23;
+    private javax.swing.JTextField nazwiskoTextField24;
+    private javax.swing.JTextField nazwiskoTextField25;
+    private javax.swing.JTextField nazwiskoTextField3;
+    private javax.swing.JTextField nazwiskoTextField4;
+    private javax.swing.JTextField nazwiskoTextField5;
+    private javax.swing.JTextField nazwiskoTextField6;
+    private javax.swing.JTextField nazwiskoTextField7;
+    private javax.swing.JTextField nazwiskoTextField8;
+    private javax.swing.JTextField nazwiskoTextField9;
+    private javax.swing.JLabel obowiazkoweImieLabel;
+    private javax.swing.JLabel obowiazkoweImieLabel1;
+    private javax.swing.JLabel obowiazkoweImieLabel10;
+    private javax.swing.JLabel obowiazkoweImieLabel11;
+    private javax.swing.JLabel obowiazkoweImieLabel12;
+    private javax.swing.JLabel obowiazkoweImieLabel13;
+    private javax.swing.JLabel obowiazkoweImieLabel14;
+    private javax.swing.JLabel obowiazkoweImieLabel15;
+    private javax.swing.JLabel obowiazkoweImieLabel16;
+    private javax.swing.JLabel obowiazkoweImieLabel17;
+    private javax.swing.JLabel obowiazkoweImieLabel18;
+    private javax.swing.JLabel obowiazkoweImieLabel19;
+    private javax.swing.JLabel obowiazkoweImieLabel2;
+    private javax.swing.JLabel obowiazkoweImieLabel20;
+    private javax.swing.JLabel obowiazkoweImieLabel21;
+    private javax.swing.JLabel obowiazkoweImieLabel22;
+    private javax.swing.JLabel obowiazkoweImieLabel23;
+    private javax.swing.JLabel obowiazkoweImieLabel24;
+    private javax.swing.JLabel obowiazkoweImieLabel25;
+    private javax.swing.JLabel obowiazkoweImieLabel3;
+    private javax.swing.JLabel obowiazkoweImieLabel4;
+    private javax.swing.JLabel obowiazkoweImieLabel5;
+    private javax.swing.JLabel obowiazkoweImieLabel6;
+    private javax.swing.JLabel obowiazkoweImieLabel7;
+    private javax.swing.JLabel obowiazkoweImieLabel8;
+    private javax.swing.JLabel obowiazkoweImieLabel9;
+    private javax.swing.JLabel obowiazkoweKlasaLabel;
+    private javax.swing.JLabel obowiazkoweKlasaLabel1;
+    private javax.swing.JLabel obowiazkoweKlasaLabel10;
+    private javax.swing.JLabel obowiazkoweKlasaLabel11;
+    private javax.swing.JLabel obowiazkoweKlasaLabel12;
+    private javax.swing.JLabel obowiazkoweKlasaLabel13;
+    private javax.swing.JLabel obowiazkoweKlasaLabel14;
+    private javax.swing.JLabel obowiazkoweKlasaLabel15;
+    private javax.swing.JLabel obowiazkoweKlasaLabel16;
+    private javax.swing.JLabel obowiazkoweKlasaLabel17;
+    private javax.swing.JLabel obowiazkoweKlasaLabel18;
+    private javax.swing.JLabel obowiazkoweKlasaLabel19;
+    private javax.swing.JLabel obowiazkoweKlasaLabel2;
+    private javax.swing.JLabel obowiazkoweKlasaLabel20;
+    private javax.swing.JLabel obowiazkoweKlasaLabel21;
+    private javax.swing.JLabel obowiazkoweKlasaLabel22;
+    private javax.swing.JLabel obowiazkoweKlasaLabel23;
+    private javax.swing.JLabel obowiazkoweKlasaLabel24;
+    private javax.swing.JLabel obowiazkoweKlasaLabel25;
+    private javax.swing.JLabel obowiazkoweKlasaLabel3;
+    private javax.swing.JLabel obowiazkoweKlasaLabel4;
+    private javax.swing.JLabel obowiazkoweKlasaLabel5;
+    private javax.swing.JLabel obowiazkoweKlasaLabel6;
+    private javax.swing.JLabel obowiazkoweKlasaLabel7;
+    private javax.swing.JLabel obowiazkoweKlasaLabel8;
+    private javax.swing.JLabel obowiazkoweKlasaLabel9;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel1;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel10;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel11;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel12;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel13;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel14;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel15;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel16;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel17;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel18;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel19;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel2;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel20;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel21;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel22;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel23;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel24;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel25;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel3;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel4;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel5;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel6;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel7;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel8;
+    private javax.swing.JLabel obowiazkoweNazwiskoLabel9;
+    private javax.swing.JLabel obowiazkowePeselLabel;
+    private javax.swing.JLabel obowiazkowePeselLabel1;
+    private javax.swing.JLabel obowiazkowePeselLabel10;
+    private javax.swing.JLabel obowiazkowePeselLabel11;
+    private javax.swing.JLabel obowiazkowePeselLabel12;
+    private javax.swing.JLabel obowiazkowePeselLabel13;
+    private javax.swing.JLabel obowiazkowePeselLabel14;
+    private javax.swing.JLabel obowiazkowePeselLabel15;
+    private javax.swing.JLabel obowiazkowePeselLabel16;
+    private javax.swing.JLabel obowiazkowePeselLabel17;
+    private javax.swing.JLabel obowiazkowePeselLabel18;
+    private javax.swing.JLabel obowiazkowePeselLabel19;
+    private javax.swing.JLabel obowiazkowePeselLabel2;
+    private javax.swing.JLabel obowiazkowePeselLabel20;
+    private javax.swing.JLabel obowiazkowePeselLabel21;
+    private javax.swing.JLabel obowiazkowePeselLabel22;
+    private javax.swing.JLabel obowiazkowePeselLabel23;
+    private javax.swing.JLabel obowiazkowePeselLabel24;
+    private javax.swing.JLabel obowiazkowePeselLabel25;
+    private javax.swing.JLabel obowiazkowePeselLabel3;
+    private javax.swing.JLabel obowiazkowePeselLabel4;
+    private javax.swing.JLabel obowiazkowePeselLabel5;
+    private javax.swing.JLabel obowiazkowePeselLabel6;
+    private javax.swing.JLabel obowiazkowePeselLabel7;
+    private javax.swing.JLabel obowiazkowePeselLabel8;
+    private javax.swing.JLabel obowiazkowePeselLabel9;
     private javax.swing.JPanel oknoUczniaPanel;
+    private javax.swing.JPanel oknoUczniaPanel1;
+    private javax.swing.JPanel oknoUczniaPanel10;
+    private javax.swing.JPanel oknoUczniaPanel11;
+    private javax.swing.JPanel oknoUczniaPanel12;
+    private javax.swing.JPanel oknoUczniaPanel13;
+    private javax.swing.JPanel oknoUczniaPanel14;
+    private javax.swing.JPanel oknoUczniaPanel15;
+    private javax.swing.JPanel oknoUczniaPanel16;
+    private javax.swing.JPanel oknoUczniaPanel17;
+    private javax.swing.JPanel oknoUczniaPanel18;
+    private javax.swing.JPanel oknoUczniaPanel19;
+    private javax.swing.JPanel oknoUczniaPanel2;
+    private javax.swing.JPanel oknoUczniaPanel20;
+    private javax.swing.JPanel oknoUczniaPanel21;
+    private javax.swing.JPanel oknoUczniaPanel22;
+    private javax.swing.JPanel oknoUczniaPanel23;
+    private javax.swing.JPanel oknoUczniaPanel24;
+    private javax.swing.JPanel oknoUczniaPanel25;
+    private javax.swing.JPanel oknoUczniaPanel3;
+    private javax.swing.JPanel oknoUczniaPanel4;
+    private javax.swing.JPanel oknoUczniaPanel5;
+    private javax.swing.JPanel oknoUczniaPanel6;
+    private javax.swing.JPanel oknoUczniaPanel7;
+    private javax.swing.JPanel oknoUczniaPanel8;
+    private javax.swing.JPanel oknoUczniaPanel9;
+    private javax.swing.JLabel peselLabel;
+    private javax.swing.JLabel peselLabel1;
+    private javax.swing.JLabel peselLabel10;
+    private javax.swing.JLabel peselLabel11;
+    private javax.swing.JLabel peselLabel12;
+    private javax.swing.JLabel peselLabel13;
+    private javax.swing.JLabel peselLabel14;
+    private javax.swing.JLabel peselLabel15;
+    private javax.swing.JLabel peselLabel16;
+    private javax.swing.JLabel peselLabel17;
+    private javax.swing.JLabel peselLabel18;
+    private javax.swing.JLabel peselLabel19;
+    private javax.swing.JLabel peselLabel2;
+    private javax.swing.JLabel peselLabel20;
+    private javax.swing.JLabel peselLabel21;
+    private javax.swing.JLabel peselLabel22;
+    private javax.swing.JLabel peselLabel23;
+    private javax.swing.JLabel peselLabel24;
+    private javax.swing.JLabel peselLabel25;
+    private javax.swing.JLabel peselLabel3;
+    private javax.swing.JLabel peselLabel4;
+    private javax.swing.JLabel peselLabel5;
+    private javax.swing.JLabel peselLabel6;
+    private javax.swing.JLabel peselLabel7;
+    private javax.swing.JLabel peselLabel8;
+    private javax.swing.JLabel peselLabel9;
+    private javax.swing.JTextField peselTextField;
+    private javax.swing.JTextField peselTextField1;
+    private javax.swing.JTextField peselTextField10;
+    private javax.swing.JTextField peselTextField11;
+    private javax.swing.JTextField peselTextField12;
+    private javax.swing.JTextField peselTextField13;
+    private javax.swing.JTextField peselTextField14;
+    private javax.swing.JTextField peselTextField15;
+    private javax.swing.JTextField peselTextField16;
+    private javax.swing.JTextField peselTextField17;
+    private javax.swing.JTextField peselTextField18;
+    private javax.swing.JTextField peselTextField19;
+    private javax.swing.JTextField peselTextField2;
+    private javax.swing.JTextField peselTextField20;
+    private javax.swing.JTextField peselTextField21;
+    private javax.swing.JTextField peselTextField22;
+    private javax.swing.JTextField peselTextField23;
+    private javax.swing.JTextField peselTextField24;
+    private javax.swing.JTextField peselTextField25;
+    private javax.swing.JTextField peselTextField3;
+    private javax.swing.JTextField peselTextField4;
+    private javax.swing.JTextField peselTextField5;
+    private javax.swing.JTextField peselTextField6;
+    private javax.swing.JTextField peselTextField7;
+    private javax.swing.JTextField peselTextField8;
+    private javax.swing.JTextField peselTextField9;
+    private javax.swing.JLabel tytulLabel;
+    private javax.swing.JLabel tytulLabel1;
+    private javax.swing.JLabel tytulLabel10;
+    private javax.swing.JLabel tytulLabel11;
+    private javax.swing.JLabel tytulLabel12;
+    private javax.swing.JLabel tytulLabel13;
+    private javax.swing.JLabel tytulLabel14;
+    private javax.swing.JLabel tytulLabel15;
+    private javax.swing.JLabel tytulLabel16;
+    private javax.swing.JLabel tytulLabel17;
+    private javax.swing.JLabel tytulLabel18;
+    private javax.swing.JLabel tytulLabel19;
+    private javax.swing.JLabel tytulLabel2;
+    private javax.swing.JLabel tytulLabel20;
+    private javax.swing.JLabel tytulLabel21;
+    private javax.swing.JLabel tytulLabel22;
+    private javax.swing.JLabel tytulLabel23;
+    private javax.swing.JLabel tytulLabel24;
+    private javax.swing.JLabel tytulLabel25;
+    private javax.swing.JLabel tytulLabel3;
+    private javax.swing.JLabel tytulLabel4;
+    private javax.swing.JLabel tytulLabel5;
+    private javax.swing.JLabel tytulLabel6;
+    private javax.swing.JLabel tytulLabel7;
+    private javax.swing.JLabel tytulLabel8;
+    private javax.swing.JLabel tytulLabel9;
     // End of variables declaration//GEN-END:variables
 }

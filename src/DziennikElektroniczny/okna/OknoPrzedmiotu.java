@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class OknoPrzedmiotu extends javax.swing.JFrame {
 
-    private javax.swing.JFrame oknoListyKlas;
+    private javax.swing.JFrame oknoListyPrzedmiotow;
     private final Connection conn;
     private PrzedmiotyTableModel przedmiotyTableModel;
     private javax.swing.JTable przedmiotyTable;
@@ -28,9 +28,9 @@ public class OknoPrzedmiotu extends javax.swing.JFrame {
     /**
      * Creates new form OknoPrzedmiotu
      */
-    public OknoPrzedmiotu(javax.swing.JFrame oknoListyKlas, Connection connection, PrzedmiotyTableModel listaPrzedmiotowModel, javax.swing.JTable przedmiotyTable, javax.swing.JButton edytujButton, javax.swing.JButton usunButton, String tytul) {
+    public OknoPrzedmiotu(javax.swing.JFrame oknoListyPrzedmiotow, Connection connection, PrzedmiotyTableModel listaPrzedmiotowModel, javax.swing.JTable przedmiotyTable, javax.swing.JButton edytujButton, javax.swing.JButton usunButton, String tytul) {
         conn = connection;
-        this.oknoListyKlas = oknoListyKlas;
+        this.oknoListyPrzedmiotow = oknoListyPrzedmiotow;
         this.przedmiotyTableModel = listaPrzedmiotowModel;
         this.przedmiotyTable = przedmiotyTable;
         this.edytujButton = edytujButton;
@@ -159,11 +159,11 @@ public class OknoPrzedmiotu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        oknoListyKlas.setEnabled(true);
+        oknoListyPrzedmiotow.setEnabled(true);
     }//GEN-LAST:event_formWindowClosing
 
     private void anulujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anulujButtonActionPerformed
-        oknoListyKlas.setEnabled(true);
+        oknoListyPrzedmiotow.setEnabled(true);
         dispose();
     }//GEN-LAST:event_anulujButtonActionPerformed
 
@@ -187,7 +187,7 @@ public class OknoPrzedmiotu extends javax.swing.JFrame {
                 przedmiotyTableModel = new PrzedmiotyTableModel(conn);
                 przedmiotyTableModel.fireTableDataChanged();
                 przedmiotyTable.setModel(przedmiotyTableModel);
-                oknoListyKlas.setEnabled(true);
+                oknoListyPrzedmiotow.setEnabled(true);
                 edytujButton.setEnabled(false);
                 usunButton.setEnabled(false);
                 dispose();

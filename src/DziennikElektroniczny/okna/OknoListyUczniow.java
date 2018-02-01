@@ -7,7 +7,10 @@ package DziennikElektroniczny.okna;
 
 import DziennikElektroniczny.modele.KlasyComboBoxModel;
 import DziennikElektroniczny.modele.ListaKlasModel;
+import DziennikElektroniczny.modele.UczniowieTableModel;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -22,15 +25,23 @@ public class OknoListyUczniow extends javax.swing.JFrame {
     private javax.swing.JFrame oknoAplikacji;
     private final Connection conn;
     private KlasyComboBoxModel klasyComboBoxModel;
+    private UczniowieTableModel listaUczniowModel;
 
     public OknoListyUczniow(javax.swing.JFrame oknoListyKlas, Connection connection) {
         conn = connection;
         this.oknoAplikacji = oknoListyKlas;
         initComponents();
+        
         ListaKlasModel listaKlasModel = new ListaKlasModel();
-        String[] listaKlas =  listaKlasModel.listaKlas(conn);
+        String[] listaKlas = listaKlasModel.listaKlas(conn);
         klasyComboBoxModel = new KlasyComboBoxModel(listaKlas);
         klasyComboBox.setModel(klasyComboBoxModel);
+
+        listaUczniowModel = new UczniowieTableModel(conn);
+        listaUczniowModel.fireTableDataChanged();
+        listaUczniowTable.setModel(listaUczniowModel);
+        listaUczniowTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
         setVisible(true);
     }
 
@@ -84,6 +95,11 @@ public class OknoListyUczniow extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        listaUczniowTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                listaUczniowTableMousePressed(evt);
+            }
+        });
         listaUczniowScrollPane.setViewportView(listaUczniowTable);
 
         wyjdzOknoListyUczniowButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -104,9 +120,19 @@ public class OknoListyUczniow extends javax.swing.JFrame {
 
         usunUczniaButton.setText("Usuń");
         usunUczniaButton.setEnabled(false);
+        usunUczniaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usunUczniaButtonActionPerformed(evt);
+            }
+        });
 
         edytujUczniaButton.setText("Edytuj");
         edytujUczniaButton.setEnabled(false);
+        edytujUczniaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edytujUczniaButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout opcjePanelLayout = new javax.swing.GroupLayout(opcjePanel);
         opcjePanel.setLayout(opcjePanelLayout);
@@ -202,10 +228,33 @@ public class OknoListyUczniow extends javax.swing.JFrame {
 
     private void dodajUczniaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajUczniaButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
-            OknoUcznia oknoUcznia = new OknoUcznia(this, conn);
+            OknoUcznia oknoUcznia = new OknoUcznia(this, conn, listaUczniowModel, listaUczniowTable, edytujUczniaButton, usunUczniaButton, "Dodaj nowego ucznia");
         });
         setEnabled(false);
     }//GEN-LAST:event_dodajUczniaButtonActionPerformed
+
+    private void listaUczniowTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaUczniowTableMousePressed
+        if (evt.getButton() == MouseEvent.BUTTON1) {
+            edytujUczniaButton.setEnabled(true);
+            usunUczniaButton.setEnabled(true);
+        }
+    }//GEN-LAST:event_listaUczniowTableMousePressed
+
+    private void edytujUczniaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edytujUczniaButtonActionPerformed
+        SwingUtilities.invokeLater(() -> {
+            OknoUcznia oknoUcznia = new OknoUcznia(this, conn, listaUczniowModel, listaUczniowTable, edytujUczniaButton, usunUczniaButton, "Edytuj wybranego ucznia");
+        });
+        setEnabled(false);
+    }//GEN-LAST:event_edytujUczniaButtonActionPerformed
+
+    private void usunUczniaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usunUczniaButtonActionPerformed
+        listaUczniowModel.deleteRow(listaUczniowTable.getSelectedRow());
+        listaUczniowModel = new UczniowieTableModel(conn);
+        listaUczniowModel.fireTableDataChanged();
+        listaUczniowTable.setModel(listaUczniowModel);
+        edytujUczniaButton.setEnabled(false);
+        usunUczniaButton.setEnabled(false);
+    }//GEN-LAST:event_usunUczniaButtonActionPerformed
 
     /**
      * @param args the command line arguments
