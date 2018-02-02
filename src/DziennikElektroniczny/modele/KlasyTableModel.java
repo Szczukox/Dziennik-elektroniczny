@@ -34,7 +34,19 @@ public class KlasyTableModel extends AbstractTableModel {
                     zapytanie.close();
                 }
             }
-            String sql = "SELECT ID, NAZWA, ROK_POWSTANIA AS 'ROK POWSTANIA', PROFIL, ID_WYCHOWAWCY AS 'WYCHOWAWCA', LICZBA_UCZNIOW AS 'LICZBA UCZNIÓW' FROM KLASY ORDER BY NAZWA";
+            String sql = null;
+            ListaKlasModel listaKlasModel = new ListaKlasModel();
+            String[] klasy = listaKlasModel.listaKlas(conn);
+            Integer[] liczbaUczniow = new Integer[klasy.length - 1];
+            for (int i = 1; i < klasy.length; i++) {
+                sql = "SELECT COUNT(*) FROM UCZNIOWIE WHERE KLASA = " + klasy[i];
+                zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                dane = zapytanie.executeQuery();
+                dane.next();
+                liczbaUczniow[i - 1] = dane.getInt(1);
+            }
+
+            sql = "SELECT ID, NAZWA, ROK_POWSTANIA AS 'ROK POWSTANIA', PROFIL, ID_WYCHOWAWCY AS 'WYCHOWAWCA', LICZBA_UCZNIOW AS 'LICZBA UCZNIÓW' FROM KLASY ORDER BY NAZWA, ROK_POWSTANIA";
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();
             metadane = dane.getMetaData();
@@ -45,6 +57,13 @@ public class KlasyTableModel extends AbstractTableModel {
                 this.liczbaWierszy++;
             }
             dane.beforeFirst();
+
+            for (int i = 0; i < liczbaUczniow.length; i++) {
+                dane.next();
+                dane.updateInt("LICZBA UCZNIÓW", liczbaUczniow[i]);
+                dane.updateRow();
+            }
+            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }
@@ -54,14 +73,13 @@ public class KlasyTableModel extends AbstractTableModel {
         return dane;
     }
 
-    public void insertRow(String nazwa, String rok_powstania, String profil, String wychowawca, String liczba_uczniow) throws SQLException {
+    public void insertRow(String nazwa, String rok_powstania, String profil, String wychowawca) throws SQLException {
         try {
             dane.moveToInsertRow();
             dane.updateString("NAZWA", nazwa);
             dane.updateString("ROK POWSTANIA", rok_powstania);
             dane.updateString("PROFIL", profil);
             dane.updateInt("WYCHOWAWCA", Integer.parseInt(wychowawca));
-            dane.updateInt("LICZBA UCZNIÓW", Integer.parseInt(liczba_uczniow));
             dane.insertRow();
             dane.moveToCurrentRow();
             dane = zapytanie.executeQuery();
@@ -70,7 +88,7 @@ public class KlasyTableModel extends AbstractTableModel {
         }
     }
 
-    public void editRow(String nazwa, String rok_powstania, String profil, String wychowawca, String liczba_uczniow, int row) {
+    public void editRow(String nazwa, String rok_powstania, String profil, String wychowawca, int row) {
         try {
             dane.beforeFirst();
             for (int i = -1; i < row; i++) {
@@ -80,7 +98,6 @@ public class KlasyTableModel extends AbstractTableModel {
             dane.updateString("ROK POWSTANIA", rok_powstania);
             dane.updateString("PROFIL", profil);
             dane.updateInt("WYCHOWAWCA", Integer.parseInt(wychowawca));
-            dane.updateInt("LICZBA UCZNIÓW", Integer.parseInt(liczba_uczniow));
             dane.updateRow();
             dane.moveToCurrentRow();
         } catch (SQLException e) {

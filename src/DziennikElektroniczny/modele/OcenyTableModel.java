@@ -36,7 +36,7 @@ public class OcenyTableModel extends AbstractTableModel {
                     zapytanie.close();
                 }
             }
-            String sql = "SELECT STOPIEN, TYP, WAGA, LEKCJA FROM OCENY WHERE (UCZEN = " + uczen + " AND LEKCJA IN (SELECT ID FROM LEKCJE WHERE PRZYDZIAL = (SELECT ID FROM PRZYDZIALY WHERE (PRZEDMIOT = '" + przedmiot + "' AND KLASA = (SELECT KLASA FROM UCZNIOWIE WHERE ID = " + uczen + ")))))";
+            String sql = "SELECT STOPIEN, TYP, WAGA, LEKCJA FROM OCENY WHERE (UCZEN = " + uczen + " AND LEKCJA IN (SELECT ID FROM LEKCJE WHERE PRZYDZIAL IN (SELECT ID FROM PRZYDZIALY WHERE (PRZEDMIOT = '" + przedmiot + "'))))";
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();
             metadane = dane.getMetaData();

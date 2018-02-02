@@ -261,15 +261,13 @@ public class OknoKlasy extends javax.swing.JFrame {
                             nazwaOknoKlasyTextField.getText(),
                             rokPowstaniaOknoKlasyTextField.getText(),
                             profilOknoKlasyTextField.getText(),
-                            nauczycieleComboBox.getSelectedItem().toString(),
-                            "0");
+                            nauczycieleComboBox.getSelectedItem().toString());
                 } else if (tytul == "Edytuj wybraną klasę") {
                     klasyTableModel.editRow(
                             nazwaOknoKlasyTextField.getText(),
                             rokPowstaniaOknoKlasyTextField.getText(),
                             profilOknoKlasyTextField.getText(),
                             nauczycieleComboBox.getSelectedItem().toString(),
-                            "0",
                             klasyTable.getSelectedRow());
                 }
             } catch (SQLException ex) {
