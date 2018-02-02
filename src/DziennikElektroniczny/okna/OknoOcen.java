@@ -7,7 +7,9 @@ package DziennikElektroniczny.okna;
 
 import DziennikElektroniczny.modele.ListaPrzedmiotowDlaUczniowModel;
 import DziennikElektroniczny.modele.ComboBoxModel;
+import DziennikElektroniczny.modele.OcenyTableModel;
 import java.sql.*;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -22,6 +24,7 @@ public class OknoOcen extends javax.swing.JFrame {
     private Connection conn;
     private String uczen;
     private ComboBoxModel przedmiotyComboBoxModel;
+    private OcenyTableModel ocenyTableModel;
 
     public OknoOcen(javax.swing.JFrame oknoAplikacji, Connection conn, String uczen, String tytul) {
         initComponents();
@@ -36,6 +39,11 @@ public class OknoOcen extends javax.swing.JFrame {
         String[] listaPrzedmiotow = listaPrzedmiotowDlaUczniowModel.listaPrzedmiotow(conn, uczen);
         przedmiotyComboBoxModel = new ComboBoxModel(listaPrzedmiotow);
         przedmiotyComboBox.setModel(przedmiotyComboBoxModel);
+
+        ocenyTableModel = new OcenyTableModel(conn, uczen, przedmiotyComboBox.getSelectedItem().toString());
+        ocenyTableModel.fireTableDataChanged();
+        ocenyTable.setModel(ocenyTableModel);
+        ocenyTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     private OknoOcen() {
@@ -106,6 +114,11 @@ public class OknoOcen extends javax.swing.JFrame {
         przedmiotLabel.setText("Przedmiot:");
 
         przedmiotyComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        przedmiotyComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                przedmiotyComboBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout oknoOcenPanelLayout = new javax.swing.GroupLayout(oknoOcenPanel);
         oknoOcenPanel.setLayout(oknoOcenPanelLayout);
@@ -115,9 +128,9 @@ public class OknoOcen extends javax.swing.JFrame {
                 .addContainerGap(70, Short.MAX_VALUE)
                 .addGroup(oknoOcenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(oknoOcenPanelLayout.createSequentialGroup()
-                        .addComponent(przedmiotLabel)
+                        .addComponent(przedmiotLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(przedmiotyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(przedmiotyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(oknoOcenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, oknoOcenPanelLayout.createSequentialGroup()
@@ -169,6 +182,12 @@ public class OknoOcen extends javax.swing.JFrame {
         oknoAplikacji.setEnabled(true);
         dispose();
     }//GEN-LAST:event_wyjdzOknoOcenButtonActionPerformed
+
+    private void przedmiotyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_przedmiotyComboBoxActionPerformed
+        ocenyTableModel = new OcenyTableModel(conn, uczen, przedmiotyComboBox.getSelectedItem().toString());
+        ocenyTableModel.fireTableDataChanged();
+        ocenyTable.setModel(ocenyTableModel);
+    }//GEN-LAST:event_przedmiotyComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
