@@ -177,6 +177,9 @@
             <Property name="text" type="java.lang.String" value="Wstaw ocen&#x119;"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="wstawOceneButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="edytujLekcjeButton">
           <Properties>

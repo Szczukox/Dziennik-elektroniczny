@@ -12,6 +12,7 @@ import DziennikElektroniczny.modele.UczniowieDlaNauczycieliTableModel;
 import java.awt.event.MouseEvent;
 import java.sql.*;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -122,6 +123,11 @@ public class OknoLekcji extends javax.swing.JFrame {
 
         wstawOceneButton.setText("Wstaw ocenę");
         wstawOceneButton.setEnabled(false);
+        wstawOceneButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wstawOceneButtonActionPerformed(evt);
+            }
+        });
 
         edytujLekcjeButton.setText("Edytuj lekcję");
         edytujLekcjeButton.setEnabled(false);
@@ -290,6 +296,13 @@ public class OknoLekcji extends javax.swing.JFrame {
             edytujLekcjeButton.setEnabled(true);
         }
     }//GEN-LAST:event_lekcjeComboBoxActionPerformed
+
+    private void wstawOceneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wstawOceneButtonActionPerformed
+        SwingUtilities.invokeLater(() -> {
+            OknoOceny oknoOceny = new OknoOceny(this, conn);
+        });
+        setEnabled(false);
+    }//GEN-LAST:event_wstawOceneButtonActionPerformed
 
     /**
      * @param args the command line arguments
