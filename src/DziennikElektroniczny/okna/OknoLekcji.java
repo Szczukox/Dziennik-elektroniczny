@@ -7,6 +7,7 @@ package DziennikElektroniczny.okna;
 
 import DziennikElektroniczny.modele.ListaPrzydzialowDlaNauczycieliModel;
 import DziennikElektroniczny.modele.ComboBoxModel;
+import DziennikElektroniczny.modele.ListaLekcjiModel;
 import DziennikElektroniczny.modele.UczniowieDlaNauczycieliTableModel;
 import java.awt.event.MouseEvent;
 import java.sql.*;
@@ -25,6 +26,7 @@ public class OknoLekcji extends javax.swing.JFrame {
     private Connection conn;
     private String nauczyciel;
     private ComboBoxModel przedmiotyComboBoxModel;
+    private ComboBoxModel lekcjeComboBoxModel;
     private UczniowieDlaNauczycieliTableModel listaUczniowDlaNauczycieliModel;
 
     public OknoLekcji(javax.swing.JFrame oknoAplikacji, Connection conn, String nauczyciel) {
@@ -39,6 +41,11 @@ public class OknoLekcji extends javax.swing.JFrame {
         przedmiotyComboBoxModel = new ComboBoxModel(listaPrzedmiotow);
         klasyIPrzedmiotyComboBox.setModel(przedmiotyComboBoxModel);
 
+        String[] wybierz = new String[1];
+        wybierz[0] = "---WYBIERZ---";
+        lekcjeComboBoxModel = new ComboBoxModel(wybierz);
+        lekcjeComboBox.setModel(lekcjeComboBoxModel);
+        
         listaUczniowDlaNauczycieliModel = new UczniowieDlaNauczycieliTableModel(conn, klasyIPrzedmiotyComboBox.getSelectedItem().toString());
         listaUczniowDlaNauczycieliModel.fireTableDataChanged();
         listaUczniowTable.setModel(listaUczniowDlaNauczycieliModel);
@@ -63,10 +70,14 @@ public class OknoLekcji extends javax.swing.JFrame {
         listaUczniowScrollPane = new javax.swing.JScrollPane();
         listaUczniowTable = new javax.swing.JTable();
         opcjePanel = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        szczegolyButton = new javax.swing.JButton();
+        nowaLekcjaButton = new javax.swing.JButton();
+        wstawOceneButton = new javax.swing.JButton();
         wyjdzButton = new javax.swing.JButton();
         klasaIPrzedmiotLabel = new javax.swing.JLabel();
         klasyIPrzedmiotyComboBox = new javax.swing.JComboBox<>();
+        lekcjaLabel = new javax.swing.JLabel();
+        lekcjeComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lista uczniów");
@@ -101,20 +112,30 @@ public class OknoLekcji extends javax.swing.JFrame {
         });
         listaUczniowScrollPane.setViewportView(listaUczniowTable);
 
-        jButton2.setText("jButton2");
+        szczegolyButton.setText("Szczegóły");
+
+        nowaLekcjaButton.setText("Nowa lekcja");
+
+        wstawOceneButton.setText("Wstaw ocenę");
 
         javax.swing.GroupLayout opcjePanelLayout = new javax.swing.GroupLayout(opcjePanel);
         opcjePanel.setLayout(opcjePanelLayout);
         opcjePanelLayout.setHorizontalGroup(
             opcjePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(szczegolyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(nowaLekcjaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(wstawOceneButton, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
         );
         opcjePanelLayout.setVerticalGroup(
             opcjePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(opcjePanelLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jButton2)
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(szczegolyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nowaLekcjaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(wstawOceneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         wyjdzButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -135,6 +156,11 @@ public class OknoLekcji extends javax.swing.JFrame {
             }
         });
 
+        lekcjaLabel.setText("Lekcja:");
+
+        lekcjeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        lekcjeComboBox.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,14 +178,18 @@ public class OknoLekcji extends javax.swing.JFrame {
                                 .addComponent(listaTwoichUczniowLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(listaUczniowScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
+                                .addGap(18, 18, 18)
                                 .addComponent(opcjePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(61, 61, 61)
-                        .addComponent(klasaIPrzedmiotLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(klasaIPrzedmiotLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(lekcjaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(klasyIPrzedmiotyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(klasyIPrzedmiotyComboBox, 0, 150, Short.MAX_VALUE)
+                            .addComponent(lekcjeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,10 +200,14 @@ public class OknoLekcji extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(klasyIPrzedmiotyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(klasaIPrzedmiotLabel))
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(opcjePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(listaUczniowScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lekcjeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lekcjaLabel))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(opcjePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(listaUczniowScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(wyjdzButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -200,6 +234,16 @@ public class OknoLekcji extends javax.swing.JFrame {
         listaUczniowDlaNauczycieliModel = new UczniowieDlaNauczycieliTableModel(conn, klasyIPrzedmiotyComboBox.getSelectedItem().toString());
         listaUczniowDlaNauczycieliModel.fireTableDataChanged();
         listaUczniowTable.setModel(listaUczniowDlaNauczycieliModel);
+        lekcjeComboBox.setSelectedItem("---WYBIERZ---");
+        if (klasyIPrzedmiotyComboBox.getSelectedItem().toString().equals("---WYBIERZ---")) {
+            lekcjeComboBox.setEnabled(false);
+        } else {
+            ListaLekcjiModel listaLekcjiModel = new ListaLekcjiModel();
+            String[] listaLekcji = listaLekcjiModel.listaLekcji(conn, klasyIPrzedmiotyComboBox.getSelectedItem().toString());
+            lekcjeComboBoxModel = new ComboBoxModel(listaLekcji);
+            lekcjeComboBox.setModel(lekcjeComboBoxModel);
+            lekcjeComboBox.setEnabled(true);
+        }
     }//GEN-LAST:event_klasyIPrzedmiotyComboBoxActionPerformed
 
     /**
@@ -238,13 +282,17 @@ public class OknoLekcji extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel klasaIPrzedmiotLabel;
     private javax.swing.JComboBox<String> klasyIPrzedmiotyComboBox;
+    private javax.swing.JLabel lekcjaLabel;
+    private javax.swing.JComboBox<String> lekcjeComboBox;
     private javax.swing.JLabel listaTwoichUczniowLabel;
     private javax.swing.JScrollPane listaUczniowScrollPane;
     private javax.swing.JTable listaUczniowTable;
+    private javax.swing.JButton nowaLekcjaButton;
     private javax.swing.JPanel opcjePanel;
+    private javax.swing.JButton szczegolyButton;
+    private javax.swing.JButton wstawOceneButton;
     private javax.swing.JButton wyjdzButton;
     // End of variables declaration//GEN-END:variables
 }
