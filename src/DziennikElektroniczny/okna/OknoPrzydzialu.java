@@ -6,14 +6,12 @@
 package DziennikElektroniczny.okna;
 
 ;
-import DziennikElektroniczny.modele.KlasyComboBoxModel;
+import DziennikElektroniczny.modele.ComboBoxModel;
+import java.sql.*;
 import DziennikElektroniczny.modele.ListaKlasModel;
 import DziennikElektroniczny.modele.ListaNauczycieliModel;
 import DziennikElektroniczny.modele.ListaPrzedmiotowModel;
-import DziennikElektroniczny.modele.NauczycieleComboBoxModel;
-import DziennikElektroniczny.modele.PrzedmiotyComboBoxModel;
 import DziennikElektroniczny.modele.PrzydzialyTableModel;
-import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -61,17 +59,17 @@ public class OknoPrzydzialu extends javax.swing.JFrame {
 
         ListaKlasModel listaKlasModel = new ListaKlasModel();
         String[] listaKlas = listaKlasModel.listaKlas(conn);
-        klasyComboBoxModel = new KlasyComboBoxModel(listaKlas);
+        klasyComboBoxModel = new ComboBoxModel(listaKlas);
         klasyComboBox.setModel(klasyComboBoxModel);
 
         ListaPrzedmiotowModel listaPrzedmiotowModel = new ListaPrzedmiotowModel();
         String[] listaPrzedmiotow = listaPrzedmiotowModel.listaPrzedmiotow(conn);
-        przedmiotyComboBoxModel = new PrzedmiotyComboBoxModel(listaPrzedmiotow);
+        przedmiotyComboBoxModel = new ComboBoxModel(listaPrzedmiotow);
         przedmiotyComboBox.setModel(przedmiotyComboBoxModel);
 
         ListaNauczycieliModel listaNauczycieliModel = new ListaNauczycieliModel();
         String[] listaNauczycieli = listaNauczycieliModel.listaNauczycieli(conn);
-        nauczycieleComboBoxModel = new NauczycieleComboBoxModel(listaNauczycieli);
+        nauczycieleComboBoxModel = new ComboBoxModel(listaNauczycieli);
         nauczycieleComboBox.setModel(nauczycieleComboBoxModel);
 
         setTitle(tytul);

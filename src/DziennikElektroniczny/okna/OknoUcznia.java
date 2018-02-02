@@ -5,7 +5,7 @@
  */
 package DziennikElektroniczny.okna;
 
-import DziennikElektroniczny.modele.KlasyComboBoxModel;
+import DziennikElektroniczny.modele.ComboBoxModel;
 import DziennikElektroniczny.modele.ListaKlasModel;
 import DziennikElektroniczny.modele.UczniowieTableModel;
 import java.sql.*;
@@ -46,7 +46,7 @@ public class OknoUcznia extends javax.swing.JFrame {
 
         ListaKlasModel listaKlasModel = new ListaKlasModel();
         String[] listaKlas = listaKlasModel.listaKlas(conn);
-        klasyComboBoxModel = new KlasyComboBoxModel(listaKlas);
+        klasyComboBoxModel = new ComboBoxModel(listaKlas);
         klasyComboBox.setModel(klasyComboBoxModel);
 
         setTitle(tytul);

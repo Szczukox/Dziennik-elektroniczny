@@ -11,15 +11,15 @@ import javax.swing.DefaultComboBoxModel;
  *
  * @author patry
  */
-public class PrzedmiotyComboBoxModel extends DefaultComboBoxModel<String> {
+public class ComboBoxModel extends DefaultComboBoxModel<String> {
 
-    public PrzedmiotyComboBoxModel(String[] listaPrzedmiotow) {
-        super(listaPrzedmiotow);
+    public ComboBoxModel(String[] listaKlas) {
+       super(listaKlas);
     }
-
+    
     @Override
     public String getSelectedItem() {
-        String wybranyPrzedmiot = (String) super.getSelectedItem();
-        return wybranyPrzedmiot;
+        String wybranaKlasa = (String) super.getSelectedItem();
+        return wybranaKlasa;
     }
 }

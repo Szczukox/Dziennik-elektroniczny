@@ -6,7 +6,7 @@
 package DziennikElektroniczny.okna;
 
 import DziennikElektroniczny.modele.ListaPrzedmiotowDlaUczniowModel;
-import DziennikElektroniczny.modele.PrzedmiotyComboBoxModel;
+import DziennikElektroniczny.modele.ComboBoxModel;
 import java.sql.*;
 
 /**
@@ -21,7 +21,7 @@ public class OknoOcen extends javax.swing.JFrame {
     private javax.swing.JFrame oknoAplikacji;
     private Connection conn;
     private String uczen;
-    private PrzedmiotyComboBoxModel przedmiotyComboBoxModel;
+    private ComboBoxModel przedmiotyComboBoxModel;
 
     public OknoOcen(javax.swing.JFrame oknoAplikacji, Connection conn, String uczen, String tytul) {
         initComponents();
@@ -34,7 +34,7 @@ public class OknoOcen extends javax.swing.JFrame {
 
         ListaPrzedmiotowDlaUczniowModel listaPrzedmiotowDlaUczniowModel = new ListaPrzedmiotowDlaUczniowModel();
         String[] listaPrzedmiotow = listaPrzedmiotowDlaUczniowModel.listaPrzedmiotow(conn, uczen);
-        przedmiotyComboBoxModel = new PrzedmiotyComboBoxModel(listaPrzedmiotow);
+        przedmiotyComboBoxModel = new ComboBoxModel(listaPrzedmiotow);
         przedmiotyComboBox.setModel(przedmiotyComboBoxModel);
     }
 

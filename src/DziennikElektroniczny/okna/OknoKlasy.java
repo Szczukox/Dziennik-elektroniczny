@@ -5,10 +5,9 @@
  */
 package DziennikElektroniczny.okna;
 
-import DziennikElektroniczny.modele.KlasyComboBoxModel;
+import DziennikElektroniczny.modele.ComboBoxModel;
 import DziennikElektroniczny.modele.KlasyTableModel;
 import DziennikElektroniczny.modele.ListaNauczycieliModel;
-import DziennikElektroniczny.modele.NauczycieleComboBoxModel;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -45,7 +44,7 @@ public class OknoKlasy extends javax.swing.JFrame {
         initComponents();
         ListaNauczycieliModel listaNauczycieliModel = new ListaNauczycieliModel();
         String[] listaNauczycieli = listaNauczycieliModel.listaNauczycieli(conn);
-        nauczycieleComboBoxModel = new NauczycieleComboBoxModel(listaNauczycieli);
+        nauczycieleComboBoxModel = new ComboBoxModel(listaNauczycieli);
         nauczycieleComboBox.setModel(nauczycieleComboBoxModel);
         setTitle(tytul);
         tytulLabel.setText(tytul.toUpperCase());

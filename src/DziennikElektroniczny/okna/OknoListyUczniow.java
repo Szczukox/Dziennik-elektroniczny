@@ -5,7 +5,7 @@
  */
 package DziennikElektroniczny.okna;
 
-import DziennikElektroniczny.modele.KlasyComboBoxModel;
+import DziennikElektroniczny.modele.ComboBoxModel;
 import DziennikElektroniczny.modele.ListaKlasModel;
 import DziennikElektroniczny.modele.UczniowieTableModel;
 import java.awt.event.MouseEvent;
@@ -24,7 +24,7 @@ public class OknoListyUczniow extends javax.swing.JFrame {
      */
     private javax.swing.JFrame oknoAplikacji;
     private final Connection conn;
-    private KlasyComboBoxModel klasyComboBoxModel;
+    private ComboBoxModel klasyComboBoxModel;
     private UczniowieTableModel listaUczniowModel;
 
     public OknoListyUczniow(javax.swing.JFrame oknoListyKlas, Connection connection) {
@@ -34,7 +34,7 @@ public class OknoListyUczniow extends javax.swing.JFrame {
         
         ListaKlasModel listaKlasModel = new ListaKlasModel();
         String[] listaKlas = listaKlasModel.listaKlas(conn);
-        klasyComboBoxModel = new KlasyComboBoxModel(listaKlas);
+        klasyComboBoxModel = new ComboBoxModel(listaKlas);
         klasyComboBox.setModel(klasyComboBoxModel);
 
         listaUczniowModel = new UczniowieTableModel(conn, klasyComboBox.getSelectedItem().toString());
