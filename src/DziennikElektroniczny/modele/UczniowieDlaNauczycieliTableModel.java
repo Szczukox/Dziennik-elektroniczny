@@ -39,9 +39,9 @@ public class UczniowieDlaNauczycieliTableModel extends AbstractTableModel {
             String sql = null;
             String[] klasa = klasaIPrzedmiot.split(" | ");
             if (klasaIPrzedmiot.equals("---WYBIERZ---")) {
-                sql = "SELECT IMIE, NAZWISKO FROM UCZNIOWIE WHERE ID = 0 ORDER BY NAZWISKO";
+                sql = "SELECT IMIE, NAZWISKO, NAZWISKO AS 'SREDNIA OCEN' FROM UCZNIOWIE WHERE ID = 0 ORDER BY NAZWISKO";
             } else if (klasaIPrzedmiot != "---WYBIERZ---") {
-                sql = "SELECT IMIE, NAZWISKO FROM UCZNIOWIE WHERE KLASA = " + klasa[0] + " ORDER BY NAZWISKO";
+                sql = "SELECT u.IMIE, u.NAZWISKO FROM UCZNIOWIE u WHERE u.KLASA = " + klasa[0] + " ORDER BY NAZWISKO";
             }
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();

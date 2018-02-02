@@ -5,6 +5,10 @@
  */
 package DziennikElektroniczny.okna;
 
+import DziennikElektroniczny.modele.ListaPrzedmiotowDlaUczniowModel;
+import DziennikElektroniczny.modele.PrzedmiotyComboBoxModel;
+import java.sql.*;
+
 /**
  *
  * @author patry
@@ -14,13 +18,24 @@ public class OknoOcen extends javax.swing.JFrame {
     /**
      * Creates new form OknoOcen
      */
-    
     private javax.swing.JFrame oknoAplikacji;
-    
-    public OknoOcen(javax.swing.JFrame oknoAplikacji) {
+    private Connection conn;
+    private String uczen;
+    private PrzedmiotyComboBoxModel przedmiotyComboBoxModel;
+
+    public OknoOcen(javax.swing.JFrame oknoAplikacji, Connection conn, String uczen, String tytul) {
         initComponents();
         this.oknoAplikacji = oknoAplikacji;
+        this.conn = conn;
+        this.uczen = uczen;
+        setTitle(tytul);
+        tytulLabel.setText(tytul.toUpperCase());
         setVisible(true);
+
+        ListaPrzedmiotowDlaUczniowModel listaPrzedmiotowDlaUczniowModel = new ListaPrzedmiotowDlaUczniowModel();
+        String[] listaPrzedmiotow = listaPrzedmiotowDlaUczniowModel.listaPrzedmiotow(conn, uczen);
+        przedmiotyComboBoxModel = new PrzedmiotyComboBoxModel(listaPrzedmiotow);
+        przedmiotyComboBox.setModel(przedmiotyComboBoxModel);
     }
 
     private OknoOcen() {
@@ -38,11 +53,11 @@ public class OknoOcen extends javax.swing.JFrame {
 
         oknoOcenPanel = new javax.swing.JPanel();
         wyjdzOknoOcenButton = new javax.swing.JButton();
-        twojeOcenyLabel = new javax.swing.JLabel();
+        tytulLabel = new javax.swing.JLabel();
         ocenyScrollPane = new javax.swing.JScrollPane();
         ocenyTable = new javax.swing.JTable();
         przedmiotLabel = new javax.swing.JLabel();
-        przedmiotComboBox = new javax.swing.JComboBox<>();
+        przedmiotyComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Oceny");
@@ -64,10 +79,10 @@ public class OknoOcen extends javax.swing.JFrame {
             }
         });
 
-        twojeOcenyLabel.setFont(new java.awt.Font("PT Serif", 1, 24)); // NOI18N
-        twojeOcenyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        twojeOcenyLabel.setText("TWOJE OCENY");
-        twojeOcenyLabel.setPreferredSize(new java.awt.Dimension(300, 30));
+        tytulLabel.setFont(new java.awt.Font("PT Serif", 1, 24)); // NOI18N
+        tytulLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tytulLabel.setText("TWOJE OCENY");
+        tytulLabel.setPreferredSize(new java.awt.Dimension(300, 30));
 
         ocenyTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -90,23 +105,19 @@ public class OknoOcen extends javax.swing.JFrame {
 
         przedmiotLabel.setText("Przedmiot:");
 
-        przedmiotComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        przedmiotyComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout oknoOcenPanelLayout = new javax.swing.GroupLayout(oknoOcenPanel);
         oknoOcenPanel.setLayout(oknoOcenPanelLayout);
         oknoOcenPanelLayout.setHorizontalGroup(
             oknoOcenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(oknoOcenPanelLayout.createSequentialGroup()
-                .addGap(300, 300, 300)
-                .addComponent(twojeOcenyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, oknoOcenPanelLayout.createSequentialGroup()
                 .addContainerGap(70, Short.MAX_VALUE)
                 .addGroup(oknoOcenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(oknoOcenPanelLayout.createSequentialGroup()
                         .addComponent(przedmiotLabel)
                         .addGap(18, 18, 18)
-                        .addComponent(przedmiotComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(przedmiotyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(oknoOcenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, oknoOcenPanelLayout.createSequentialGroup()
@@ -115,16 +126,20 @@ public class OknoOcen extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, oknoOcenPanelLayout.createSequentialGroup()
                             .addComponent(ocenyScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(60, 60, 60)))))
+            .addGroup(oknoOcenPanelLayout.createSequentialGroup()
+                .addGap(250, 250, 250)
+                .addComponent(tytulLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         oknoOcenPanelLayout.setVerticalGroup(
             oknoOcenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, oknoOcenPanelLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(twojeOcenyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tytulLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addGroup(oknoOcenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(przedmiotLabel)
-                    .addComponent(przedmiotComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(przedmiotyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addComponent(ocenyScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -194,9 +209,9 @@ public class OknoOcen extends javax.swing.JFrame {
     private javax.swing.JScrollPane ocenyScrollPane;
     private javax.swing.JTable ocenyTable;
     private javax.swing.JPanel oknoOcenPanel;
-    private javax.swing.JComboBox<String> przedmiotComboBox;
     private javax.swing.JLabel przedmiotLabel;
-    private javax.swing.JLabel twojeOcenyLabel;
+    private javax.swing.JComboBox<String> przedmiotyComboBox;
+    private javax.swing.JLabel tytulLabel;
     private javax.swing.JButton wyjdzOknoOcenButton;
     // End of variables declaration//GEN-END:variables
 }

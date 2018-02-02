@@ -781,7 +781,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
 
     private void trybUczniaZobaczOcenyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybUczniaZobaczOcenyButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
-            OknoOcen oknoOcen = new OknoOcen(this);
+            OknoOcen oknoOcen = new OknoOcen(this, conn, nazwaUzytkownikaLogowanieTextField.getText(), "Twoje oceny");
         });
         setEnabled(false);
     }//GEN-LAST:event_trybUczniaZobaczOcenyButtonActionPerformed
@@ -808,7 +808,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
 
     private void trybRodzicaZobaczOcenyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybRodzicaZobaczOcenyButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
-            OknoOcen oknoOcen = new OknoOcen(this);
+            OknoOcen oknoOcen = new OknoOcen(this, conn, nazwaUzytkownikaLogowanieTextField.getText(), "Oceny twojego dziecka");
         });
         setEnabled(false);
     }//GEN-LAST:event_trybRodzicaZobaczOcenyButtonActionPerformed
