@@ -136,7 +136,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="szczegolyButton" max="32767" attributes="0"/>
               <Component id="nowaLekcjaButton" alignment="0" max="32767" attributes="0"/>
-              <Component id="wstawOceneButton" alignment="0" pref="120" max="32767" attributes="0"/>
+              <Component id="wstawOceneButton" alignment="0" max="32767" attributes="0"/>
+              <Component id="edytujLekcjeButton" alignment="0" max="32767" attributes="0"/>
+              <Component id="poprawOceneButton" alignment="0" pref="120" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -147,8 +149,12 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="nowaLekcjaButton" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="edytujLekcjeButton" min="-2" pref="35" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="wstawOceneButton" min="-2" pref="35" max="-2" attributes="0"/>
-                  <EmptySpace pref="177" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="poprawOceneButton" min="-2" pref="35" max="-2" attributes="0"/>
+                  <EmptySpace pref="93" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -157,16 +163,31 @@
         <Component class="javax.swing.JButton" name="szczegolyButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Szczeg&#xf3;&#x142;y"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="nowaLekcjaButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nowa lekcja"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="wstawOceneButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Wstaw ocen&#x119;"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="edytujLekcjeButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Edytuj lekcj&#x119;"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="poprawOceneButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Popraw ocen&#x119;"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -225,6 +246,9 @@
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lekcjeComboBoxActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
