@@ -420,7 +420,7 @@
                   <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="trybUczniaZobaczPlanLekcjiButton" min="-2" pref="400" max="-2" attributes="0"/>
-                      <Component id="trybUczniaZobaczNieobecnosciButton" min="-2" pref="400" max="-2" attributes="0"/>
+                      <Component id="trybUczniaZobaczObecnosciButton" min="-2" pref="400" max="-2" attributes="0"/>
                       <Component id="trybUczniaZobaczOcenyButton" min="-2" pref="400" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="100" max="32767" attributes="0"/>
@@ -435,7 +435,7 @@
                   <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
                   <Component id="trybUczniaZobaczOcenyButton" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="trybUczniaZobaczNieobecnosciButton" min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="trybUczniaZobaczObecnosciButton" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="trybUczniaZobaczPlanLekcjiButton" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace pref="118" max="32767" attributes="0"/>
@@ -486,16 +486,16 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trybUczniaZobaczOcenyButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="trybUczniaZobaczNieobecnosciButton">
+        <Component class="javax.swing.JButton" name="trybUczniaZobaczObecnosciButton">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="ZOBACZ SWOJE NIEOBECNO&#x15a;CI"/>
+            <Property name="text" type="java.lang.String" value="ZOBACZ SW&#xd3;J STAN OBECNO&#x15a;CI"/>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trybUczniaZobaczNieobecnosciButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trybUczniaZobaczObecnosciButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="trybUczniaZobaczPlanLekcjiButton">
@@ -538,7 +538,7 @@
                                   <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="trybRodzicaZobaczOcenyButton" max="32767" attributes="0"/>
-                                      <Component id="trybRodzicaZobaczNieobecnosciButton" max="32767" attributes="0"/>
+                                      <Component id="trybRodzicaZobaczObecnosciButton" max="32767" attributes="0"/>
                                       <Component id="trybRodzicaZobaczPlanLekcjiButton" alignment="0" min="-2" pref="400" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -558,7 +558,7 @@
                   <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
                   <Component id="trybRodzicaZobaczOcenyButton" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="trybRodzicaZobaczNieobecnosciButton" min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="trybRodzicaZobaczObecnosciButton" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="trybRodzicaZobaczPlanLekcjiButton" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace pref="118" max="32767" attributes="0"/>
@@ -604,15 +604,15 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trybRodzicaZobaczOcenyButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="trybRodzicaZobaczNieobecnosciButton">
+        <Component class="javax.swing.JButton" name="trybRodzicaZobaczObecnosciButton">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="15" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="ZOBACZ NIEOBECNO&#x15a;CI SWOJEGO DZIECKA"/>
+            <Property name="text" type="java.lang.String" value="ZOBACZ STAN OBECNO&#x15a;CI SWOJEGO DZIECKA"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trybRodzicaZobaczNieobecnosciButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trybRodzicaZobaczObecnosciButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="trybRodzicaZobaczPlanLekcjiButton">

@@ -5,11 +5,7 @@
  */
 package DziennikElektroniczny.modele;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
@@ -36,7 +32,7 @@ public class OcenyTableModel extends AbstractTableModel {
                     zapytanie.close();
                 }
             }
-            String sql = "SELECT STOPIEN, TYP, WAGA, LEKCJA FROM OCENY WHERE (UCZEN = " + uczen + " AND LEKCJA IN (SELECT ID FROM LEKCJE WHERE PRZYDZIAL IN (SELECT ID FROM PRZYDZIALY WHERE (PRZEDMIOT = '" + przedmiot + "'))))";
+            String sql = "SELECT STOPIEN, TYP, WAGA, LEKCJA FROM OCENY WHERE (UCZEN = " + uczen + " AND LEKCJA IN (SELECT ID FROM LEKCJE WHERE PRZYDZIAL IN (SELECT ID FROM PRZYDZIALY WHERE PRZEDMIOT = '" + przedmiot + "')))";
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();
             metadane = dane.getMetaData();

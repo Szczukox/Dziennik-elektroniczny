@@ -72,13 +72,13 @@ public class OknoAplikacji extends javax.swing.JFrame {
         trybUczniaLabel = new javax.swing.JLabel();
         wyjdzTrybUczniaButton = new javax.swing.JButton();
         trybUczniaZobaczOcenyButton = new javax.swing.JButton();
-        trybUczniaZobaczNieobecnosciButton = new javax.swing.JButton();
+        trybUczniaZobaczObecnosciButton = new javax.swing.JButton();
         trybUczniaZobaczPlanLekcjiButton = new javax.swing.JButton();
         trybRodzicaPanel = new javax.swing.JPanel();
         trybRodzicaLabel = new javax.swing.JLabel();
         wyjdzTrybRodzicaButton = new javax.swing.JButton();
         trybRodzicaZobaczOcenyButton = new javax.swing.JButton();
-        trybRodzicaZobaczNieobecnosciButton = new javax.swing.JButton();
+        trybRodzicaZobaczObecnosciButton = new javax.swing.JButton();
         trybRodzicaZobaczPlanLekcjiButton = new javax.swing.JButton();
         trybNauczycielaPanel = new javax.swing.JPanel();
         wyjdzTrybNauczycielaButton = new javax.swing.JButton();
@@ -323,12 +323,12 @@ public class OknoAplikacji extends javax.swing.JFrame {
             }
         });
 
-        trybUczniaZobaczNieobecnosciButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        trybUczniaZobaczNieobecnosciButton.setText("ZOBACZ SWOJE NIEOBECNOŚCI");
-        trybUczniaZobaczNieobecnosciButton.setFocusPainted(false);
-        trybUczniaZobaczNieobecnosciButton.addActionListener(new java.awt.event.ActionListener() {
+        trybUczniaZobaczObecnosciButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        trybUczniaZobaczObecnosciButton.setText("ZOBACZ SWÓJ STAN OBECNOŚCI");
+        trybUczniaZobaczObecnosciButton.setFocusPainted(false);
+        trybUczniaZobaczObecnosciButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                trybUczniaZobaczNieobecnosciButtonActionPerformed(evt);
+                trybUczniaZobaczObecnosciButtonActionPerformed(evt);
             }
         });
 
@@ -357,7 +357,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
                 .addGap(100, 100, 100)
                 .addGroup(trybUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(trybUczniaZobaczPlanLekcjiButton, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(trybUczniaZobaczNieobecnosciButton, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(trybUczniaZobaczObecnosciButton, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(trybUczniaZobaczOcenyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(100, Short.MAX_VALUE))
         );
@@ -369,7 +369,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
                 .addGap(125, 125, 125)
                 .addComponent(trybUczniaZobaczOcenyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(trybUczniaZobaczNieobecnosciButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(trybUczniaZobaczObecnosciButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(trybUczniaZobaczPlanLekcjiButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
@@ -401,11 +401,11 @@ public class OknoAplikacji extends javax.swing.JFrame {
             }
         });
 
-        trybRodzicaZobaczNieobecnosciButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        trybRodzicaZobaczNieobecnosciButton.setText("ZOBACZ NIEOBECNOŚCI SWOJEGO DZIECKA");
-        trybRodzicaZobaczNieobecnosciButton.addActionListener(new java.awt.event.ActionListener() {
+        trybRodzicaZobaczObecnosciButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        trybRodzicaZobaczObecnosciButton.setText("ZOBACZ STAN OBECNOŚCI SWOJEGO DZIECKA");
+        trybRodzicaZobaczObecnosciButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                trybRodzicaZobaczNieobecnosciButtonActionPerformed(evt);
+                trybRodzicaZobaczObecnosciButtonActionPerformed(evt);
             }
         });
 
@@ -435,7 +435,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
                                 .addGap(100, 100, 100)
                                 .addGroup(trybRodzicaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(trybRodzicaZobaczOcenyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(trybRodzicaZobaczNieobecnosciButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(trybRodzicaZobaczObecnosciButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(trybRodzicaZobaczPlanLekcjiButton, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 88, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -448,7 +448,7 @@ public class OknoAplikacji extends javax.swing.JFrame {
                 .addGap(125, 125, 125)
                 .addComponent(trybRodzicaZobaczOcenyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(trybRodzicaZobaczNieobecnosciButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(trybRodzicaZobaczObecnosciButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(trybRodzicaZobaczPlanLekcjiButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
@@ -786,12 +786,12 @@ public class OknoAplikacji extends javax.swing.JFrame {
         setEnabled(false);
     }//GEN-LAST:event_trybUczniaZobaczOcenyButtonActionPerformed
 
-    private void trybUczniaZobaczNieobecnosciButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybUczniaZobaczNieobecnosciButtonActionPerformed
+    private void trybUczniaZobaczObecnosciButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybUczniaZobaczObecnosciButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
-            OknoNieobecnosci oknoNieobecnosci = new OknoNieobecnosci(this);
+            OknoObecnosci oknoNieobecnosci = new OknoObecnosci(this, conn, nazwaUzytkownikaLogowanieTextField.getText(), "Twój stan obecności");
         });
         setEnabled(false);
-    }//GEN-LAST:event_trybUczniaZobaczNieobecnosciButtonActionPerformed
+    }//GEN-LAST:event_trybUczniaZobaczObecnosciButtonActionPerformed
 
     private void trybUczniaZobaczPlanLekcjiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybUczniaZobaczPlanLekcjiButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
@@ -813,12 +813,12 @@ public class OknoAplikacji extends javax.swing.JFrame {
         setEnabled(false);
     }//GEN-LAST:event_trybRodzicaZobaczOcenyButtonActionPerformed
 
-    private void trybRodzicaZobaczNieobecnosciButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybRodzicaZobaczNieobecnosciButtonActionPerformed
+    private void trybRodzicaZobaczObecnosciButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybRodzicaZobaczObecnosciButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
-            OknoNieobecnosci oknoNieobecnosci = new OknoNieobecnosci(this);
+            OknoObecnosci oknoNieobecnosci = new OknoObecnosci(this, conn, nazwaUzytkownikaLogowanieTextField.getText(), "Stan obecności twojego dziecka");
         });
         setEnabled(false);
-    }//GEN-LAST:event_trybRodzicaZobaczNieobecnosciButtonActionPerformed
+    }//GEN-LAST:event_trybRodzicaZobaczObecnosciButtonActionPerformed
 
     private void trybRodzicaZobaczPlanLekcjiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trybRodzicaZobaczPlanLekcjiButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
@@ -946,12 +946,12 @@ public class OknoAplikacji extends javax.swing.JFrame {
     private javax.swing.JButton trybNauczycielaZobaczUczniowButton;
     private javax.swing.JLabel trybRodzicaLabel;
     private javax.swing.JPanel trybRodzicaPanel;
-    private javax.swing.JButton trybRodzicaZobaczNieobecnosciButton;
+    private javax.swing.JButton trybRodzicaZobaczObecnosciButton;
     private javax.swing.JButton trybRodzicaZobaczOcenyButton;
     private javax.swing.JButton trybRodzicaZobaczPlanLekcjiButton;
     private javax.swing.JLabel trybUczniaLabel;
     private javax.swing.JPanel trybUczniaPanel;
-    private javax.swing.JButton trybUczniaZobaczNieobecnosciButton;
+    private javax.swing.JButton trybUczniaZobaczObecnosciButton;
     private javax.swing.JButton trybUczniaZobaczOcenyButton;
     private javax.swing.JButton trybUczniaZobaczPlanLekcjiButton;
     private javax.swing.JButton uczenButton;

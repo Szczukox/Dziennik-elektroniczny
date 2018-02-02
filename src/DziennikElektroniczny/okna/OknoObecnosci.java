@@ -5,25 +5,48 @@
  */
 package DziennikElektroniczny.okna;
 
+import DziennikElektroniczny.modele.ComboBoxModel;
+import DziennikElektroniczny.modele.ListaPrzedmiotowDlaUczniowModel;
+import DziennikElektroniczny.modele.ObecnosciTableModel;
+import java.sql.*;
+import javax.swing.ListSelectionModel;
+
 /**
  *
  * @author patry
  */
-public class OknoNieobecnosci extends javax.swing.JFrame {
+public class OknoObecnosci extends javax.swing.JFrame {
 
     /**
-     * Creates new form OknoNieobecnosci
+     * Creates new form OknoObecnosci
      */
-    
     private javax.swing.JFrame oknoAplikacji;
-    
-    public OknoNieobecnosci(javax.swing.JFrame oknoAplikacji) {
+    private Connection conn;
+    private String uczen;
+    private ComboBoxModel przedmiotyComboBoxModel;
+    private ObecnosciTableModel obecnosciTableModel;
+
+    public OknoObecnosci(javax.swing.JFrame oknoAplikacji, Connection conn, String uczen, String tytul) {
         initComponents();
         this.oknoAplikacji = oknoAplikacji;
+        this.conn = conn;
+        this.uczen = uczen;
+        setTitle(tytul);
+        tytulLabel.setText(tytul.toUpperCase());
         setVisible(true);
+
+        ListaPrzedmiotowDlaUczniowModel listaPrzedmiotowDlaUczniowModel = new ListaPrzedmiotowDlaUczniowModel();
+        String[] listaPrzedmiotow = listaPrzedmiotowDlaUczniowModel.listaPrzedmiotow(conn, uczen);
+        przedmiotyComboBoxModel = new ComboBoxModel(listaPrzedmiotow);
+        przedmiotyComboBox.setModel(przedmiotyComboBoxModel);
+
+        obecnosciTableModel = new ObecnosciTableModel(conn, uczen, przedmiotyComboBox.getSelectedItem().toString());
+        obecnosciTableModel.fireTableDataChanged();
+        obecnosciTable.setModel(obecnosciTableModel);
+        obecnosciTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
-    private OknoNieobecnosci() {
+    private OknoObecnosci() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -38,9 +61,11 @@ public class OknoNieobecnosci extends javax.swing.JFrame {
 
         oknoNieobecnosciPanel = new javax.swing.JPanel();
         wyjdzOknoNieobecnosciButton = new javax.swing.JButton();
-        twojeNieobecnosciLabel = new javax.swing.JLabel();
-        nieobecnosciScrollPane = new javax.swing.JScrollPane();
-        nieobecnosciTable = new javax.swing.JTable();
+        tytulLabel = new javax.swing.JLabel();
+        obecnosciScrollPane = new javax.swing.JScrollPane();
+        obecnosciTable = new javax.swing.JTable();
+        przedmiotLabel = new javax.swing.JLabel();
+        przedmiotyComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nieobecności");
@@ -64,12 +89,12 @@ public class OknoNieobecnosci extends javax.swing.JFrame {
             }
         });
 
-        twojeNieobecnosciLabel.setFont(new java.awt.Font("PT Serif", 1, 24)); // NOI18N
-        twojeNieobecnosciLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        twojeNieobecnosciLabel.setText("TWOJE NIEOBECNOŚCI");
-        twojeNieobecnosciLabel.setPreferredSize(new java.awt.Dimension(300, 30));
+        tytulLabel.setFont(new java.awt.Font("PT Serif", 1, 24)); // NOI18N
+        tytulLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tytulLabel.setText("TWÓJ STAN OBECNOŚCI");
+        tytulLabel.setPreferredSize(new java.awt.Dimension(300, 30));
 
-        nieobecnosciTable.setModel(new javax.swing.table.DefaultTableModel(
+        obecnosciTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -80,7 +105,16 @@ public class OknoNieobecnosci extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        nieobecnosciScrollPane.setViewportView(nieobecnosciTable);
+        obecnosciScrollPane.setViewportView(obecnosciTable);
+
+        przedmiotLabel.setText("Przedmiot:");
+
+        przedmiotyComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        przedmiotyComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                przedmiotyComboBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout oknoNieobecnosciPanelLayout = new javax.swing.GroupLayout(oknoNieobecnosciPanel);
         oknoNieobecnosciPanel.setLayout(oknoNieobecnosciPanelLayout);
@@ -93,20 +127,29 @@ public class OknoNieobecnosci extends javax.swing.JFrame {
             .addGroup(oknoNieobecnosciPanelLayout.createSequentialGroup()
                 .addGroup(oknoNieobecnosciPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(oknoNieobecnosciPanelLayout.createSequentialGroup()
-                        .addGap(300, 300, 300)
-                        .addComponent(twojeNieobecnosciLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(oknoNieobecnosciPanelLayout.createSequentialGroup()
                         .addGap(60, 60, 60)
-                        .addComponent(nieobecnosciScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(oknoNieobecnosciPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(obecnosciScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(oknoNieobecnosciPanelLayout.createSequentialGroup()
+                                .addComponent(przedmiotLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(przedmiotyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(oknoNieobecnosciPanelLayout.createSequentialGroup()
+                        .addGap(200, 200, 200)
+                        .addComponent(tytulLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         oknoNieobecnosciPanelLayout.setVerticalGroup(
             oknoNieobecnosciPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, oknoNieobecnosciPanelLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(twojeNieobecnosciLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                .addComponent(nieobecnosciScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tytulLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(oknoNieobecnosciPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(przedmiotLabel)
+                    .addComponent(przedmiotyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(obecnosciScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(wyjdzOknoNieobecnosciButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
@@ -135,6 +178,12 @@ public class OknoNieobecnosci extends javax.swing.JFrame {
         oknoAplikacji.setEnabled(true);
     }//GEN-LAST:event_formWindowClosing
 
+    private void przedmiotyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_przedmiotyComboBoxActionPerformed
+        obecnosciTableModel = new ObecnosciTableModel(conn, uczen, przedmiotyComboBox.getSelectedItem().toString());
+        obecnosciTableModel.fireTableDataChanged();
+        obecnosciTable.setModel(obecnosciTableModel);
+    }//GEN-LAST:event_przedmiotyComboBoxActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -152,29 +201,32 @@ public class OknoNieobecnosci extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(OknoNieobecnosci.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OknoObecnosci.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(OknoNieobecnosci.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OknoObecnosci.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(OknoNieobecnosci.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OknoObecnosci.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(OknoNieobecnosci.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OknoObecnosci.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new OknoNieobecnosci().setVisible(true);
+                new OknoObecnosci().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane nieobecnosciScrollPane;
-    private javax.swing.JTable nieobecnosciTable;
+    private javax.swing.JScrollPane obecnosciScrollPane;
+    private javax.swing.JTable obecnosciTable;
     private javax.swing.JPanel oknoNieobecnosciPanel;
-    private javax.swing.JLabel twojeNieobecnosciLabel;
+    private javax.swing.JLabel przedmiotLabel;
+    private javax.swing.JComboBox<String> przedmiotyComboBox;
+    private javax.swing.JLabel tytulLabel;
     private javax.swing.JButton wyjdzOknoNieobecnosciButton;
     // End of variables declaration//GEN-END:variables
 }
