@@ -43,6 +43,7 @@ public class OknoLekcji extends javax.swing.JFrame {
         listaUczniowDlaNauczycieliModel.fireTableDataChanged();
         listaUczniowTable.setModel(listaUczniowDlaNauczycieliModel);
         listaUczniowTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listaUczniowTable.getTableHeader().setReorderingAllowed(false);
     }
 
     private OknoLekcji() {

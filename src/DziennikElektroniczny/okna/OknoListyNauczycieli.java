@@ -35,6 +35,7 @@ public class OknoListyNauczycieli extends javax.swing.JFrame {
         listaNauczycieliModel.fireTableDataChanged();
         listaNauczycieliTable.setModel(listaNauczycieliModel);
         listaNauczycieliTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listaNauczycieliTable.getTableHeader().setReorderingAllowed(false);
         setVisible(true);
     }
 

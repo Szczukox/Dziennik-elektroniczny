@@ -59,6 +59,7 @@ public class OknoListyPrzydzialow extends javax.swing.JFrame {
         listaPrzydzialowModel.fireTableDataChanged();
         listaPrzydzialowTable.setModel(listaPrzydzialowModel);
         listaPrzydzialowTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listaPrzydzialowTable.getTableHeader().setReorderingAllowed(false);
     }
 
     private OknoListyPrzydzialow() {

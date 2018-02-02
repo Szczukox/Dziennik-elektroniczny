@@ -44,6 +44,7 @@ public class OknoObecnosci extends javax.swing.JFrame {
         obecnosciTableModel.fireTableDataChanged();
         obecnosciTable.setModel(obecnosciTableModel);
         obecnosciTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        obecnosciTable.getTableHeader().setReorderingAllowed(false);
     }
 
     private OknoObecnosci() {

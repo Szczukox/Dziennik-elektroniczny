@@ -31,7 +31,7 @@ public class OknoListyUczniow extends javax.swing.JFrame {
         conn = connection;
         this.oknoAplikacji = oknoListyKlas;
         initComponents();
-        
+
         ListaKlasModel listaKlasModel = new ListaKlasModel();
         String[] listaKlas = listaKlasModel.listaKlas(conn);
         klasyComboBoxModel = new ComboBoxModel(listaKlas);
@@ -41,7 +41,8 @@ public class OknoListyUczniow extends javax.swing.JFrame {
         listaUczniowModel.fireTableDataChanged();
         listaUczniowTable.setModel(listaUczniowModel);
         listaUczniowTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
+        listaUczniowTable.getTableHeader().setReorderingAllowed(false);
+
         setVisible(true);
     }
 

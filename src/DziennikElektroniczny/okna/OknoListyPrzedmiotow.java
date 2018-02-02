@@ -32,6 +32,7 @@ public class OknoListyPrzedmiotow extends javax.swing.JFrame {
         listaPrzedmiotowModel.fireTableDataChanged();
         listaPrzedmiotowTable.setModel(listaPrzedmiotowModel);
         listaPrzedmiotowTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listaPrzedmiotowTable.getTableHeader().setReorderingAllowed(false);
         setVisible(true);
     }
 

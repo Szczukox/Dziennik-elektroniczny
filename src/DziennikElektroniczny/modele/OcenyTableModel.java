@@ -153,4 +153,5 @@ public class OcenyTableModel extends AbstractTableModel {
     @Override
     public void setValueAt(Object value, int wiersz, int kolumna) {
     }
+    
 }

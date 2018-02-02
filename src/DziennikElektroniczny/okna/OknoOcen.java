@@ -44,6 +44,7 @@ public class OknoOcen extends javax.swing.JFrame {
         ocenyTableModel.fireTableDataChanged();
         ocenyTable.setModel(ocenyTableModel);
         ocenyTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ocenyTable.getTableHeader().setReorderingAllowed(false);
     }
 
     private OknoOcen() {
