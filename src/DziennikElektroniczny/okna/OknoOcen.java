@@ -40,7 +40,7 @@ public class OknoOcen extends javax.swing.JFrame {
         przedmiotyComboBoxModel = new ComboBoxModel(listaPrzedmiotow);
         przedmiotyComboBox.setModel(przedmiotyComboBoxModel);
 
-        ocenyTableModel = new OcenyTableModel(conn, uczen, przedmiotyComboBox.getSelectedItem().toString());
+        ocenyTableModel = new OcenyTableModel(conn, uczen, przedmiotyComboBox.getSelectedItem().toString(), "uczen");
         ocenyTableModel.fireTableDataChanged();
         ocenyTable.setModel(ocenyTableModel);
         ocenyTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -185,7 +185,7 @@ public class OknoOcen extends javax.swing.JFrame {
     }//GEN-LAST:event_wyjdzOknoOcenButtonActionPerformed
 
     private void przedmiotyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_przedmiotyComboBoxActionPerformed
-        ocenyTableModel = new OcenyTableModel(conn, uczen, przedmiotyComboBox.getSelectedItem().toString());
+        ocenyTableModel = new OcenyTableModel(conn, uczen, przedmiotyComboBox.getSelectedItem().toString(), "uczen");
         ocenyTableModel.fireTableDataChanged();
         ocenyTable.setModel(ocenyTableModel);
     }//GEN-LAST:event_przedmiotyComboBoxActionPerformed

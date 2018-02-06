@@ -5,8 +5,11 @@
  */
 package DziennikElektroniczny.okna;
 
+import DziennikElektroniczny.modele.OcenyTableModel;
 import DziennikElektroniczny.modele.UczniowieDlaNauczycieliTableModel;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,14 +23,17 @@ public class OknoOceny extends javax.swing.JFrame {
     private javax.swing.JFrame oknoLekcji;
     private final Connection conn;
     private UczniowieDlaNauczycieliTableModel uczniowieDlaNauczycieliTableModel;
-    private javax.swing.JTable uczniowieDlaNauczycieliTable; 
+    private javax.swing.JTable uczniowieDlaNauczycieliTable;
+    private String przedmiot;
 
     public OknoOceny(javax.swing.JFrame oknoLekcji, Connection conn, UczniowieDlaNauczycieliTableModel uczniowieDlaNauczycieliTableModel,
-            javax.swing.JTable uczniowieDlaNauczycieliTable, String wybranaLekcja) {
+            javax.swing.JTable uczniowieDlaNauczycieliTable, String wybranaLekcja, String klasaIPrzedmiot) {
         this.oknoLekcji = oknoLekcji;
         this.conn = conn;
         this.uczniowieDlaNauczycieliTableModel = uczniowieDlaNauczycieliTableModel;
         this.uczniowieDlaNauczycieliTable = uczniowieDlaNauczycieliTable;
+        String[] klasaPrzedmiot = klasaIPrzedmiot.split(" | ");
+        this.przedmiot = klasaPrzedmiot[2];
         initComponents();
         uczenTextField.setEditable(false);
         lekcjaTextField.setEditable(false);
@@ -203,6 +209,15 @@ public class OknoOceny extends javax.swing.JFrame {
 
     private void wstawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wstawButtonActionPerformed
         String idUcznia = uczniowieDlaNauczycieliTableModel.getIdUcznia(uczniowieDlaNauczycieliTable.getSelectedRow());
+        OcenyTableModel ocenyTableModel = new OcenyTableModel(conn, idUcznia, przedmiot, "nauczyciel");
+        try {
+            ocenyTableModel.wstawOcene(stopienTextField.getText(), typTextField.getText(), wagaTextField.getText(), lekcjaTextField.getText(),
+                    uczniowieDlaNauczycieliTableModel.getIdUcznia(uczniowieDlaNauczycieliTable.getSelectedRow()));
+        } catch (SQLException ex) {
+            Logger.getLogger(OknoOceny.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        oknoLekcji.setEnabled(true);
+        dispose();
     }//GEN-LAST:event_wstawButtonActionPerformed
 
     /**

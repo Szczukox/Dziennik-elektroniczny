@@ -22,7 +22,7 @@ public class OcenyTableModel extends AbstractTableModel {
     private int liczbaWierszy;
     private PreparedStatement zapytanie;
 
-    public OcenyTableModel(Connection connection, String uczen, String przedmiot) {
+    public OcenyTableModel(Connection connection, String uczen, String przedmiot, String dlaKogo) {
         conn = connection;
         zapytanie = null;
         try {
@@ -32,7 +32,12 @@ public class OcenyTableModel extends AbstractTableModel {
                     zapytanie.close();
                 }
             }
-            String sql = "SELECT STOPIEN, TYP, WAGA, LEKCJA FROM OCENY WHERE (UCZEN = " + uczen + " AND LEKCJA IN (SELECT ID FROM LEKCJE WHERE PRZYDZIAL IN (SELECT ID FROM PRZYDZIALY WHERE PRZEDMIOT = '" + przedmiot + "')))";
+            String sql = null;
+            if (dlaKogo.equals("uczen")) {
+                sql = "SELECT STOPIEN, TYP, WAGA, LEKCJA FROM OCENY WHERE (UCZEN = " + uczen + " AND LEKCJA IN (SELECT ID FROM LEKCJE WHERE PRZYDZIAL IN (SELECT ID FROM PRZYDZIALY WHERE PRZEDMIOT = '" + przedmiot + "')))";
+            } else if (dlaKogo.equals("nauczyciel")) {
+                sql = "SELECT STOPIEN, TYP, WAGA, LEKCJA, UCZEN, ID FROM OCENY WHERE (UCZEN = " + uczen + " AND LEKCJA IN (SELECT ID FROM LEKCJE WHERE PRZYDZIAL IN (SELECT ID FROM PRZYDZIALY WHERE PRZEDMIOT = '" + przedmiot + "')))";
+            }
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();
             metadane = dane.getMetaData();
@@ -52,10 +57,14 @@ public class OcenyTableModel extends AbstractTableModel {
         return dane;
     }
 
-    public void insertRow(String nazwa) throws SQLException {
+    public void wstawOcene(String stopien, String typ, String waga, String lekcja, String uczen) throws SQLException {
         try {
             dane.moveToInsertRow();
-            dane.updateString("NAZWA", nazwa);
+            dane.updateString("STOPIEN", stopien);
+            dane.updateString("TYP", typ);
+            dane.updateInt("WAGA", Integer.parseInt(waga));
+            dane.updateInt("LEKCJA", Integer.parseInt(lekcja));
+            dane.updateInt("UCZEN", Integer.parseInt(uczen));
             dane.insertRow();
             dane.moveToCurrentRow();
             dane = zapytanie.executeQuery();
@@ -64,27 +73,14 @@ public class OcenyTableModel extends AbstractTableModel {
         }
     }
 
-    public void editRow(String nazwa, int row) {
+    public void poprawOcene(String stopien, int row) {
         try {
             dane.beforeFirst();
             for (int i = -1; i < row; i++) {
                 dane.next();
             }
-            dane.updateString("NAZWA", nazwa);
+            dane.updateString("STOPIEN", stopien);
             dane.updateRow();
-            dane.moveToCurrentRow();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
-        }
-    }
-
-    public void deleteRow(int row) {
-        try {
-            dane.beforeFirst();
-            for (int i = -1; i < row; i++) {
-                dane.next();
-            }
-            dane.deleteRow();
             dane.moveToCurrentRow();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
@@ -153,5 +149,5 @@ public class OcenyTableModel extends AbstractTableModel {
     @Override
     public void setValueAt(Object value, int wiersz, int kolumna) {
     }
-    
+
 }
