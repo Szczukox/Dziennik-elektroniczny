@@ -171,6 +171,9 @@
             <Property name="text" type="java.lang.String" value="Nowa lekcja"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nowaLekcjaButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="wstawOceneButton">
           <Properties>

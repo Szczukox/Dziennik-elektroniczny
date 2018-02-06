@@ -120,6 +120,11 @@ public class OknoLekcji extends javax.swing.JFrame {
 
         nowaLekcjaButton.setText("Nowa lekcja");
         nowaLekcjaButton.setEnabled(false);
+        nowaLekcjaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nowaLekcjaButtonActionPerformed(evt);
+            }
+        });
 
         wstawOceneButton.setText("Wstaw ocenę");
         wstawOceneButton.setEnabled(false);
@@ -306,6 +311,13 @@ public class OknoLekcji extends javax.swing.JFrame {
         });
         setEnabled(false);
     }//GEN-LAST:event_wstawOceneButtonActionPerformed
+
+    private void nowaLekcjaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nowaLekcjaButtonActionPerformed
+        SwingUtilities.invokeLater(() -> {
+            OknoNowejLekcji oknoNowejLekcji = new OknoNowejLekcji(this, conn);
+        });
+        setEnabled(false);
+    }//GEN-LAST:event_nowaLekcjaButtonActionPerformed
 
     /**
      * @param args the command line arguments
