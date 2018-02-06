@@ -256,8 +256,10 @@ public class OknoLekcji extends javax.swing.JFrame {
     private void listaUczniowTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaUczniowTableMousePressed
         if (evt.getButton() == MouseEvent.BUTTON1) {
             szczegolyButton.setEnabled(true);
-            wstawOceneButton.setEnabled(true);
-            poprawOceneButton.setEnabled(true);
+            if (lekcjeComboBox.getSelectedItem().toString() != "---WYBIERZ---") {
+                wstawOceneButton.setEnabled(true);
+                poprawOceneButton.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_listaUczniowTableMousePressed
 
@@ -299,7 +301,7 @@ public class OknoLekcji extends javax.swing.JFrame {
 
     private void wstawOceneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wstawOceneButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
-            OknoOceny oknoOceny = new OknoOceny(this, conn);
+            OknoOceny oknoOceny = new OknoOceny(this, conn, listaUczniowDlaNauczycieliModel, listaUczniowTable, (String) lekcjeComboBox.getSelectedItem());
         });
         setEnabled(false);
     }//GEN-LAST:event_wstawOceneButtonActionPerformed

@@ -5,6 +5,7 @@
  */
 package DziennikElektroniczny.okna;
 
+import DziennikElektroniczny.modele.UczniowieDlaNauczycieliTableModel;
 import java.sql.*;
 
 /**
@@ -18,13 +19,21 @@ public class OknoOceny extends javax.swing.JFrame {
      */
     private javax.swing.JFrame oknoLekcji;
     private final Connection conn;
+    private UczniowieDlaNauczycieliTableModel uczniowieDlaNauczycieliTableModel;
+    private javax.swing.JTable uczniowieDlaNauczycieliTable; 
 
-    public OknoOceny(javax.swing.JFrame oknoLekcji, Connection conn) {
+    public OknoOceny(javax.swing.JFrame oknoLekcji, Connection conn, UczniowieDlaNauczycieliTableModel uczniowieDlaNauczycieliTableModel,
+            javax.swing.JTable uczniowieDlaNauczycieliTable, String wybranaLekcja) {
         this.oknoLekcji = oknoLekcji;
         this.conn = conn;
+        this.uczniowieDlaNauczycieliTableModel = uczniowieDlaNauczycieliTableModel;
+        this.uczniowieDlaNauczycieliTable = uczniowieDlaNauczycieliTable;
         initComponents();
         uczenTextField.setEditable(false);
         lekcjaTextField.setEditable(false);
+        uczenTextField.setText(((String) uczniowieDlaNauczycieliTable.getValueAt(uczniowieDlaNauczycieliTable.getSelectedRow(), 0))
+                + " " + ((String) uczniowieDlaNauczycieliTable.getValueAt(uczniowieDlaNauczycieliTable.getSelectedRow(), 1)));
+        lekcjaTextField.setText(wybranaLekcja);
         setVisible(true);
     }
 
@@ -88,6 +97,11 @@ public class OknoOceny extends javax.swing.JFrame {
         wstawButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         wstawButton.setText("WSTAW");
         wstawButton.setPreferredSize(new java.awt.Dimension(100, 30));
+        wstawButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wstawButtonActionPerformed(evt);
+            }
+        });
 
         anulujButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         anulujButton.setText("ANULUJ");
@@ -186,6 +200,10 @@ public class OknoOceny extends javax.swing.JFrame {
         oknoLekcji.setEnabled(true);
         dispose();
     }//GEN-LAST:event_anulujButtonActionPerformed
+
+    private void wstawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wstawButtonActionPerformed
+        String idUcznia = uczniowieDlaNauczycieliTableModel.getIdUcznia(uczniowieDlaNauczycieliTable.getSelectedRow());
+    }//GEN-LAST:event_wstawButtonActionPerformed
 
     /**
      * @param args the command line arguments

@@ -41,12 +41,12 @@ public class UczniowieDlaNauczycieliTableModel extends AbstractTableModel {
             if (klasaIPrzedmiot.equals("---WYBIERZ---")) {
                 sql = "SELECT IMIE, NAZWISKO, NAZWISKO AS 'SREDNIA OCEN' FROM UCZNIOWIE WHERE ID = 0 ORDER BY NAZWISKO";
             } else if (klasaIPrzedmiot != "---WYBIERZ---") {
-                sql = "SELECT u.IMIE, u.NAZWISKO FROM UCZNIOWIE u WHERE u.KLASA = " + klasa[0] + " ORDER BY NAZWISKO";
+                sql = "SELECT u.IMIE, u.NAZWISKO, u.ID FROM UCZNIOWIE u WHERE u.KLASA = " + klasa[0] + " ORDER BY NAZWISKO";
             }
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();
             metadane = dane.getMetaData();
-            liczbaKolumn = metadane.getColumnCount();
+            liczbaKolumn = metadane.getColumnCount() - 1;
             dane.beforeFirst();
             liczbaWierszy = 0;
             while (this.dane.next()) {
@@ -62,49 +62,19 @@ public class UczniowieDlaNauczycieliTableModel extends AbstractTableModel {
         return dane;
     }
 
-    public void insertRow(String imie, String nazwisko, String pesel, String klasa) throws SQLException {
-        try {
-            dane.moveToInsertRow();
-            dane.updateString("IMIE", imie);
-            dane.updateString("NAZWISKO", nazwisko);
-            dane.updateString("PESEL", pesel);
-            dane.updateInt("KLASA", Integer.parseInt(klasa));
-            dane.insertRow();
-            dane.moveToCurrentRow();
-            dane = zapytanie.executeQuery();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
-        }
-    }
-
-    public void editRow(String imie, String nazwisko, String pesel, String klasa, int row) {
+    public String getIdUcznia(int row) {
         try {
             dane.beforeFirst();
             for (int i = -1; i < row; i++) {
                 dane.next();
             }
-            dane.updateString("IMIE", imie);
-            dane.updateString("NAZWISKO", nazwisko);
-            dane.updateString("PESEL", pesel);
-            dane.updateInt("KLASA", Integer.parseInt(klasa));
-            dane.updateRow();
+            String idUcznia = String.valueOf(dane.getInt("ID"));
             dane.moveToCurrentRow();
+            return idUcznia;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }
-    }
-
-    public void deleteRow(int row) {
-        try {
-            dane.beforeFirst();
-            for (int i = -1; i < row; i++) {
-                dane.next();
-            }
-            dane.deleteRow();
-            dane.moveToCurrentRow();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
-        }
+        return null;
     }
 
     @Override
