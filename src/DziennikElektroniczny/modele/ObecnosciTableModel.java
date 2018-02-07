@@ -52,7 +52,7 @@ public class ObecnosciTableModel extends AbstractTableModel {
         return dane;
     }
 
-    public void insertRow(String nazwa) throws SQLException {
+    public void insertRow(String nazwa) {
         try {
             dane.moveToInsertRow();
             dane.updateString("NAZWA", nazwa);

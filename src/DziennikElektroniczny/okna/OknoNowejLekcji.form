@@ -51,21 +51,23 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="tytulLabel" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="dodajButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="anulujButton" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="dataLabel" max="32767" attributes="0"/>
                               <Component id="numerLekcjiLabel" alignment="0" pref="100" max="32767" attributes="0"/>
                               <Component id="tematLabel" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="numerLekcjiTextField" pref="150" max="32767" attributes="0"/>
+                              <Component id="numerLekcjiTextField" max="32767" attributes="0"/>
                               <Component id="tematScrollPane" pref="0" max="32767" attributes="0"/>
+                              <Component id="dataTextField" alignment="0" pref="150" max="32767" attributes="0"/>
                           </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="dodajButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="anulujButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="50" max="32767" attributes="0"/>
@@ -83,9 +85,14 @@
                       <Component id="numerLekcjiTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="dataLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="dataTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="tematLabel" min="-2" max="-2" attributes="0"/>
-                      <Component id="tematScrollPane" min="-2" pref="95" max="-2" attributes="0"/>
+                      <Component id="tematScrollPane" min="-2" pref="55" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="30" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -120,6 +127,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="numerLekcjiTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="dodajButton">
           <Properties>
@@ -131,6 +141,9 @@
               <Dimension value="[100, 30]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dodajButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="anulujButton">
           <Properties>
@@ -160,12 +173,23 @@
                   <Font name="Tahoma" size="13" style="0"/>
                 </Property>
                 <Property name="lineWrap" type="boolean" value="true"/>
-                <Property name="rows" type="int" value="5"/>
+                <Property name="rows" type="int" value="3"/>
                 <Property name="wrapStyleWord" type="boolean" value="true"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JLabel" name="dataLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Data:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="dataTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

@@ -307,14 +307,15 @@ public class OknoLekcji extends javax.swing.JFrame {
     private void wstawOceneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wstawOceneButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
             OknoOceny oknoOceny = new OknoOceny(this, conn, listaUczniowDlaNauczycieliModel, listaUczniowTable, (String) lekcjeComboBox.getSelectedItem(),
-            (String) klasyIPrzedmiotyComboBox.getSelectedItem());
+                    (String) klasyIPrzedmiotyComboBox.getSelectedItem());
         });
         setEnabled(false);
     }//GEN-LAST:event_wstawOceneButtonActionPerformed
 
     private void nowaLekcjaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nowaLekcjaButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
-            OknoNowejLekcji oknoNowejLekcji = new OknoNowejLekcji(this, conn);
+            OknoNowejLekcji oknoNowejLekcji = new OknoNowejLekcji(this, conn, String.valueOf(lekcjeComboBox.getItemCount()),
+                    klasyIPrzedmiotyComboBox.getSelectedItem().toString(), lekcjeComboBox);
         });
         setEnabled(false);
     }//GEN-LAST:event_nowaLekcjaButtonActionPerformed

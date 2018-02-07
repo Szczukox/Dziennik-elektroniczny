@@ -35,8 +35,6 @@ public class OknoOceny extends javax.swing.JFrame {
         String[] klasaPrzedmiot = klasaIPrzedmiot.split(" | ");
         this.przedmiot = klasaPrzedmiot[2];
         initComponents();
-        uczenTextField.setEditable(false);
-        lekcjaTextField.setEditable(false);
         uczenTextField.setText(((String) uczniowieDlaNauczycieliTable.getValueAt(uczniowieDlaNauczycieliTable.getSelectedRow(), 0))
                 + " " + ((String) uczniowieDlaNauczycieliTable.getValueAt(uczniowieDlaNauczycieliTable.getSelectedRow(), 1)));
         lekcjaTextField.setText(wybranaLekcja);
@@ -117,6 +115,10 @@ public class OknoOceny extends javax.swing.JFrame {
                 anulujButtonActionPerformed(evt);
             }
         });
+
+        uczenTextField.setEditable(false);
+
+        lekcjaTextField.setEditable(false);
 
         javax.swing.GroupLayout oknoOcenyPanelLayout = new javax.swing.GroupLayout(oknoOcenyPanel);
         oknoOcenyPanel.setLayout(oknoOcenyPanelLayout);
