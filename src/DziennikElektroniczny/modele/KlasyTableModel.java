@@ -37,18 +37,20 @@ public class KlasyTableModel extends AbstractTableModel {
             String[] klasy = listaKlasModel.listaKlas(conn);
             Integer[] liczbaUczniow = new Integer[klasy.length - 1];
             for (int i = 1; i < klasy.length; i++) {
-                sql = "SELECT COUNT(*) FROM UCZNIOWIE WHERE KLASA = " + klasy[i];
+                String[] idKlasy = klasy[i].split("ID: ");
+                sql = "SELECT COUNT(*) FROM UCZNIOWIE WHERE KLASA = " + idKlasy[1];
                 zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
                 dane = zapytanie.executeQuery();
                 dane.next();
                 liczbaUczniow[i - 1] = dane.getInt(1);
             }
 
-            sql = "SELECT ID, NAZWA, ROK_POWSTANIA AS 'ROK POWSTANIA', PROFIL, ID_WYCHOWAWCY AS 'WYCHOWAWCA', LICZBA_UCZNIOW AS 'LICZBA UCZNIÓW' FROM KLASY ORDER BY NAZWA, ROK_POWSTANIA";
+            sql = "SELECT k.ID, NAZWA, ROK_POWSTANIA AS 'ROK POWSTANIA', PROFIL, concat(IMIE, ' ', NAZWISKO, ' - ID: ', n.ID) AS 'WYCHOWAWCA',"
+                    + "LICZBA_UCZNIOW AS 'LICZBA UCZNIÓW', ID_WYCHOWAWCY FROM KLASY k, NAUCZYCIELE n WHERE k.ID_WYCHOWAWCY = n.ID ORDER BY NAZWA, ROK_POWSTANIA";
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();
             metadane = dane.getMetaData();
-            liczbaKolumn = metadane.getColumnCount();
+            liczbaKolumn = metadane.getColumnCount() - 1;
             dane.beforeFirst();
             liczbaWierszy = 0;
             while (this.dane.next()) {
@@ -58,10 +60,13 @@ public class KlasyTableModel extends AbstractTableModel {
 
             for (int i = 0; i < liczbaUczniow.length; i++) {
                 dane.next();
-                dane.updateInt("LICZBA UCZNIÓW", liczbaUczniow[i]);
-                dane.updateRow();
+                String sqlLiczbaUczniow = "UPDATE KLASY SET LICZBA_UCZNIOW = " + liczbaUczniow[i] + " WHERE ID = " + dane.getInt("ID");
+                PreparedStatement ps = conn.prepareStatement(sqlLiczbaUczniow);
+                ps.executeUpdate();
+                ps.close();
             }
-            
+            dane = zapytanie.executeQuery();
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }
@@ -73,13 +78,10 @@ public class KlasyTableModel extends AbstractTableModel {
 
     public void insertRow(String nazwa, String rok_powstania, String profil, String wychowawca) throws SQLException {
         try {
-            dane.moveToInsertRow();
-            dane.updateString("NAZWA", nazwa);
-            dane.updateString("ROK POWSTANIA", rok_powstania);
-            dane.updateString("PROFIL", profil);
-            dane.updateInt("WYCHOWAWCA", Integer.parseInt(wychowawca));
-            dane.insertRow();
-            dane.moveToCurrentRow();
+            String sql = "INSERT INTO KLASY VALUES (NULL, '" + nazwa + "', '" + rok_powstania + "', '" + profil + "', 0, " + wychowawca + ")";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+            ps.close();
             dane = zapytanie.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
@@ -92,12 +94,12 @@ public class KlasyTableModel extends AbstractTableModel {
             for (int i = -1; i < row; i++) {
                 dane.next();
             }
-            dane.updateString("NAZWA", nazwa);
-            dane.updateString("ROK POWSTANIA", rok_powstania);
-            dane.updateString("PROFIL", profil);
-            dane.updateInt("WYCHOWAWCA", Integer.parseInt(wychowawca));
-            dane.updateRow();
-            dane.moveToCurrentRow();
+            String sql = "UPDATE KLASY SET NAZWA = '" + nazwa + "', ROK_POWSTANIA = '" + rok_powstania + "', PROFIL = '" + profil + "',"
+                    + "ID_WYCHOWAWCY = " + wychowawca + " WHERE ID = " + dane.getInt("ID");
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+            ps.close();
+            dane = zapytanie.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }
@@ -109,8 +111,11 @@ public class KlasyTableModel extends AbstractTableModel {
             for (int i = -1; i < row; i++) {
                 dane.next();
             }
-            dane.deleteRow();
-            dane.moveToCurrentRow();
+            String sql = "DELETE FROM KLASY WHERE ID = " + dane.getInt("ID");
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+            ps.close();
+            dane = zapytanie.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }

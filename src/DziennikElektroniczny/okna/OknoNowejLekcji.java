@@ -39,11 +39,16 @@ public class OknoNowejLekcji extends javax.swing.JFrame {
         initComponents();
         setVisible(true);
 
-        numerLekcjiTextField.setText(lekcja);
-        DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        dataTextField.setText(dateFormat.format(timestamp));
-        
+        if (tytul.equals("Dodaj nową lekcję")) {
+            tytulLabel.setText(tytul.toUpperCase());
+            numerLekcjiTextField.setText(lekcja);
+            DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            dataTextField.setText(dateFormat.format(timestamp));
+        } else if (tytul.equals("Edytuj wybraną lekcję")) {
+            tytulLabel.setText(tytul.toUpperCase());
+            numerLekcjiTextField.setText(lekcjeComboBox.getSelectedItem().toString());
+        }
         setTitle(tytul);
         tytulLabel.setText(tytul.toUpperCase());
     }
@@ -204,13 +209,13 @@ public class OknoNowejLekcji extends javax.swing.JFrame {
         String[] listaLekcji = listaLekcjiModel.listaLekcji(conn, klasaIPrzedmiot);
         ComboBoxModel lekcjeComboBoxModel = new ComboBoxModel(listaLekcji);
         lekcjeComboBox.setModel(lekcjeComboBoxModel);
-        
+
         String[] klasa = klasaIPrzedmiot.split(" | ");
         UczniowieTableModel uczniowieTableModel = new UczniowieTableModel(conn, klasa[0]);
         String[] idUczniow = uczniowieTableModel.getIDUczniow();
         ObecnosciNaLekcjiModel obecnosciNaLekcjiModel = new ObecnosciNaLekcjiModel(conn, lekcja);
         obecnosciNaLekcjiModel.wstawObecnosci(idUczniow);
-        
+
         oknoLekcji.setEnabled(true);
         dispose();
     }//GEN-LAST:event_dodajButtonActionPerformed

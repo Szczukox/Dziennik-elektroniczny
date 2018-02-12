@@ -31,6 +31,7 @@ public class UczniowieTableModel extends AbstractTableModel {
     public UczniowieTableModel(Connection connection, String klasa) {
         conn = connection;
         zapytanie = null;
+        String[] idKlasy = klasa.split("ID: ");
         try {
             if (dane != null) {
                 if (!(dane.isClosed())) {
@@ -40,9 +41,9 @@ public class UczniowieTableModel extends AbstractTableModel {
             }
             String sql = null;
             if (klasa.equals("---WYBIERZ---")) {
-                sql = "SELECT ID, IMIE, NAZWISKO, PESEL, KLASA FROM UCZNIOWIE ORDER BY NAZWISKO";
+                sql = "SELECT u.ID, IMIE, NAZWISKO, PESEL, concat(NAZWA, ' (', ROK_POWSTANIA, ') - ID: ', k.ID) as 'KLASA' FROM UCZNIOWIE u, KLASY k WHERE u.klasa = k.id ORDER BY NAZWISKO";
             } else if (klasa != "---WYBIERZ---") {
-                sql = "SELECT ID, IMIE, NAZWISKO, PESEL, KLASA FROM UCZNIOWIE WHERE KLASA = " + klasa + " ORDER BY NAZWISKO";
+                sql = "SELECT u.ID, IMIE, NAZWISKO, PESEL, concat(NAZWA, ' (', ROK_POWSTANIA, ') - ID: ', k.ID) as 'KLASA' FROM UCZNIOWIE u, KLASY k WHERE u.klasa = k.id AND u.klasa = " + idKlasy[1] + " ORDER BY NAZWISKO";
             }
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();
@@ -65,13 +66,10 @@ public class UczniowieTableModel extends AbstractTableModel {
 
     public void insertRow(String imie, String nazwisko, String pesel, String klasa) throws SQLException {
         try {
-            dane.moveToInsertRow();
-            dane.updateString("IMIE", imie);
-            dane.updateString("NAZWISKO", nazwisko);
-            dane.updateString("PESEL", pesel);
-            dane.updateInt("KLASA", Integer.parseInt(klasa));
-            dane.insertRow();
-            dane.moveToCurrentRow();
+            String sql = "INSERT INTO UCZNIOWIE VALUES (NULL, '" + imie + "', '" + nazwisko + "', '" + pesel + "', " + klasa + ")";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+            ps.close();
             dane = zapytanie.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
@@ -84,12 +82,11 @@ public class UczniowieTableModel extends AbstractTableModel {
             for (int i = -1; i < row; i++) {
                 dane.next();
             }
-            dane.updateString("IMIE", imie);
-            dane.updateString("NAZWISKO", nazwisko);
-            dane.updateString("PESEL", pesel);
-            dane.updateInt("KLASA", Integer.parseInt(klasa));
-            dane.updateRow();
-            dane.moveToCurrentRow();
+            String sql = "UPDATE UCZNIOWIE SET IMIE = '" + imie + "', NAZWISKO = '" + nazwisko + "', PESEL = '" + pesel + "', KLASA = " + klasa + " WHERE ID = " + dane.getInt("ID");
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+            ps.close();
+            dane = zapytanie.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }
@@ -101,19 +98,22 @@ public class UczniowieTableModel extends AbstractTableModel {
             for (int i = -1; i < row; i++) {
                 dane.next();
             }
-            dane.deleteRow();
-            dane.moveToCurrentRow();
+            String sql = "DELETE FROM UCZNIOWIE WHERE ID = " + dane.getInt("ID");
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+            ps.close();
+            dane = zapytanie.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }
     }
-    
+
     public String[] getIDUczniow() {
         try {
             String[] idUczniow = new String[liczbaWierszy];
             dane.beforeFirst();
             int i = 0;
-            while (dane.next()) {                
+            while (dane.next()) {
                 idUczniow[i] = dane.getString("ID");
                 i++;
             }

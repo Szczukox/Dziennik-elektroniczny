@@ -158,25 +158,25 @@ public class OknoKlasy extends javax.swing.JFrame {
                         .addGap(50, 50, 50)
                         .addComponent(anulujOknoKlasyButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(oknoKlasyPanelLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
+                        .addGap(25, 25, 25)
                         .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(nazwaOknoKlasyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(profilOknoKlasyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(rokPowstaniaOknoKlasyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                             .addComponent(wychowawcaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(50, 50, 50)
-                        .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(rokPowstaniaOknoKlasyTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(profilOknoKlasyTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(nazwaOknoKlasyTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(nauczycieleComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(profilOknoKlasyTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                            .addComponent(nauczycieleComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nazwaOknoKlasyTextField)
+                            .addComponent(rokPowstaniaOknoKlasyTextField))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(obowiazkoweNazwaLabel)
                             .addComponent(obowiazkoweRokPowstaniaLabel)
                             .addComponent(obowiazkoweProfilLabel)
                             .addComponent(obowiazkoweWychowawcaLabel))))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGap(37, 37, 37))
         );
         oknoKlasyPanelLayout.setVerticalGroup(
             oknoKlasyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,18 +256,19 @@ public class OknoKlasy extends javax.swing.JFrame {
         }
         if (czyWypelniono) {
             try {
+                String[] idNauczyciela = nauczycieleComboBox.getSelectedItem().toString().split("ID: ");
                 if (tytul == "Dodaj nową klasę") {
                     klasyTableModel.insertRow(
                             nazwaOknoKlasyTextField.getText(),
                             rokPowstaniaOknoKlasyTextField.getText(),
                             profilOknoKlasyTextField.getText(),
-                            nauczycieleComboBox.getSelectedItem().toString());
+                            idNauczyciela[1]);
                 } else if (tytul == "Edytuj wybraną klasę") {
                     klasyTableModel.editRow(
                             nazwaOknoKlasyTextField.getText(),
                             rokPowstaniaOknoKlasyTextField.getText(),
                             profilOknoKlasyTextField.getText(),
-                            nauczycieleComboBox.getSelectedItem().toString(),
+                            idNauczyciela[1],
                             klasyTable.getSelectedRow());
                 }
             } catch (SQLException ex) {

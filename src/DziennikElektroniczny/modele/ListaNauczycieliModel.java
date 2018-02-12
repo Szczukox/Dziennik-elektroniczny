@@ -22,11 +22,11 @@ public class ListaNauczycieliModel {
             ResultSet rsNauczyciele = nauczycieleSt.executeQuery("SELECT COUNT(*) FROM NAUCZYCIELE");
             rsNauczyciele.next();
             nauczyciele = new String[rsNauczyciele.getInt(1) + 1];
-            rsNauczyciele = nauczycieleSt.executeQuery("SELECT ID FROM NAUCZYCIELE");
+            rsNauczyciele = nauczycieleSt.executeQuery("SELECT IMIE, NAZWISKO, ID FROM NAUCZYCIELE");
             nauczyciele[0] = "---WYBIERZ---";
             int i = 1;
             while (rsNauczyciele.next()) {
-                nauczyciele[i++] = String.valueOf(rsNauczyciele.getInt(1));
+                nauczyciele[i++] = String.valueOf(rsNauczyciele.getString("IMIE") + " " + rsNauczyciele.getString("NAZWISKO") + " - ID: " + rsNauczyciele.getString("ID"));
             }
             rsNauczyciele.close();
             nauczycieleSt.close();

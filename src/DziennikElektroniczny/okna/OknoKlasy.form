@@ -62,7 +62,7 @@
                           <Component id="anulujOknoKlasyButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="nazwaOknoKlasyLabel" max="32767" attributes="0"/>
                               <Component id="profilOknoKlasyLabel" max="32767" attributes="0"/>
@@ -70,11 +70,11 @@
                               <Component id="wychowawcaLabel" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="rokPowstaniaOknoKlasyTextField" alignment="0" pref="150" max="32767" attributes="0"/>
-                              <Component id="profilOknoKlasyTextField" alignment="0" pref="150" max="32767" attributes="0"/>
-                              <Component id="nazwaOknoKlasyTextField" alignment="0" pref="150" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="profilOknoKlasyTextField" alignment="0" pref="175" max="32767" attributes="0"/>
                               <Component id="nauczycieleComboBox" max="32767" attributes="0"/>
+                              <Component id="nazwaOknoKlasyTextField" max="32767" attributes="0"/>
+                              <Component id="rokPowstaniaOknoKlasyTextField" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -85,7 +85,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="37" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

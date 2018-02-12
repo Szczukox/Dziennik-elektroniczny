@@ -25,6 +25,8 @@ public class PrzydzialyTableModel extends AbstractTableModel {
     public PrzydzialyTableModel(Connection connection, String klasa, String przedmiot, String nauczyciel) {
         conn = connection;
         zapytanie = null;
+        String[] idKlasy = klasa.split("ID: ");
+        String[] idNauczyciela = nauczyciel.split("ID: ");
         try {
             if (dane != null) {
                 if (!(dane.isClosed())) {
@@ -34,26 +36,26 @@ public class PrzydzialyTableModel extends AbstractTableModel {
             }
             String sql = null;
             if (klasa.equals("---WYBIERZ---") && przedmiot.equals("---WYBIERZ---") && nauczyciel.equals("---WYBIERZ---")) {
-                sql = "SELECT ID, KLASA, PRZEDMIOT, NAUCZYCIEL FROM PRZYDZIALY ORDER BY KLASA";
+                sql = "SELECT p.ID, concat(NAZWA, ' (', ROK_POWSTANIA, ') - ID: ', k.ID) AS 'KLASA', PRZEDMIOT, concat(IMIE, ' ', NAZWISKO, ' - ID: ', n.ID) as 'NAUCZYCIEL', KLASA AS 'ID_KLASY', NAUCZYCIEL AS 'ID_NAUCZYCIELA' FROM PRZYDZIALY p, KLASY k, NAUCZYCIELE n WHERE KLASA = k.ID AND NAUCZYCIEL = n.ID ORDER BY KLASA";
             } else if (klasa != "---WYBIERZ---" && przedmiot.equals("---WYBIERZ---") && nauczyciel.equals("---WYBIERZ---")) {
-                sql = "SELECT ID, KLASA, PRZEDMIOT, NAUCZYCIEL FROM PRZYDZIALY WHERE KLASA = " + klasa + " ORDER BY KLASA";
+                sql = "SELECT p.ID, concat(NAZWA, ' (', ROK_POWSTANIA, ') - ID: ', k.ID) AS 'KLASA', PRZEDMIOT, concat(IMIE, ' ', NAZWISKO, ' - ID: ', n.ID) as 'NAUCZYCIEL', KLASA AS 'ID_KLASY', NAUCZYCIEL AS 'ID_NAUCZYCIELA' FROM PRZYDZIALY p, KLASY k, NAUCZYCIELE n WHERE KLASA = k.ID AND NAUCZYCIEL = n.ID AND KLASA = " + idKlasy[1] + " ORDER BY KLASA";
             } else if (klasa.equals("---WYBIERZ---") && przedmiot != "---WYBIERZ---" && nauczyciel.equals("---WYBIERZ---")) {
-                sql = "SELECT ID, KLASA, PRZEDMIOT, NAUCZYCIEL FROM PRZYDZIALY WHERE PRZEDMIOT = '" + przedmiot + "' ORDER BY KLASA";
+                sql = "SELECT p.ID, concat(NAZWA, ' (', ROK_POWSTANIA, ') - ID: ', k.ID) AS 'KLASA', PRZEDMIOT, concat(IMIE, ' ', NAZWISKO, ' - ID: ', n.ID) as 'NAUCZYCIEL', KLASA AS 'ID_KLASY', NAUCZYCIEL AS 'ID_NAUCZYCIELA' FROM PRZYDZIALY p, KLASY k, NAUCZYCIELE n WHERE KLASA = k.ID AND NAUCZYCIEL = n.ID AND PRZEDMIOT = '" + przedmiot + "' ORDER BY KLASA";
             } else if (klasa.equals("---WYBIERZ---") && przedmiot.equals("---WYBIERZ---") && nauczyciel != "---WYBIERZ---") {
-                sql = "SELECT ID, KLASA, PRZEDMIOT, NAUCZYCIEL FROM PRZYDZIALY WHERE NAUCZYCIEL = " + nauczyciel + " ORDER BY KLASA";
+                sql = "SELECT p.ID, concat(NAZWA, ' (', ROK_POWSTANIA, ') - ID: ', k.ID) AS 'KLASA', PRZEDMIOT, concat(IMIE, ' ', NAZWISKO, ' - ID: ', n.ID) as 'NAUCZYCIEL', KLASA AS 'ID_KLASY', NAUCZYCIEL AS 'ID_NAUCZYCIELA' FROM PRZYDZIALY p, KLASY k, NAUCZYCIELE n WHERE KLASA = k.ID AND NAUCZYCIEL = n.ID AND NAUCZYCIEL = " + idNauczyciela[1] + " ORDER BY KLASA";
             } else if (klasa != "---WYBIERZ---" && przedmiot != "---WYBIERZ---" && nauczyciel.equals("---WYBIERZ---")) {
-                sql = "SELECT ID, KLASA, PRZEDMIOT, NAUCZYCIEL FROM PRZYDZIALY WHERE (KLASA = " + klasa + ") AND (PRZEDMIOT = '" + przedmiot + "') ORDER BY KLASA";
+                sql = "SELECT p.ID, concat(NAZWA, ' (', ROK_POWSTANIA, ') - ID: ', k.ID) AS 'KLASA', PRZEDMIOT, concat(IMIE, ' ', NAZWISKO, ' - ID: ', n.ID) as 'NAUCZYCIEL', KLASA AS 'ID_KLASY', NAUCZYCIEL AS 'ID_NAUCZYCIELA' FROM PRZYDZIALY p, KLASY k, NAUCZYCIELE n WHERE KLASA = k.ID AND NAUCZYCIEL = n.ID AND (KLASA = " + idKlasy[1] + ") AND (PRZEDMIOT = '" + przedmiot + "') ORDER BY KLASA";
             } else if (klasa != "---WYBIERZ---" && przedmiot.equals("---WYBIERZ---") && nauczyciel != "---WYBIERZ---") {
-                sql = "SELECT ID, KLASA, PRZEDMIOT, NAUCZYCIEL FROM PRZYDZIALY WHERE (KLASA = " + klasa + ") AND (NAUCZYCIEL = " + nauczyciel + ") ORDER BY KLASA";
+                sql = "SELECT p.ID, concat(NAZWA, ' (', ROK_POWSTANIA, ') - ID: ', k.ID) AS 'KLASA', PRZEDMIOT, concat(IMIE, ' ', NAZWISKO, ' - ID: ', n.ID) as 'NAUCZYCIEL', KLASA AS 'ID_KLASY', NAUCZYCIEL AS 'ID_NAUCZYCIELA' FROM PRZYDZIALY p, KLASY k, NAUCZYCIELE n WHERE KLASA = k.ID AND NAUCZYCIEL = n.ID AND (KLASA = " + idKlasy[1] + ") AND (NAUCZYCIEL = " + idNauczyciela[1] + ") ORDER BY KLASA";
             } else if (klasa.equals("---WYBIERZ---") && przedmiot != "---WYBIERZ---" && nauczyciel != "---WYBIERZ---") {
-                sql = "SELECT ID, KLASA, PRZEDMIOT, NAUCZYCIEL FROM PRZYDZIALY WHERE (PRZEDMIOT = '" + przedmiot + "') AND (NAUCZYCIEL = " + nauczyciel + ") ORDER BY KLASA";;
+                sql = "SELECT p.ID, concat(NAZWA, ' (', ROK_POWSTANIA, ') - ID: ', k.ID) AS 'KLASA', PRZEDMIOT, concat(IMIE, ' ', NAZWISKO, ' - ID: ', n.ID) as 'NAUCZYCIEL', KLASA AS 'ID_KLASY', NAUCZYCIEL AS 'ID_NAUCZYCIELA' FROM PRZYDZIALY p, KLASY k, NAUCZYCIELE n WHERE KLASA = k.ID AND NAUCZYCIEL = n.ID AND (PRZEDMIOT = '" + przedmiot + "') AND (NAUCZYCIEL = " + idNauczyciela[1] + ") ORDER BY KLASA";
             } else if (klasa != "---WYBIERZ---" && przedmiot != "---WYBIERZ---" && nauczyciel != "---WYBIERZ---") {
-                sql = "SELECT ID, KLASA, PRZEDMIOT, NAUCZYCIEL FROM PRZYDZIALY WHERE (KLASA = " + klasa + ") AND (PRZEDMIOT = '" + przedmiot + "') AND (NAUCZYCIEL = " + nauczyciel + ") ORDER BY KLASA";;
+                sql = "SELECT p.ID, concat(NAZWA, ' (', ROK_POWSTANIA, ') - ID: ', k.ID) AS 'KLASA', PRZEDMIOT, concat(IMIE, ' ', NAZWISKO, ' - ID: ', n.ID) as 'NAUCZYCIEL', KLASA AS 'ID_KLASY', NAUCZYCIEL AS 'ID_NAUCZYCIELA' FROM PRZYDZIALY p, KLASY k, NAUCZYCIELE n WHERE KLASA = k.ID AND NAUCZYCIEL = n.ID AND (KLASA = " + idKlasy[1] + ") AND (PRZEDMIOT = '" + przedmiot + "') AND (NAUCZYCIEL = " + idNauczyciela[1] + ") ORDER BY KLASA";
             }
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();
             metadane = dane.getMetaData();
-            liczbaKolumn = metadane.getColumnCount();
+            liczbaKolumn = metadane.getColumnCount() - 2;
             dane.beforeFirst();
             liczbaWierszy = 0;
             while (this.dane.next()) {
@@ -71,12 +73,10 @@ public class PrzydzialyTableModel extends AbstractTableModel {
 
     public void insertRow(String klasa, String przedmiot, String nauczyciel) throws SQLException {
         try {
-            dane.moveToInsertRow();
-            dane.updateInt("KLASA", Integer.parseInt(klasa));
-            dane.updateString("PRZEDMIOT", przedmiot);
-            dane.updateInt("NAUCZYCIEL", Integer.parseInt(nauczyciel));
-            dane.insertRow();
-            dane.moveToCurrentRow();
+            String sql = "INSERT INTO PRZYDZIALY VALUES (NULL, " + klasa + ", '" + przedmiot + "', " + nauczyciel + ")";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+            ps.close();
             dane = zapytanie.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
@@ -89,11 +89,11 @@ public class PrzydzialyTableModel extends AbstractTableModel {
             for (int i = -1; i < row; i++) {
                 dane.next();
             }
-            dane.updateInt("KLASA", Integer.parseInt(klasa));
-            dane.updateString("PRZEDMIOT", przedmiot);
-            dane.updateInt("NAUCZYCIEL", Integer.parseInt(nauczyciel));
-            dane.updateRow();
-            dane.moveToCurrentRow();
+            String sql = "UPDATE PRZYDZIALY SET KLASA = " + klasa + ", PRZEDMIOT = '" + przedmiot + "', NAUCZYCIEL = " + nauczyciel + " WHERE ID = " + dane.getInt("ID");
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+            ps.close();
+            dane = zapytanie.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }
@@ -105,8 +105,11 @@ public class PrzydzialyTableModel extends AbstractTableModel {
             for (int i = -1; i < row; i++) {
                 dane.next();
             }
-            dane.deleteRow();
-            dane.moveToCurrentRow();
+            String sql = "DELETE FROM PRZYDZIALY WHERE ID = " + dane.getInt("ID");
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+            ps.close();
+            dane = zapytanie.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }

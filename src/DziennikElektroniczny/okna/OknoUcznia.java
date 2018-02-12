@@ -162,7 +162,7 @@ public class OknoUcznia extends javax.swing.JFrame {
                         .addComponent(imieLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
                         .addComponent(imieTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(obowiazkoweImieLabel))
                     .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
@@ -202,8 +202,9 @@ public class OknoUcznia extends javax.swing.JFrame {
                     .addGroup(oknoUczniaPanelLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(imieLabel))
-                    .addComponent(imieTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(obowiazkoweImieLabel))
+                    .addGroup(oknoUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(imieTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(obowiazkoweImieLabel)))
                 .addGap(18, 18, 18)
                 .addGroup(oknoUczniaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nazwiskoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,19 +279,20 @@ public class OknoUcznia extends javax.swing.JFrame {
             czegoBrakuje += "Klasa\n";
         }
         if (czyWypelniono) {
+            String[] idKlasy = klasyComboBox.getSelectedItem().toString().split("ID: ");
             try {
                 if (tytul == "Dodaj nowego ucznia") {
                     uczniowieTableModel.insertRow(
                             imieTextField.getText(),
                             nazwiskoTextField.getText(),
                             peselTextField.getText(),
-                            klasyComboBox.getSelectedItem().toString());
+                            idKlasy[1]);
                 } else if (tytul == "Edytuj wybranego ucznia") {
                     uczniowieTableModel.editRow(
                             imieTextField.getText(),
                             nazwiskoTextField.getText(),
                             peselTextField.getText(),
-                            klasyComboBox.getSelectedItem().toString(),
+                            idKlasy[1],
                             uczniowieTable.getSelectedRow());
                 }
             } catch (SQLException ex) {

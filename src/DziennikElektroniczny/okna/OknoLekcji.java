@@ -370,17 +370,19 @@ public class OknoLekcji extends javax.swing.JFrame {
     }//GEN-LAST:event_szczegolyButtonActionPerformed
 
     private void listaUczniowTableFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_listaUczniowTableFocusGained
-        listaUczniowDlaNauczycieliModel = new UczniowieDlaNauczycieliTableModel(conn, klasyIPrzedmiotyComboBox.getSelectedItem().toString(),
-                lekcjeComboBox.getSelectedItem().toString());
-        listaUczniowDlaNauczycieliModel.fireTableDataChanged();
-        listaUczniowTable.setModel(listaUczniowDlaNauczycieliModel);
+        if (lekcjeComboBox.getSelectedItem().toString() != "---WYBIERZ---") {
+            listaUczniowDlaNauczycieliModel = new UczniowieDlaNauczycieliTableModel(conn, klasyIPrzedmiotyComboBox.getSelectedItem().toString(),
+                    lekcjeComboBox.getSelectedItem().toString());
+            listaUczniowDlaNauczycieliModel.fireTableDataChanged();
+            listaUczniowTable.setModel(listaUczniowDlaNauczycieliModel);
 
-        TableColumn statusKolumna = listaUczniowTable.getColumnModel().getColumn(2);
-        statusKolumna.setCellEditor(new DefaultCellEditor(statusComboBox));
+            TableColumn statusKolumna = listaUczniowTable.getColumnModel().getColumn(2);
+            statusKolumna.setCellEditor(new DefaultCellEditor(statusComboBox));
 
-        szczegolyButton.setEnabled(false);
-        wstawOceneButton.setEnabled(false);
-        poprawOceneButton.setEnabled(false);
+            szczegolyButton.setEnabled(false);
+            wstawOceneButton.setEnabled(false);
+            poprawOceneButton.setEnabled(false);
+        }
     }//GEN-LAST:event_listaUczniowTableFocusGained
 
     /**

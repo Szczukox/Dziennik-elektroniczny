@@ -63,7 +63,7 @@
                           <Component id="imieLabel" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
                           <Component id="imieTextField" min="-2" pref="150" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="obowiazkoweImieLabel" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
@@ -112,8 +112,10 @@
                           <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
                           <Component id="imieLabel" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="imieTextField" min="-2" max="-2" attributes="0"/>
-                      <Component id="obowiazkoweImieLabel" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="imieTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="obowiazkoweImieLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">

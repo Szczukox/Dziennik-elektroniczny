@@ -24,11 +24,11 @@ public class ListaKlasModel {
             ResultSet rsKlasy = klasySt.executeQuery("SELECT COUNT(*) FROM KLASY");
             rsKlasy.next();
             klasy = new String[rsKlasy.getInt(1) + 1];
-            rsKlasy = klasySt.executeQuery("SELECT ID FROM KLASY ORDER BY NAZWA, ROK_POWSTANIA");
+            rsKlasy = klasySt.executeQuery("SELECT NAZWA, ROK_POWSTANIA, ID FROM KLASY ORDER BY NAZWA, ROK_POWSTANIA");
             klasy[0] = "---WYBIERZ---";
             int i = 1;
             while (rsKlasy.next()) {
-                klasy[i++] = (rsKlasy.getString(1));
+                klasy[i++] = (rsKlasy.getString("NAZWA") + " (" + rsKlasy.getString("ROK_POWSTANIA") + ") - ID: " + rsKlasy.getString("ID"));
             }
             rsKlasy.close();
             klasySt.close();

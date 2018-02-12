@@ -262,17 +262,19 @@ public class OknoPrzydzialu extends javax.swing.JFrame {
             czegoBrakuje += "Nauczyciel\n";
         }
         if (czyWypelniono) {
+            String[] idKlasy = klasyComboBox.getSelectedItem().toString().split("ID: ");
+            String[] idNauczyciela = nauczycieleComboBox.getSelectedItem().toString().split("ID: ");
             try {
                 if (tytul == "Dodaj nowy przydział") {
                     przydzialyTableModel.insertRow(
-                            klasyComboBox.getSelectedItem().toString(),
+                            idKlasy[1],
                             przedmiotyComboBox.getSelectedItem().toString(),
-                            nauczycieleComboBox.getSelectedItem().toString());
+                            idNauczyciela[1]);
                 } else if (tytul == "Edytuj wybrany przydział") {
                     przydzialyTableModel.editRow(
-                            klasyComboBox.getSelectedItem().toString(),
+                            idKlasy[1],
                             przedmiotyComboBox.getSelectedItem().toString(),
-                            nauczycieleComboBox.getSelectedItem().toString(),
+                            idNauczyciela[1],
                             przydzialyTable.getSelectedRow());
                 }
             } catch (SQLException ex) {
