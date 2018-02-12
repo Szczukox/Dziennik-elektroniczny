@@ -19,7 +19,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author patry
  */
-public class UczniowieDlaNauczycieliTableModel extends AbstractTableModel {
+public class ObecnosciNaLekcjiModel extends AbstractTableModel {
 
     private final Connection conn;
     private ResultSet dane;
@@ -29,7 +29,7 @@ public class UczniowieDlaNauczycieliTableModel extends AbstractTableModel {
     private PreparedStatement zapytanie;
     private String lekcja;
 
-    public UczniowieDlaNauczycieliTableModel(Connection connection, String klasaIPrzedmiot, String lekcja) {
+    public ObecnosciNaLekcjiModel(Connection connection, String lekcja) {
         conn = connection;
         this.lekcja = lekcja;
         zapytanie = null;
@@ -40,15 +40,7 @@ public class UczniowieDlaNauczycieliTableModel extends AbstractTableModel {
                     zapytanie.close();
                 }
             }
-            String sql = null;
-            String[] klasa = klasaIPrzedmiot.split(" | ");
-            if (klasaIPrzedmiot.equals("---WYBIERZ---")) {
-                sql = "SELECT IMIE, NAZWISKO, NAZWISKO AS 'SREDNIA OCEN' FROM UCZNIOWIE WHERE ID = 0 ORDER BY NAZWISKO";
-            } else if (lekcja.equals("---WYBIERZ---")) {
-                sql = "SELECT u.IMIE, u.NAZWISKO, u.ID FROM UCZNIOWIE u WHERE u.KLASA = " + klasa[0] + " ORDER BY NAZWISKO";
-            } else if (klasaIPrzedmiot != "---WYBIERZ---" && lekcja != "---WYBIERZ---") {
-                sql = "SELECT u.IMIE, u.NAZWISKO, o.STATUS, u.ID FROM UCZNIOWIE u, OBECNOSCI o WHERE u.KLASA = " + klasa[0] + " AND o.LEKCJA = " + lekcja + " AND u.ID = o.UCZEN ORDER BY NAZWISKO";
-            }
+            String sql = "SELECT STATUS, LEKCJA, UCZEN FROM OBECNOSCI WHERE LEKCJA = " + lekcja;
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();
             metadane = dane.getMetaData();
@@ -63,23 +55,25 @@ public class UczniowieDlaNauczycieliTableModel extends AbstractTableModel {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }
     }
+    
+    public void wstawObecnosci(String[] idUczniow) {
+        for (int i = 0; i < idUczniow.length; i++) {
+            try {
+                dane.moveToInsertRow();
+                dane.updateString("STATUS", "Obecny");
+                dane.updateInt("LEKCJA", Integer.parseInt(lekcja));
+                dane.updateInt("UCZEN", Integer.parseInt(idUczniow[i]));
+                dane.insertRow();
+                dane.moveToCurrentRow();
+                dane = zapytanie.executeQuery();
+            } catch (SQLException ex) {
+                Logger.getLogger(ObecnosciNaLekcjiModel.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }
+    }
 
     public ResultSet getRowSet() {
         return dane;
-    }
-
-    public String getIdUcznia(int row) {
-        try {
-            dane.beforeFirst();
-            for (int i = -1; i < row; i++) {
-                dane.next();;
-            }
-            String idUcznia = String.valueOf(dane.getInt("ID"));
-            return idUcznia;
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
-        }
-        return null;
     }
 
     @Override
@@ -138,23 +132,10 @@ public class UczniowieDlaNauczycieliTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int wiersz, int kolumna) {
-        return kolumna == 2;
+        return false;
     }
 
     @Override
-    public void setValueAt(Object wartosc, int wiersz, int kolumna) {
-        if (wartosc != null) {
-            if (wartosc.toString().equals("Obecny") || wartosc.toString().equals("Nieobecny") || wartosc.toString().equals("Spozniony")
-                    || wartosc.toString().equals("Usprawiedliwiony")) {
-                try {
-                    String idUcznia = getIdUcznia(wiersz);
-                    String sql = "UPDATE OBECNOSCI SET STATUS = '" + wartosc + "' WHERE UCZEN = " + idUcznia + " AND LEKCJA = " + lekcja;
-                    PreparedStatement ps =  conn.prepareStatement(sql);
-                    ps.executeUpdate();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UczniowieDlaNauczycieliTableModel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+    public void setValueAt(Object value, int wiersz, int kolumna) {
     }
 }

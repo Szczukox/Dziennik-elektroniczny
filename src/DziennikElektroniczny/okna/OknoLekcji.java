@@ -11,8 +11,11 @@ import DziennikElektroniczny.modele.ListaLekcjiModel;
 import DziennikElektroniczny.modele.UczniowieDlaNauczycieliTableModel;
 import java.awt.event.MouseEvent;
 import java.sql.*;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -47,7 +50,8 @@ public class OknoLekcji extends javax.swing.JFrame {
         lekcjeComboBoxModel = new ComboBoxModel(wybierz);
         lekcjeComboBox.setModel(lekcjeComboBoxModel);
 
-        listaUczniowDlaNauczycieliModel = new UczniowieDlaNauczycieliTableModel(conn, klasyIPrzedmiotyComboBox.getSelectedItem().toString());
+        listaUczniowDlaNauczycieliModel = new UczniowieDlaNauczycieliTableModel(conn, klasyIPrzedmiotyComboBox.getSelectedItem().toString(),
+                lekcjeComboBox.getSelectedItem().toString());
         listaUczniowDlaNauczycieliModel.fireTableDataChanged();
         listaUczniowTable.setModel(listaUczniowDlaNauczycieliModel);
         listaUczniowTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -67,6 +71,7 @@ public class OknoLekcji extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        statusComboBox = new javax.swing.JComboBox<>();
         listaTwoichUczniowLabel = new javax.swing.JLabel();
         listaUczniowScrollPane = new javax.swing.JScrollPane();
         listaUczniowTable = new javax.swing.JTable();
@@ -81,6 +86,8 @@ public class OknoLekcji extends javax.swing.JFrame {
         klasyIPrzedmiotyComboBox = new javax.swing.JComboBox<>();
         lekcjaLabel = new javax.swing.JLabel();
         lekcjeComboBox = new javax.swing.JComboBox<>();
+
+        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lista uczniów");
@@ -108,6 +115,11 @@ public class OknoLekcji extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        listaUczniowTable.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                listaUczniowTableFocusGained(evt);
+            }
+        });
         listaUczniowTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 listaUczniowTableMousePressed(evt);
@@ -117,6 +129,11 @@ public class OknoLekcji extends javax.swing.JFrame {
 
         szczegolyButton.setText("Szczegóły");
         szczegolyButton.setEnabled(false);
+        szczegolyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                szczegolyButtonActionPerformed(evt);
+            }
+        });
 
         nowaLekcjaButton.setText("Nowa lekcja");
         nowaLekcjaButton.setEnabled(false);
@@ -136,6 +153,11 @@ public class OknoLekcji extends javax.swing.JFrame {
 
         edytujLekcjeButton.setText("Edytuj lekcję");
         edytujLekcjeButton.setEnabled(false);
+        edytujLekcjeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edytujLekcjeButtonActionPerformed(evt);
+            }
+        });
 
         poprawOceneButton.setText("Popraw ocenę");
         poprawOceneButton.setEnabled(false);
@@ -269,7 +291,8 @@ public class OknoLekcji extends javax.swing.JFrame {
     }//GEN-LAST:event_listaUczniowTableMousePressed
 
     private void klasyIPrzedmiotyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_klasyIPrzedmiotyComboBoxActionPerformed
-        listaUczniowDlaNauczycieliModel = new UczniowieDlaNauczycieliTableModel(conn, klasyIPrzedmiotyComboBox.getSelectedItem().toString());
+        listaUczniowDlaNauczycieliModel = new UczniowieDlaNauczycieliTableModel(conn, klasyIPrzedmiotyComboBox.getSelectedItem().toString(),
+                lekcjeComboBox.getSelectedItem().toString());
         listaUczniowDlaNauczycieliModel.fireTableDataChanged();
         listaUczniowTable.setModel(listaUczniowDlaNauczycieliModel);
         lekcjeComboBox.setSelectedItem("---WYBIERZ---");
@@ -291,7 +314,8 @@ public class OknoLekcji extends javax.swing.JFrame {
     }//GEN-LAST:event_klasyIPrzedmiotyComboBoxActionPerformed
 
     private void lekcjeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lekcjeComboBoxActionPerformed
-        listaUczniowDlaNauczycieliModel = new UczniowieDlaNauczycieliTableModel(conn, klasyIPrzedmiotyComboBox.getSelectedItem().toString());
+        listaUczniowDlaNauczycieliModel = new UczniowieDlaNauczycieliTableModel(conn, klasyIPrzedmiotyComboBox.getSelectedItem().toString(),
+                lekcjeComboBox.getSelectedItem().toString());
         listaUczniowDlaNauczycieliModel.fireTableDataChanged();
         listaUczniowTable.setModel(listaUczniowDlaNauczycieliModel);
         szczegolyButton.setEnabled(false);
@@ -301,6 +325,16 @@ public class OknoLekcji extends javax.swing.JFrame {
             edytujLekcjeButton.setEnabled(false);
         } else {
             edytujLekcjeButton.setEnabled(true);
+
+            statusComboBox = new JComboBox();
+            statusComboBox.setEditable(true);
+            statusComboBox.addItem("Obecny");
+            statusComboBox.addItem("Nieobecny");
+            statusComboBox.addItem("Spozniony");
+            statusComboBox.addItem("Usprawiedliwiony");
+
+            TableColumn statusKolumna = listaUczniowTable.getColumnModel().getColumn(2);
+            statusKolumna.setCellEditor(new DefaultCellEditor(statusComboBox));
         }
     }//GEN-LAST:event_lekcjeComboBoxActionPerformed
 
@@ -315,10 +349,39 @@ public class OknoLekcji extends javax.swing.JFrame {
     private void nowaLekcjaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nowaLekcjaButtonActionPerformed
         SwingUtilities.invokeLater(() -> {
             OknoNowejLekcji oknoNowejLekcji = new OknoNowejLekcji(this, conn, String.valueOf(lekcjeComboBox.getItemCount()),
-                    klasyIPrzedmiotyComboBox.getSelectedItem().toString(), lekcjeComboBox);
+                    klasyIPrzedmiotyComboBox.getSelectedItem().toString(), lekcjeComboBox, "Dodaj nową lekcję");
         });
         setEnabled(false);
     }//GEN-LAST:event_nowaLekcjaButtonActionPerformed
+
+    private void edytujLekcjeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edytujLekcjeButtonActionPerformed
+        SwingUtilities.invokeLater(() -> {
+            OknoNowejLekcji oknoNowejLekcji = new OknoNowejLekcji(this, conn, String.valueOf(lekcjeComboBox.getItemCount()),
+                    klasyIPrzedmiotyComboBox.getSelectedItem().toString(), lekcjeComboBox, "Edytuj wybraną lekcję");
+        });
+        setEnabled(false);
+    }//GEN-LAST:event_edytujLekcjeButtonActionPerformed
+
+    private void szczegolyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_szczegolyButtonActionPerformed
+        listaUczniowDlaNauczycieliModel = new UczniowieDlaNauczycieliTableModel(conn, klasyIPrzedmiotyComboBox.getSelectedItem().toString(),
+                lekcjeComboBox.getSelectedItem().toString());
+        listaUczniowDlaNauczycieliModel.fireTableDataChanged();
+        listaUczniowTable.setModel(listaUczniowDlaNauczycieliModel);
+    }//GEN-LAST:event_szczegolyButtonActionPerformed
+
+    private void listaUczniowTableFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_listaUczniowTableFocusGained
+        listaUczniowDlaNauczycieliModel = new UczniowieDlaNauczycieliTableModel(conn, klasyIPrzedmiotyComboBox.getSelectedItem().toString(),
+                lekcjeComboBox.getSelectedItem().toString());
+        listaUczniowDlaNauczycieliModel.fireTableDataChanged();
+        listaUczniowTable.setModel(listaUczniowDlaNauczycieliModel);
+
+        TableColumn statusKolumna = listaUczniowTable.getColumnModel().getColumn(2);
+        statusKolumna.setCellEditor(new DefaultCellEditor(statusComboBox));
+
+        szczegolyButton.setEnabled(false);
+        wstawOceneButton.setEnabled(false);
+        poprawOceneButton.setEnabled(false);
+    }//GEN-LAST:event_listaUczniowTableFocusGained
 
     /**
      * @param args the command line arguments
@@ -367,6 +430,7 @@ public class OknoLekcji extends javax.swing.JFrame {
     private javax.swing.JButton nowaLekcjaButton;
     private javax.swing.JPanel opcjePanel;
     private javax.swing.JButton poprawOceneButton;
+    private javax.swing.JComboBox<String> statusComboBox;
     private javax.swing.JButton szczegolyButton;
     private javax.swing.JButton wstawOceneButton;
     private javax.swing.JButton wyjdzButton;

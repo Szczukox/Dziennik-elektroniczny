@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
@@ -104,6 +106,22 @@ public class UczniowieTableModel extends AbstractTableModel {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }
+    }
+    
+    public String[] getIDUczniow() {
+        try {
+            String[] idUczniow = new String[liczbaWierszy];
+            dane.beforeFirst();
+            int i = 0;
+            while (dane.next()) {                
+                idUczniow[i] = dane.getString("ID");
+                i++;
+            }
+            return idUczniow;
+        } catch (SQLException ex) {
+            Logger.getLogger(UczniowieTableModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override

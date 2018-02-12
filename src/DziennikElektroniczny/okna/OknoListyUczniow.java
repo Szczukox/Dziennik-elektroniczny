@@ -10,8 +10,14 @@ import DziennikElektroniczny.modele.ListaKlasModel;
 import DziennikElektroniczny.modele.UczniowieTableModel;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  *

@@ -8,6 +8,8 @@ package DziennikElektroniczny.okna;
 import DziennikElektroniczny.modele.ComboBoxModel;
 import DziennikElektroniczny.modele.LekcjeModel;
 import DziennikElektroniczny.modele.ListaLekcjiModel;
+import DziennikElektroniczny.modele.ObecnosciNaLekcjiModel;
+import DziennikElektroniczny.modele.UczniowieTableModel;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -25,12 +27,15 @@ public class OknoNowejLekcji extends javax.swing.JFrame {
     private final Connection conn;
     private String klasaIPrzedmiot;
     private javax.swing.JComboBox lekcjeComboBox;
+    private String lekcja;
 
-    public OknoNowejLekcji(javax.swing.JFrame oknoLekcji, Connection conn, String lekcja, String klasaIPrzedmiot, javax.swing.JComboBox lekcjeComboBox) {
+    public OknoNowejLekcji(javax.swing.JFrame oknoLekcji, Connection conn, String lekcja, String klasaIPrzedmiot, javax.swing.JComboBox lekcjeComboBox,
+            String tytul) {
         this.oknoLekcji = oknoLekcji;
         this.conn = conn;
         this.klasaIPrzedmiot = klasaIPrzedmiot;
         this.lekcjeComboBox = lekcjeComboBox;
+        this.lekcja = lekcja;
         initComponents();
         setVisible(true);
 
@@ -38,6 +43,9 @@ public class OknoNowejLekcji extends javax.swing.JFrame {
         DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         dataTextField.setText(dateFormat.format(timestamp));
+        
+        setTitle(tytul);
+        tytulLabel.setText(tytul.toUpperCase());
     }
 
     private OknoNowejLekcji() {
@@ -196,6 +204,13 @@ public class OknoNowejLekcji extends javax.swing.JFrame {
         String[] listaLekcji = listaLekcjiModel.listaLekcji(conn, klasaIPrzedmiot);
         ComboBoxModel lekcjeComboBoxModel = new ComboBoxModel(listaLekcji);
         lekcjeComboBox.setModel(lekcjeComboBoxModel);
+        
+        String[] klasa = klasaIPrzedmiot.split(" | ");
+        UczniowieTableModel uczniowieTableModel = new UczniowieTableModel(conn, klasa[0]);
+        String[] idUczniow = uczniowieTableModel.getIDUczniow();
+        ObecnosciNaLekcjiModel obecnosciNaLekcjiModel = new ObecnosciNaLekcjiModel(conn, lekcja);
+        obecnosciNaLekcjiModel.wstawObecnosci(idUczniow);
+        
         oknoLekcji.setEnabled(true);
         dispose();
     }//GEN-LAST:event_dodajButtonActionPerformed
