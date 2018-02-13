@@ -70,11 +70,11 @@
                           </Group>
                           <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="wagaTextField" alignment="0" max="32767" attributes="0"/>
-                              <Component id="stopienTextField" alignment="0" max="32767" attributes="0"/>
                               <Component id="typTextField" alignment="0" max="32767" attributes="0"/>
                               <Component id="uczenTextField" max="32767" attributes="0"/>
                               <Component id="lekcjaTextField" alignment="0" max="32767" attributes="0"/>
+                              <Component id="stopienComboBox" alignment="0" max="32767" attributes="0"/>
+                              <Component id="wagaComboBox" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -104,19 +104,19 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="stopienLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="stopienTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="stopienComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="wagaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="wagaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="wagaComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="typLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="typTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="21" max="32767" attributes="0"/>
+                  <EmptySpace pref="24" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="wstawButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="anulujButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -154,15 +154,11 @@
             <Property name="text" type="java.lang.String" value="Stopie&#x144;:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="stopienTextField">
-        </Component>
         <Component class="javax.swing.JLabel" name="wagaLabel">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" value="Waga:"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="wagaTextField">
         </Component>
         <Component class="javax.swing.JLabel" name="typLabel">
           <Properties>
@@ -209,6 +205,36 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="stopienComboBox">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="Item 1"/>
+                <StringItem index="1" value="Item 2"/>
+                <StringItem index="2" value="Item 3"/>
+                <StringItem index="3" value="Item 4"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="wagaComboBox">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="Item 1"/>
+                <StringItem index="1" value="Item 2"/>
+                <StringItem index="2" value="Item 3"/>
+                <StringItem index="3" value="Item 4"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

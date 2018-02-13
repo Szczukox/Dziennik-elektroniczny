@@ -154,9 +154,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="szczegolyButton" max="32767" attributes="0"/>
               <Component id="nowaLekcjaButton" alignment="0" max="32767" attributes="0"/>
-              <Component id="wstawOceneButton" alignment="0" max="32767" attributes="0"/>
+              <Component id="wstawOceneButton" alignment="0" pref="120" max="32767" attributes="0"/>
               <Component id="edytujLekcjeButton" alignment="0" max="32767" attributes="0"/>
-              <Component id="poprawOceneButton" alignment="0" pref="120" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -170,9 +169,7 @@
                   <Component id="edytujLekcjeButton" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="wstawOceneButton" min="-2" pref="35" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="poprawOceneButton" min="-2" pref="35" max="-2" attributes="0"/>
-                  <EmptySpace pref="93" max="32767" attributes="0"/>
+                  <EmptySpace pref="135" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -213,12 +210,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edytujLekcjeButtonActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="poprawOceneButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Popraw ocen&#x119;"/>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

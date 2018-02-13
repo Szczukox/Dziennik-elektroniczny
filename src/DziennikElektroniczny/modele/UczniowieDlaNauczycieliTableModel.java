@@ -79,7 +79,7 @@ public class UczniowieDlaNauczycieliTableModel extends AbstractTableModel {
         try {
             dane.beforeFirst();
             for (int i = -1; i < row; i++) {
-                dane.next();;
+                dane.next();
             }
             String idUcznia = String.valueOf(dane.getInt("ID"));
             return idUcznia;

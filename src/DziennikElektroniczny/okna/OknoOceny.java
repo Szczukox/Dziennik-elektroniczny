@@ -10,6 +10,7 @@ import DziennikElektroniczny.modele.UczniowieDlaNauczycieliTableModel;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -42,6 +43,20 @@ public class OknoOceny extends javax.swing.JFrame {
                 + " " + ((String) uczniowieDlaNauczycieliTable.getValueAt(uczniowieDlaNauczycieliTable.getSelectedRow(), 1)));
         String[] numerLekcji = wybranaLekcja.split("[.]");
         lekcjaTextField.setText(numerLekcji[0]);
+        
+        stopienComboBox.removeAllItems();
+        stopienComboBox.addItem("1");
+        stopienComboBox.addItem("2");
+        stopienComboBox.addItem("3");
+        stopienComboBox.addItem("4");
+        stopienComboBox.addItem("5");
+        stopienComboBox.addItem("6");
+        
+        wagaComboBox.removeAllItems();
+        wagaComboBox.addItem("1");
+        wagaComboBox.addItem("2");
+        wagaComboBox.addItem("3");
+        
         setVisible(true);
     }
 
@@ -63,15 +78,15 @@ public class OknoOceny extends javax.swing.JFrame {
         uczenLabel = new javax.swing.JLabel();
         lekcjaLabel = new javax.swing.JLabel();
         stopienLabel = new javax.swing.JLabel();
-        stopienTextField = new javax.swing.JTextField();
         wagaLabel = new javax.swing.JLabel();
-        wagaTextField = new javax.swing.JTextField();
         typLabel = new javax.swing.JLabel();
         typTextField = new javax.swing.JTextField();
         wstawButton = new javax.swing.JButton();
         anulujButton = new javax.swing.JButton();
         uczenTextField = new javax.swing.JTextField();
         lekcjaTextField = new javax.swing.JTextField();
+        stopienComboBox = new javax.swing.JComboBox<>();
+        wagaComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Wstaw ocenę");
@@ -124,6 +139,10 @@ public class OknoOceny extends javax.swing.JFrame {
 
         lekcjaTextField.setEditable(false);
 
+        stopienComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        wagaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout oknoOcenyPanelLayout = new javax.swing.GroupLayout(oknoOcenyPanel);
         oknoOcenyPanel.setLayout(oknoOcenyPanelLayout);
         oknoOcenyPanelLayout.setHorizontalGroup(
@@ -148,11 +167,11 @@ public class OknoOceny extends javax.swing.JFrame {
                             .addComponent(typLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(50, 50, 50)
                         .addGroup(oknoOcenyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(wagaTextField)
-                            .addComponent(stopienTextField)
                             .addComponent(typTextField)
                             .addComponent(uczenTextField)
-                            .addComponent(lekcjaTextField)))
+                            .addComponent(lekcjaTextField)
+                            .addComponent(stopienComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(wagaComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(oknoOcenyPanelLayout.createSequentialGroup()
                         .addContainerGap(50, Short.MAX_VALUE)
                         .addComponent(tytulLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -174,16 +193,16 @@ public class OknoOceny extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(oknoOcenyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(stopienLabel)
-                    .addComponent(stopienTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(stopienComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(oknoOcenyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(wagaLabel)
-                    .addComponent(wagaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(wagaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
                 .addGroup(oknoOcenyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(typLabel)
                     .addComponent(typTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(oknoOcenyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(wstawButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(anulujButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -217,7 +236,7 @@ public class OknoOceny extends javax.swing.JFrame {
         String idUcznia = uczniowieDlaNauczycieliTableModel.getIdUcznia(uczniowieDlaNauczycieliTable.getSelectedRow());
         OcenyTableModel ocenyTableModel = new OcenyTableModel(conn, idUcznia, przedmiot, "nauczyciel");
         try {
-            ocenyTableModel.wstawOcene(stopienTextField.getText(), typTextField.getText(), wagaTextField.getText(), idLekcji,
+            ocenyTableModel.wstawOcene(stopienComboBox.getSelectedItem().toString(), typTextField.getText(), wagaComboBox.getSelectedItem().toString(), idLekcji,
                     uczniowieDlaNauczycieliTableModel.getIdUcznia(uczniowieDlaNauczycieliTable.getSelectedRow()));
         } catch (SQLException ex) {
             Logger.getLogger(OknoOceny.class.getName()).log(Level.SEVERE, null, ex);
@@ -266,15 +285,15 @@ public class OknoOceny extends javax.swing.JFrame {
     private javax.swing.JLabel lekcjaLabel;
     private javax.swing.JTextField lekcjaTextField;
     private javax.swing.JPanel oknoOcenyPanel;
+    private javax.swing.JComboBox<String> stopienComboBox;
     private javax.swing.JLabel stopienLabel;
-    private javax.swing.JTextField stopienTextField;
     private javax.swing.JLabel typLabel;
     private javax.swing.JTextField typTextField;
     private javax.swing.JLabel tytulLabel;
     private javax.swing.JLabel uczenLabel;
     private javax.swing.JTextField uczenTextField;
+    private javax.swing.JComboBox<String> wagaComboBox;
     private javax.swing.JLabel wagaLabel;
-    private javax.swing.JTextField wagaTextField;
     private javax.swing.JButton wstawButton;
     // End of variables declaration//GEN-END:variables
 }

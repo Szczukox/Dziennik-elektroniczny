@@ -80,7 +80,6 @@ public class OknoLekcji extends javax.swing.JFrame {
         nowaLekcjaButton = new javax.swing.JButton();
         wstawOceneButton = new javax.swing.JButton();
         edytujLekcjeButton = new javax.swing.JButton();
-        poprawOceneButton = new javax.swing.JButton();
         wyjdzButton = new javax.swing.JButton();
         klasaIPrzedmiotLabel = new javax.swing.JLabel();
         klasyIPrzedmiotyComboBox = new javax.swing.JComboBox<>();
@@ -159,18 +158,14 @@ public class OknoLekcji extends javax.swing.JFrame {
             }
         });
 
-        poprawOceneButton.setText("Popraw ocenę");
-        poprawOceneButton.setEnabled(false);
-
         javax.swing.GroupLayout opcjePanelLayout = new javax.swing.GroupLayout(opcjePanel);
         opcjePanel.setLayout(opcjePanelLayout);
         opcjePanelLayout.setHorizontalGroup(
             opcjePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(szczegolyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(nowaLekcjaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(wstawOceneButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(wstawOceneButton, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
             .addComponent(edytujLekcjeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(poprawOceneButton, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
         );
         opcjePanelLayout.setVerticalGroup(
             opcjePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,9 +178,7 @@ public class OknoLekcji extends javax.swing.JFrame {
                 .addComponent(edytujLekcjeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(wstawOceneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(poprawOceneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         wyjdzButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -285,7 +278,6 @@ public class OknoLekcji extends javax.swing.JFrame {
             szczegolyButton.setEnabled(true);
             if (lekcjeComboBox.getSelectedItem().toString() != "---WYBIERZ---") {
                 wstawOceneButton.setEnabled(true);
-                poprawOceneButton.setEnabled(true);
             }
         }
     }//GEN-LAST:event_listaUczniowTableMousePressed
@@ -298,7 +290,6 @@ public class OknoLekcji extends javax.swing.JFrame {
         lekcjeComboBox.setSelectedItem("---WYBIERZ---");
         szczegolyButton.setEnabled(false);
         wstawOceneButton.setEnabled(false);
-        poprawOceneButton.setEnabled(false);
         edytujLekcjeButton.setEnabled(false);
         if (klasyIPrzedmiotyComboBox.getSelectedItem().toString().equals("---WYBIERZ---")) {
             lekcjeComboBox.setEnabled(false);
@@ -320,7 +311,6 @@ public class OknoLekcji extends javax.swing.JFrame {
         listaUczniowTable.setModel(listaUczniowDlaNauczycieliModel);
         szczegolyButton.setEnabled(false);
         wstawOceneButton.setEnabled(false);
-        poprawOceneButton.setEnabled(false);
         if (lekcjeComboBox.getSelectedItem().toString().equals("---WYBIERZ---")) {
             edytujLekcjeButton.setEnabled(false);
         } else {
@@ -363,10 +353,12 @@ public class OknoLekcji extends javax.swing.JFrame {
     }//GEN-LAST:event_edytujLekcjeButtonActionPerformed
 
     private void szczegolyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_szczegolyButtonActionPerformed
-        listaUczniowDlaNauczycieliModel = new UczniowieDlaNauczycieliTableModel(conn, klasyIPrzedmiotyComboBox.getSelectedItem().toString(),
-                lekcjeComboBox.getSelectedItem().toString());
-        listaUczniowDlaNauczycieliModel.fireTableDataChanged();
-        listaUczniowTable.setModel(listaUczniowDlaNauczycieliModel);
+        SwingUtilities.invokeLater(() -> {
+            OknoSzczegolow oknoSzczegolow = new OknoSzczegolow(this, conn, listaUczniowDlaNauczycieliModel.getIdUcznia(listaUczniowTable.getSelectedRow()),
+                    klasyIPrzedmiotyComboBox.getSelectedItem().toString(),
+                    (listaUczniowTable.getValueAt(listaUczniowTable.getSelectedRow(), 0).toString() + " " + listaUczniowTable.getValueAt(listaUczniowTable.getSelectedRow(), 1).toString()));
+        });
+        setEnabled(false);
     }//GEN-LAST:event_szczegolyButtonActionPerformed
 
     private void listaUczniowTableFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_listaUczniowTableFocusGained
@@ -381,7 +373,6 @@ public class OknoLekcji extends javax.swing.JFrame {
 
             szczegolyButton.setEnabled(false);
             wstawOceneButton.setEnabled(false);
-            poprawOceneButton.setEnabled(false);
         }
     }//GEN-LAST:event_listaUczniowTableFocusGained
 
@@ -431,7 +422,6 @@ public class OknoLekcji extends javax.swing.JFrame {
     private javax.swing.JTable listaUczniowTable;
     private javax.swing.JButton nowaLekcjaButton;
     private javax.swing.JPanel opcjePanel;
-    private javax.swing.JButton poprawOceneButton;
     private javax.swing.JComboBox<String> statusComboBox;
     private javax.swing.JButton szczegolyButton;
     private javax.swing.JButton wstawOceneButton;

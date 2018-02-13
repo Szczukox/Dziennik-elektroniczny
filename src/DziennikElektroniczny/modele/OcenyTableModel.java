@@ -41,7 +41,11 @@ public class OcenyTableModel extends AbstractTableModel {
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();
             metadane = dane.getMetaData();
-            liczbaKolumn = metadane.getColumnCount();
+            if (dlaKogo.equals("uczen")) {
+                liczbaKolumn = metadane.getColumnCount();
+            } else if (dlaKogo.equals("nauczyciel")) {
+                liczbaKolumn = metadane.getColumnCount() - 2;
+            }
             dane.beforeFirst();
             liczbaWierszy = 0;
             while (this.dane.next()) {
@@ -73,13 +77,15 @@ public class OcenyTableModel extends AbstractTableModel {
         }
     }
 
-    public void poprawOcene(String stopien, int row) {
+    public void poprawOcene(String stopien, String typ, String waga, int row) {
         try {
             dane.beforeFirst();
             for (int i = -1; i < row; i++) {
                 dane.next();
             }
             dane.updateString("STOPIEN", stopien);
+            dane.updateString("TYP", typ);
+            dane.updateInt("WAGA", Integer.parseInt(waga));
             dane.updateRow();
             dane.moveToCurrentRow();
         } catch (SQLException e) {
