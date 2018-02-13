@@ -28,6 +28,7 @@ public class OknoNowejLekcji extends javax.swing.JFrame {
     private String klasaIPrzedmiot;
     private javax.swing.JComboBox lekcjeComboBox;
     private String lekcja;
+    private String tytul;
 
     public OknoNowejLekcji(javax.swing.JFrame oknoLekcji, Connection conn, String lekcja, String klasaIPrzedmiot, javax.swing.JComboBox lekcjeComboBox,
             String tytul) {
@@ -36,18 +37,25 @@ public class OknoNowejLekcji extends javax.swing.JFrame {
         this.klasaIPrzedmiot = klasaIPrzedmiot;
         this.lekcjeComboBox = lekcjeComboBox;
         this.lekcja = lekcja;
+        this.tytul = tytul;
         initComponents();
         setVisible(true);
 
+        String[] numerLekcji = this.lekcjeComboBox.getSelectedItem().toString().split(" |. ");
         if (tytul.equals("Dodaj nową lekcję")) {
             tytulLabel.setText(tytul.toUpperCase());
             numerLekcjiTextField.setText(lekcja);
             DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             dataTextField.setText(dateFormat.format(timestamp));
+            dodajButton.setText("DODAJ");
         } else if (tytul.equals("Edytuj wybraną lekcję")) {
             tytulLabel.setText(tytul.toUpperCase());
-            numerLekcjiTextField.setText(lekcjeComboBox.getSelectedItem().toString());
+            numerLekcjiTextField.setText(numerLekcji[0]);
+            String[] data1 = lekcjeComboBox.getSelectedItem().toString().split("[(]");
+            String[] data2 = data1[1].split("[)]");
+            dataTextField.setText(data2[0]);
+            dodajButton.setText("ZMIEŃ");
         }
         setTitle(tytul);
         tytulLabel.setText(tytul.toUpperCase());
@@ -204,17 +212,29 @@ public class OknoNowejLekcji extends javax.swing.JFrame {
 
     private void dodajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajButtonActionPerformed
         LekcjeModel lekcjeModel = new LekcjeModel(conn, klasaIPrzedmiot);
-        lekcjeModel.dodajLekcje(numerLekcjiTextField.getText(), tematTextArea.getText(), Timestamp.valueOf(dataTextField.getText()));
-        ListaLekcjiModel listaLekcjiModel = new ListaLekcjiModel();
-        String[] listaLekcji = listaLekcjiModel.listaLekcji(conn, klasaIPrzedmiot);
-        ComboBoxModel lekcjeComboBoxModel = new ComboBoxModel(listaLekcji);
-        lekcjeComboBox.setModel(lekcjeComboBoxModel);
+        if (tytul.equals("Dodaj nową lekcję")) {
+            lekcjeModel.dodajLekcje(numerLekcjiTextField.getText(), tematTextArea.getText(), Timestamp.valueOf(dataTextField.getText()));
+            ListaLekcjiModel listaLekcjiModel = new ListaLekcjiModel();
+            String[] listaLekcji = listaLekcjiModel.listaLekcji(conn, klasaIPrzedmiot);
+            ComboBoxModel lekcjeComboBoxModel = new ComboBoxModel(listaLekcji);
+            lekcjeComboBox.setModel(lekcjeComboBoxModel);
 
-        String[] klasa = klasaIPrzedmiot.split(" | ");
-        UczniowieTableModel uczniowieTableModel = new UczniowieTableModel(conn, klasa[0]);
-        String[] idUczniow = uczniowieTableModel.getIDUczniow();
-        ObecnosciNaLekcjiModel obecnosciNaLekcjiModel = new ObecnosciNaLekcjiModel(conn, lekcja);
-        obecnosciNaLekcjiModel.wstawObecnosci(idUczniow);
+            String[] klasa = klasaIPrzedmiot.split("[|]");
+            UczniowieTableModel uczniowieTableModel = new UczniowieTableModel(conn, klasa[0]);
+            String[] idUczniow = uczniowieTableModel.getIDUczniow();
+            String[] idLekcji = String.valueOf(lekcjeComboBox.getItemAt(Integer.parseInt(lekcja))).split("ID: ");
+            ObecnosciNaLekcjiModel obecnosciNaLekcjiModel = new ObecnosciNaLekcjiModel(conn, idLekcji[1]);
+            obecnosciNaLekcjiModel.wstawObecnosci(idUczniow);
+        } else if (tytul.equals("Edytuj wybraną lekcję")) {
+            String biezacaLekcja = lekcjeComboBox.getSelectedItem().toString();
+            String[] numerBiezacejLekcji = biezacaLekcja.split("[.]");
+            lekcjeModel.edytujLekcje(numerLekcjiTextField.getText(), tematTextArea.getText());
+            ListaLekcjiModel listaLekcjiModel = new ListaLekcjiModel();
+            String[] listaLekcji = listaLekcjiModel.listaLekcji(conn, klasaIPrzedmiot);
+            ComboBoxModel lekcjeComboBoxModel = new ComboBoxModel(listaLekcji);
+            lekcjeComboBox.setModel(lekcjeComboBoxModel);
+            lekcjeComboBox.setSelectedIndex(Integer.parseInt(numerBiezacejLekcji[0]));
+        }
 
         oknoLekcji.setEnabled(true);
         dispose();

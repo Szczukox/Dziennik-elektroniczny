@@ -16,14 +16,21 @@ public class ListaLekcjiModel {
 
     public String[] listaLekcji(Connection conn, String klasaIPrzedmiot) {
         String[] lekcje;
-        
-        String[] klasaPrzedmiot = klasaIPrzedmiot.split(" | ");
+
+        String[] klasaPrzedmiot = null;
+        String[] klasa = null;
+        String[] przedmiot = null;
+        if (klasaIPrzedmiot != "---WYBIERZ---") {
+            klasaPrzedmiot = klasaIPrzedmiot.split("ID: ");
+            klasa = klasaPrzedmiot[1].split("[ ]");
+            przedmiot = klasaIPrzedmiot.split("[|]");
+        }
         try {
             Statement lekcjeSt = conn.createStatement();
-            ResultSet rsLekcje = lekcjeSt.executeQuery("SELECT COUNT(*) FROM LEKCJE WHERE PRZYDZIAL = (SELECT ID FROM PRZYDZIALY WHERE (KLASA = " + klasaPrzedmiot[0] + " AND PRZEDMIOT = '" + klasaPrzedmiot[2] + "')) ORDER BY NUMER");
+            ResultSet rsLekcje = lekcjeSt.executeQuery("SELECT COUNT(*) FROM LEKCJE WHERE PRZYDZIAL = (SELECT ID FROM PRZYDZIALY WHERE (KLASA = " + klasa[0] + " AND PRZEDMIOT = '" + przedmiot[1].substring(1) + "')) ORDER BY NUMER");
             rsLekcje.next();
             lekcje = new String[rsLekcje.getInt(1) + 1];
-            rsLekcje = lekcjeSt.executeQuery("SELECT ID FROM LEKCJE WHERE PRZYDZIAL = (SELECT ID FROM PRZYDZIALY WHERE (KLASA = " + klasaPrzedmiot[0] + " AND PRZEDMIOT = '" + klasaPrzedmiot[2] + "')) ORDER BY NUMER");
+            rsLekcje = lekcjeSt.executeQuery("SELECT concat(NUMER, '. ', TEMAT, ' (', DATA, ') - ID: ', ID) FROM LEKCJE WHERE PRZYDZIAL = (SELECT ID FROM PRZYDZIALY WHERE (KLASA = " + klasa[0] + " AND PRZEDMIOT = '" + przedmiot[1].substring(1) + "')) ORDER BY NUMER");
             lekcje[0] = "---WYBIERZ---";
             int i = 1;
             while (rsLekcje.next()) {

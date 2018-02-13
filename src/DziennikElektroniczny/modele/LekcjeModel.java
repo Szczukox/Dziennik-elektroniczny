@@ -29,15 +29,16 @@ public class LekcjeModel {
                     zapytanie.close();
                 }
             }
-            String[] klasaPrzedmiot = klasaIPrzedmiot.split(" | ");
-            String sql = "SELECT ID FROM PRZYDZIALY WHERE KLASA = " + klasaPrzedmiot[0] + " AND PRZEDMIOT = '" + klasaPrzedmiot[2] + "'";
+            String[] klasaPrzedmiot = klasaIPrzedmiot.split("ID: ");
+            String[] klasa = klasaPrzedmiot[1].split("[ ]");
+            String[] przedmiot = klasaIPrzedmiot.split("[|]");
+            String sql = "SELECT ID FROM PRZYDZIALY WHERE KLASA = " + klasa[0] + " AND PRZEDMIOT = '" + przedmiot[1].substring(1) + "'";
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();
             dane.beforeFirst();
             dane.next();
             przydzial = dane.getInt("ID");
-            sql = "SELECT ID, NUMER, TEMAT, DATA, PRZYDZIAL FROM LEKCJE WHERE PRZYDZIAL = (SELECT ID FROM PRZYDZIALY WHERE KLASA = " + klasaPrzedmiot[0]
-                    + " AND PRZEDMIOT = '" + klasaPrzedmiot[2] + "')";
+            sql = "SELECT ID, NUMER, TEMAT, DATA, PRZYDZIAL FROM LEKCJE WHERE PRZYDZIAL = " + przydzial;
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();
             dane.beforeFirst();
@@ -48,31 +49,23 @@ public class LekcjeModel {
 
     public void dodajLekcje(String numer, String temat, Timestamp data) {
         try {
-            dane.moveToInsertRow();
-            dane.updateInt("NUMER", Integer.parseInt(numer));
-            dane.updateString("TEMAT", temat);
-            dane.updateTimestamp("DATA", data);
-            dane.updateInt("PRZYDZIAL", przydzial);
-            dane.insertRow();
-            dane.moveToCurrentRow();
+            String sql = "INSERT INTO LEKCJE VALUES (NULL, " + numer + ", '" + temat + "', '" + data + "', " + przydzial + ")";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+            ps.close();
             dane = zapytanie.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }
     }
 
-    public void edytujLekcje(String numer, String temat, Timestamp data, int row) {
+    public void edytujLekcje(String numer, String temat) {
         try {
-            dane.beforeFirst();
-            for (int i = -1; i < row; i++) {
-                dane.next();
-            }
-            dane.updateInt("NUMER", Integer.parseInt(numer));
-            dane.updateString("TEMAT", temat);
-            dane.updateTimestamp("DATA", data);
-            dane.updateInt("PRZYDZIAL", przydzial);
-            dane.updateRow();
-            dane.moveToCurrentRow();
+            String sql = "UPDATE LEKCJE SET TEMAT = '" + temat + "' WHERE NUMER = " + numer + " AND PRZYDZIAL = " + przydzial;
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+            ps.close();
+            dane = zapytanie.executeQuery();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
         }

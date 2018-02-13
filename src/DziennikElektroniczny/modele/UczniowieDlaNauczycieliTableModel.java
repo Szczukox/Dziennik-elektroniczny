@@ -41,13 +41,20 @@ public class UczniowieDlaNauczycieliTableModel extends AbstractTableModel {
                 }
             }
             String sql = null;
-            String[] klasa = klasaIPrzedmiot.split(" | ");
+            String[] idKlasy = null;
+            String[] idLekcji = null;
+            if (klasaIPrzedmiot != "---WYBIERZ---") {
+                idKlasy = klasaIPrzedmiot.split(" | ");
+            }
+            if (lekcja != "---WYBIERZ---") {
+                idLekcji = lekcja.split("ID: ");
+            }
             if (klasaIPrzedmiot.equals("---WYBIERZ---")) {
                 sql = "SELECT IMIE, NAZWISKO, NAZWISKO AS 'SREDNIA OCEN' FROM UCZNIOWIE WHERE ID = 0 ORDER BY NAZWISKO";
             } else if (lekcja.equals("---WYBIERZ---")) {
-                sql = "SELECT u.IMIE, u.NAZWISKO, u.ID FROM UCZNIOWIE u WHERE u.KLASA = " + klasa[0] + " ORDER BY NAZWISKO";
+                sql = "SELECT u.IMIE, u.NAZWISKO, u.ID FROM UCZNIOWIE u WHERE u.KLASA = " + idKlasy[4] + " ORDER BY NAZWISKO";
             } else if (klasaIPrzedmiot != "---WYBIERZ---" && lekcja != "---WYBIERZ---") {
-                sql = "SELECT u.IMIE, u.NAZWISKO, o.STATUS, u.ID FROM UCZNIOWIE u, OBECNOSCI o WHERE u.KLASA = " + klasa[0] + " AND o.LEKCJA = " + lekcja + " AND u.ID = o.UCZEN ORDER BY NAZWISKO";
+                sql = "SELECT u.IMIE, u.NAZWISKO, o.STATUS, u.ID FROM UCZNIOWIE u, OBECNOSCI o WHERE u.KLASA = " + idKlasy[4] + " AND o.LEKCJA = " + idLekcji[1] + " AND u.ID = o.UCZEN ORDER BY NAZWISKO";
             }
             zapytanie = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             dane = zapytanie.executeQuery();
@@ -147,9 +154,10 @@ public class UczniowieDlaNauczycieliTableModel extends AbstractTableModel {
             if (wartosc.toString().equals("Obecny") || wartosc.toString().equals("Nieobecny") || wartosc.toString().equals("Spozniony")
                     || wartosc.toString().equals("Usprawiedliwiony")) {
                 try {
+                    String[] idLekcji = lekcja.split("ID: ");
                     String idUcznia = getIdUcznia(wiersz);
-                    String sql = "UPDATE OBECNOSCI SET STATUS = '" + wartosc + "' WHERE UCZEN = " + idUcznia + " AND LEKCJA = " + lekcja;
-                    PreparedStatement ps =  conn.prepareStatement(sql);
+                    String sql = "UPDATE OBECNOSCI SET STATUS = '" + wartosc + "' WHERE UCZEN = " + idUcznia + " AND LEKCJA = " + idLekcji[1];
+                    PreparedStatement ps = conn.prepareStatement(sql);
                     ps.executeUpdate();
                 } catch (SQLException ex) {
                     Logger.getLogger(UczniowieDlaNauczycieliTableModel.class.getName()).log(Level.SEVERE, null, ex);

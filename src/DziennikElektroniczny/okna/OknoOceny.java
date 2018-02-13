@@ -25,6 +25,7 @@ public class OknoOceny extends javax.swing.JFrame {
     private UczniowieDlaNauczycieliTableModel uczniowieDlaNauczycieliTableModel;
     private javax.swing.JTable uczniowieDlaNauczycieliTable;
     private String przedmiot;
+    private String idLekcji;
 
     public OknoOceny(javax.swing.JFrame oknoLekcji, Connection conn, UczniowieDlaNauczycieliTableModel uczniowieDlaNauczycieliTableModel,
             javax.swing.JTable uczniowieDlaNauczycieliTable, String wybranaLekcja, String klasaIPrzedmiot) {
@@ -32,12 +33,16 @@ public class OknoOceny extends javax.swing.JFrame {
         this.conn = conn;
         this.uczniowieDlaNauczycieliTableModel = uczniowieDlaNauczycieliTableModel;
         this.uczniowieDlaNauczycieliTable = uczniowieDlaNauczycieliTable;
-        String[] klasaPrzedmiot = klasaIPrzedmiot.split(" | ");
-        this.przedmiot = klasaPrzedmiot[2];
+        String[] klasaPrzedmiot = klasaIPrzedmiot.split("[|]");
+        this.przedmiot = klasaPrzedmiot[1].substring(1);
+        System.out.println(this.przedmiot);
+        String[] idLekcji = wybranaLekcja.split("ID: ");
+        this.idLekcji = idLekcji[1];
         initComponents();
         uczenTextField.setText(((String) uczniowieDlaNauczycieliTable.getValueAt(uczniowieDlaNauczycieliTable.getSelectedRow(), 0))
                 + " " + ((String) uczniowieDlaNauczycieliTable.getValueAt(uczniowieDlaNauczycieliTable.getSelectedRow(), 1)));
-        lekcjaTextField.setText(wybranaLekcja);
+        String[] numerLekcji = wybranaLekcja.split("[.]");
+        lekcjaTextField.setText(numerLekcji[0]);
         setVisible(true);
     }
 
@@ -213,7 +218,7 @@ public class OknoOceny extends javax.swing.JFrame {
         String idUcznia = uczniowieDlaNauczycieliTableModel.getIdUcznia(uczniowieDlaNauczycieliTable.getSelectedRow());
         OcenyTableModel ocenyTableModel = new OcenyTableModel(conn, idUcznia, przedmiot, "nauczyciel");
         try {
-            ocenyTableModel.wstawOcene(stopienTextField.getText(), typTextField.getText(), wagaTextField.getText(), lekcjaTextField.getText(),
+            ocenyTableModel.wstawOcene(stopienTextField.getText(), typTextField.getText(), wagaTextField.getText(), idLekcji,
                     uczniowieDlaNauczycieliTableModel.getIdUcznia(uczniowieDlaNauczycieliTable.getSelectedRow()));
         } catch (SQLException ex) {
             Logger.getLogger(OknoOceny.class.getName()).log(Level.SEVERE, null, ex);

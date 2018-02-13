@@ -22,11 +22,11 @@ public class ListaPrzydzialowDlaNauczycieliModel {
             ResultSet rsPrzydzialy = przydzialySt.executeQuery("SELECT COUNT(*) FROM PRZYDZIALY WHERE NAUCZYCIEL = " + nauczyciel);
             rsPrzydzialy.next();
             przydzialy = new String[rsPrzydzialy.getInt(1) + 1];
-            rsPrzydzialy = przydzialySt.executeQuery("SELECT KLASA, PRZEDMIOT FROM PRZYDZIALY WHERE NAUCZYCIEL = " + nauczyciel);
+            rsPrzydzialy = przydzialySt.executeQuery("SELECT concat(NAZWA, ' (', ROK_POWSTANIA, ') - ID: ', k.ID) AS 'KLASA', PRZEDMIOT, KLASA AS 'ID_KLASY' FROM PRZYDZIALY p, KLASY k WHERE p.KLASA = k.ID AND NAUCZYCIEL = " + nauczyciel);
             przydzialy[0] = "---WYBIERZ---";
             int i = 1;
             while (rsPrzydzialy.next()) {
-                przydzialy[i++] = (rsPrzydzialy.getString(1) + " | " + rsPrzydzialy.getString(2));
+                przydzialy[i++] = (rsPrzydzialy.getString("KLASA") + " | " + rsPrzydzialy.getString("PRZEDMIOT"));
             }
             rsPrzydzialy.close();
             przydzialySt.close();

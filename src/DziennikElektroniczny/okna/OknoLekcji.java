@@ -242,7 +242,7 @@ public class OknoLekcji extends javax.swing.JFrame {
                             .addComponent(lekcjaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(klasyIPrzedmiotyComboBox, 0, 150, Short.MAX_VALUE)
+                            .addComponent(klasyIPrzedmiotyComboBox, 0, 500, Short.MAX_VALUE)
                             .addComponent(lekcjeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
