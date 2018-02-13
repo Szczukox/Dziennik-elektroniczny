@@ -62,7 +62,7 @@ public class NauczycieleTableModel extends AbstractTableModel {
             dane.moveToCurrentRow();
             dane = zapytanie.executeQuery();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
+            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: Nauczyciel o podanym numerze PESEL już istnieje!"});
         }
     }
 
@@ -78,7 +78,7 @@ public class NauczycieleTableModel extends AbstractTableModel {
             dane.updateRow();
             dane.moveToCurrentRow();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
+            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: Nauczyciel o podanym numerze PESEL już istnieje!"});;
         }
     }
 

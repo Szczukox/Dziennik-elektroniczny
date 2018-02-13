@@ -189,14 +189,6 @@ public class OknoPrzedmiotu extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(OknoKlasy.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                przedmiotyTableModel = new PrzedmiotyTableModel(conn);
-                przedmiotyTableModel.fireTableDataChanged();
-                przedmiotyTable.setModel(przedmiotyTableModel);
-                oknoListyPrzedmiotow.setEnabled(true);
-                edytujButton.setEnabled(false);
-                usunButton.setEnabled(false);
-                dispose();
             }
         } else {
             JOptionPane.showMessageDialog(null, czegoBrakuje + "Proszę je uzupełnić", "Nie wypełniono obowiązkowych pól", JOptionPane.ERROR_MESSAGE);

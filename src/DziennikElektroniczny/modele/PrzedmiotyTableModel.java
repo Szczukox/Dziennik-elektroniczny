@@ -60,7 +60,7 @@ public class PrzedmiotyTableModel extends AbstractTableModel {
             dane.moveToCurrentRow();
             dane = zapytanie.executeQuery();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
+            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: Przedmiot o podanej nazwie już istnieje!"});
         }
     }
 
@@ -74,7 +74,7 @@ public class PrzedmiotyTableModel extends AbstractTableModel {
             dane.updateRow();
             dane.moveToCurrentRow();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
+            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: Przedmiot o podanej nazwie już istnieje!"});
         }
     }
 

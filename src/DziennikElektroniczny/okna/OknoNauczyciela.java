@@ -272,14 +272,6 @@ public class OknoNauczyciela extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(OknoKlasy.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                nauczycieleTableModel = new NauczycieleTableModel(conn);
-                nauczycieleTableModel.fireTableDataChanged();
-                nauczycieleTable.setModel(nauczycieleTableModel);
-                oknoListyNauczycieli.setEnabled(true);
-                edytujButton.setEnabled(false);
-                usunButton.setEnabled(false);
-                dispose();
             }
         } else {
             JOptionPane.showMessageDialog(null, czegoBrakuje + "Proszę wpisać poprawne dane!", "Nie wypełniono poprawnie obowiązkowych pól", JOptionPane.ERROR_MESSAGE);

@@ -79,7 +79,7 @@ public class PrzydzialyTableModel extends AbstractTableModel {
             ps.close();
             dane = zapytanie.executeQuery();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
+            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: Podany przydział klasy do przedmiotu już istnieje!"});
         }
     }
 
@@ -95,7 +95,7 @@ public class PrzydzialyTableModel extends AbstractTableModel {
             ps.close();
             dane = zapytanie.executeQuery();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
+            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: Podany przydział klasy do przedmiotu już istnieje!"});
         }
     }
 

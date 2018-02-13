@@ -84,7 +84,11 @@ public class KlasyTableModel extends AbstractTableModel {
             ps.close();
             dane = zapytanie.executeQuery();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
+            if (e.getMessage().contains("id_wychowawcy")) {
+                JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: Podany nauczyciel jest już wychowawcą innej klasy!"});
+            } else {
+                JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: Klasa o podanej nazwie i roku powstania już istnieje!"});
+            }
         }
     }
 
@@ -101,7 +105,11 @@ public class KlasyTableModel extends AbstractTableModel {
             ps.close();
             dane = zapytanie.executeQuery();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
+            if (e.getMessage().contains("id_wychowawcy")) {
+                JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: Podany nauczyciel jest już wychowawcą innej klasy!"});
+            } else {
+                JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: Klasa o podanej nazwie i roku powstania już istnieje!"});
+            }
         }
     }
 
@@ -117,7 +125,11 @@ public class KlasyTableModel extends AbstractTableModel {
             ps.close();
             dane = zapytanie.executeQuery();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: " + e.getMessage()});
+            if (e.getMessage().contains("id_wychowawcy")) {
+                JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: Podany nauczyciel jest już wychowawcą innej klasy!"});
+            } else {
+                JOptionPane.showMessageDialog(null, new String[]{"Wystąpił błąd: Klasa o podanej nazwie i roku powstania już istnieje!"});
+            }
         }
     }
 

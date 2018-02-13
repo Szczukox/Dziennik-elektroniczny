@@ -279,14 +279,6 @@ public class OknoPrzydzialu extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(OknoKlasy.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                przydzialyTableModel = new PrzydzialyTableModel(conn, klasa, przedmiot, nauczyciel);
-                przydzialyTableModel.fireTableDataChanged();
-                przydzialyTable.setModel(przydzialyTableModel);
-                oknoListyKlas.setEnabled(true);
-                edytujButton.setEnabled(false);
-                usunButton.setEnabled(false);
-                dispose();
             }
         } else {
             JOptionPane.showMessageDialog(null, czegoBrakuje + "Proszę je uzupełnić", "Nie wypełniono obowiązkowych pól", JOptionPane.ERROR_MESSAGE);
