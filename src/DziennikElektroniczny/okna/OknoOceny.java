@@ -35,7 +35,6 @@ public class OknoOceny extends javax.swing.JFrame {
         this.uczniowieDlaNauczycieliTable = uczniowieDlaNauczycieliTable;
         String[] klasaPrzedmiot = klasaIPrzedmiot.split("[|]");
         this.przedmiot = klasaPrzedmiot[1].substring(1);
-        System.out.println(this.przedmiot);
         String[] idLekcji = wybranaLekcja.split("ID: ");
         this.idLekcji = idLekcji[1];
         initComponents();

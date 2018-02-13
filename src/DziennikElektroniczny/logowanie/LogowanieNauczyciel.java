@@ -44,7 +44,7 @@ public class LogowanieNauczyciel extends Logowanie{
                 return false;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(LogowanieUczen.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(LogowanieUczen.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

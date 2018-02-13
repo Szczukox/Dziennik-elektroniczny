@@ -107,6 +107,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="nazwaTextField">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nazwaTextFieldKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="obowiazkoweNazwaLabel">
           <Properties>

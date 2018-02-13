@@ -85,6 +85,12 @@ public class OknoPrzedmiotu extends javax.swing.JFrame {
         nazwaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         nazwaLabel.setText("Nazwa:");
 
+        nazwaTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nazwaTextFieldKeyTyped(evt);
+            }
+        });
+
         obowiazkoweNazwaLabel.setText("*");
 
         dodajButton.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
@@ -196,6 +202,13 @@ public class OknoPrzedmiotu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, czegoBrakuje + "Proszę je uzupełnić", "Nie wypełniono obowiązkowych pól", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_dodajButtonActionPerformed
+
+    private void nazwaTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nazwaTextFieldKeyTyped
+        char znak = evt.getKeyChar();
+        if (!Character.isLetter(znak)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_nazwaTextFieldKeyTyped
 
     /**
      * @param args the command line arguments

@@ -185,10 +185,19 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="nazwaOknoKlasyTextField">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nazwaOknoKlasyTextFieldKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="rokPowstaniaOknoKlasyTextField">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="rokPowstaniaOknoKlasyTextFieldKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="profilOknoKlasyTextField">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="profilOknoKlasyTextFieldKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="obowiazkoweNazwaLabel">
           <Properties>

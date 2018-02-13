@@ -200,10 +200,19 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="imieOknoNauczycielaTextField">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="imieOknoNauczycielaTextFieldKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="nazwiskoOknoNauczycielaTextField">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nazwiskoOknoNauczycielaTextFieldKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="peselOknoNauczycielaTextField">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="peselOknoNauczycielaTextFieldKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="obowiazkoweImieLabel">
           <Properties>

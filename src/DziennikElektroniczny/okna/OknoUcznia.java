@@ -8,6 +8,7 @@ package DziennikElektroniczny.okna;
 import DziennikElektroniczny.modele.ComboBoxModel;
 import DziennikElektroniczny.modele.ListaKlasModel;
 import DziennikElektroniczny.modele.UczniowieTableModel;
+import com.sun.glass.events.KeyEvent;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -128,6 +129,24 @@ public class OknoUcznia extends javax.swing.JFrame {
 
         imieLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         imieLabel.setText("Imię:");
+
+        imieTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                imieTextFieldKeyTyped(evt);
+            }
+        });
+
+        nazwiskoTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nazwiskoTextFieldKeyTyped(evt);
+            }
+        });
+
+        peselTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                peselTextFieldKeyTyped(evt);
+            }
+        });
 
         klasyComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -261,7 +280,7 @@ public class OknoUcznia extends javax.swing.JFrame {
 
     private void dodajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajButtonActionPerformed
         boolean czyWypelniono = true;
-        String czegoBrakuje = "Nie wypełniono następujących obowiązkowych pól:\n";
+        String czegoBrakuje = "Nie wypełniono poprawnie następujących obowiązkowych pól:\n";
         if (imieTextField.getText().isEmpty()) {
             czyWypelniono = false;
             czegoBrakuje += "Imię\n";
@@ -270,7 +289,7 @@ public class OknoUcznia extends javax.swing.JFrame {
             czyWypelniono = false;
             czegoBrakuje += "Nazwisko\n";
         }
-        if (peselTextField.getText().isEmpty()) {
+        if ((peselTextField.getText().isEmpty()) || (peselTextField.getText().length() != 11)) {
             czyWypelniono = false;
             czegoBrakuje += "PESEL\n";
         }
@@ -307,9 +326,30 @@ public class OknoUcznia extends javax.swing.JFrame {
                 dispose();
             }
         } else {
-            JOptionPane.showMessageDialog(null, czegoBrakuje + "Proszę je uzupełnić", "Nie wypełniono obowiązkowych pól", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, czegoBrakuje + "Proszę wpisać poprawne dane!", "Nie wypełniono poprawnie obowiązkowych pól", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_dodajButtonActionPerformed
+
+    private void peselTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_peselTextFieldKeyTyped
+        char znak = evt.getKeyChar();
+        if (!Character.isDigit(znak) || znak == KeyEvent.VK_BACKSPACE || znak == KeyEvent.VK_DELETE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_peselTextFieldKeyTyped
+
+    private void imieTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_imieTextFieldKeyTyped
+        char znak = evt.getKeyChar();
+        if (!Character.isLetter(znak)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_imieTextFieldKeyTyped
+
+    private void nazwiskoTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nazwiskoTextFieldKeyTyped
+        char znak = evt.getKeyChar();
+        if (!Character.isLetter(znak)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_nazwiskoTextFieldKeyTyped
 
     /**
      * @param args the command line arguments

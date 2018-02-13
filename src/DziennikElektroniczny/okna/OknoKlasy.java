@@ -8,6 +8,7 @@ package DziennikElektroniczny.okna;
 import DziennikElektroniczny.modele.ComboBoxModel;
 import DziennikElektroniczny.modele.KlasyTableModel;
 import DziennikElektroniczny.modele.ListaNauczycieliModel;
+import com.sun.glass.events.KeyEvent;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -130,6 +131,24 @@ public class OknoKlasy extends javax.swing.JFrame {
         profilOknoKlasyLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         profilOknoKlasyLabel.setText("Profil:");
 
+        nazwaOknoKlasyTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nazwaOknoKlasyTextFieldKeyTyped(evt);
+            }
+        });
+
+        rokPowstaniaOknoKlasyTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rokPowstaniaOknoKlasyTextFieldKeyTyped(evt);
+            }
+        });
+
+        profilOknoKlasyTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                profilOknoKlasyTextFieldKeyTyped(evt);
+            }
+        });
+
         obowiazkoweNazwaLabel.setText("*");
 
         obowiazkoweRokPowstaniaLabel.setText("*");
@@ -237,12 +256,12 @@ public class OknoKlasy extends javax.swing.JFrame {
 
     private void dodajOknoKlasyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajOknoKlasyButtonActionPerformed
         boolean czyWypelniono = true;
-        String czegoBrakuje = "Nie wypełniono następujących obowiązkowych pól:\n";
+        String czegoBrakuje = "Nie wypełniono poprawnie następujących obowiązkowych pól:\n";
         if (nazwaOknoKlasyTextField.getText().isEmpty()) {
             czyWypelniono = false;
             czegoBrakuje += "Nazwa\n";
         }
-        if (rokPowstaniaOknoKlasyTextField.getText().isEmpty()) {
+        if (rokPowstaniaOknoKlasyTextField.getText().isEmpty() || rokPowstaniaOknoKlasyTextField.getText().toString().length() != 4) {
             czyWypelniono = false;
             czegoBrakuje += "Rok powstania\n";
         }
@@ -283,9 +302,30 @@ public class OknoKlasy extends javax.swing.JFrame {
                 dispose();
             }
         } else {
-            JOptionPane.showMessageDialog(null, czegoBrakuje + "Proszę je uzupełnić", "Nie wypełniono obowiązkowych pól", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, czegoBrakuje + "Proszę wpisać poprawne dane!", "Nie wypełniono poprawnie obowiązkowych pól", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_dodajOknoKlasyButtonActionPerformed
+
+    private void nazwaOknoKlasyTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nazwaOknoKlasyTextFieldKeyTyped
+        char znak = evt.getKeyChar();
+        if (!Character.isLetter(znak)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_nazwaOknoKlasyTextFieldKeyTyped
+
+    private void rokPowstaniaOknoKlasyTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rokPowstaniaOknoKlasyTextFieldKeyTyped
+        char znak = evt.getKeyChar();
+        if (!Character.isDigit(znak) || znak == KeyEvent.VK_BACKSPACE || znak == KeyEvent.VK_DELETE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_rokPowstaniaOknoKlasyTextFieldKeyTyped
+
+    private void profilOknoKlasyTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_profilOknoKlasyTextFieldKeyTyped
+        char znak = evt.getKeyChar();
+        if (!Character.isLetter(znak)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_profilOknoKlasyTextFieldKeyTyped
 
     /**
      * @param args the command line arguments
