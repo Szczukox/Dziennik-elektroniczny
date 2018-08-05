@@ -187,6 +187,13 @@ public class OknoPrzedmiotu extends javax.swing.JFrame {
                 } else if (tytul == "Edytuj wybrany przedmiot") {
                     przedmiotyTableModel.editRow(nazwaTextField.getText(), przedmiotyTable.getSelectedRow());
                 }
+                przedmiotyTableModel = new PrzedmiotyTableModel(conn);
+                przedmiotyTableModel.fireTableDataChanged();
+                przedmiotyTable.setModel(przedmiotyTableModel);
+                oknoListyPrzedmiotow.setEnabled(true);
+                edytujButton.setEnabled(false);
+                usunButton.setEnabled(false);
+                dispose();
             } catch (SQLException ex) {
                 Logger.getLogger(OknoKlasy.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -277,6 +277,13 @@ public class OknoPrzydzialu extends javax.swing.JFrame {
                             idNauczyciela[1],
                             przydzialyTable.getSelectedRow());
                 }
+                przydzialyTableModel = new PrzydzialyTableModel(conn, klasa, przedmiot, nauczyciel);
+                przydzialyTableModel.fireTableDataChanged();
+                przydzialyTable.setModel(przydzialyTableModel);
+                oknoListyKlas.setEnabled(true);
+                edytujButton.setEnabled(false);
+                usunButton.setEnabled(false);
+                dispose();
             } catch (SQLException ex) {
                 Logger.getLogger(OknoKlasy.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -270,6 +270,13 @@ public class OknoNauczyciela extends javax.swing.JFrame {
                             peselOknoNauczycielaTextField.getText(),
                             nauczycieleTable.getSelectedRow());
                 }
+                nauczycieleTableModel = new NauczycieleTableModel(conn);
+                nauczycieleTableModel.fireTableDataChanged();
+                nauczycieleTable.setModel(nauczycieleTableModel);
+                oknoListyNauczycieli.setEnabled(true);
+                edytujButton.setEnabled(false);
+                usunButton.setEnabled(false);
+                dispose();
             } catch (SQLException ex) {
                 Logger.getLogger(OknoKlasy.class.getName()).log(Level.SEVERE, null, ex);
             }

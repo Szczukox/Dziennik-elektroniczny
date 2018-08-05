@@ -284,6 +284,13 @@ public class OknoKlasy extends javax.swing.JFrame {
                             idNauczyciela[1],
                             klasyTable.getSelectedRow());
                 }
+                klasyTableModel = new KlasyTableModel(conn);
+                klasyTableModel.fireTableDataChanged();
+                klasyTable.setModel(klasyTableModel);
+                oknoListyKlas.setEnabled(true);
+                edytujButton.setEnabled(false);
+                usunButton.setEnabled(false);
+                dispose();
             } catch (SQLException ex) {
                 Logger.getLogger(OknoKlasy.class.getName()).log(Level.SEVERE, null, ex);
             }

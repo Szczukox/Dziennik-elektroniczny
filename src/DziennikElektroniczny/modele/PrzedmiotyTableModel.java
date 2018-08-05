@@ -80,6 +80,7 @@ public class PrzedmiotyTableModel extends AbstractTableModel {
 
     public void deleteRow(int row) {
         try {
+            System.out.println(row);
             dane.beforeFirst();
             for (int i = -1; i < row; i++) {
                 dane.next();
